@@ -194,7 +194,6 @@ export function Booking() {
                   <option value="">Select a service</option>
                   <option value="Temple Tours">Temple Tours</option>
                   <option value="Family Trips">Family Trips</option>
-                  <option value="Custom Routes">Custom Routes</option>
                   <option value="Other">Other</option>
                 </select>
               </div>

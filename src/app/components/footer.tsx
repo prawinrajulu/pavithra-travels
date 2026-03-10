@@ -1,4 +1,5 @@
 import { Heart, Crown } from "lucide-react";
+import logo from "../../assets/image.png";
 
 export function Footer() {
   return (
@@ -8,8 +9,13 @@ export function Footer() {
           {/* BRAND SECTION */}
           <div>
             <div className="flex flex-col items-start mb-4">
-              {/* Crown */}
-              <Crown className="h-6 w-6 text-amber-400 mb-1 drop-shadow-md" />
+              {/* Logo Image */}
+              <img
+                src={logo}
+                alt="Pavithra Travels"
+                // increased height for a much bigger logo
+                className="h-32 w-90 mb-2 object-contain max-w-full"
+              />
 
               {/* Decorative Serif Title */}
               <h2
@@ -18,7 +24,7 @@ export function Footer() {
                 bg-clip-text text-transparent 
                 tracking-wider drop-shadow-[0_2px_6px_rgba(255,180,0,0.3)]"
               >
-                Pavithra Travels
+                
               </h2>
             </div>
 

@@ -1,0 +1,552 @@
+extend type Mutation {
+  """
+  ✨ Insert a single `Booking` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  booking_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Booking_Data!
+  ): Booking_KeyOutput! @fdc_generated(from: "Booking", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `Guide` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  guide_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Guide_Data!
+  ): Guide_KeyOutput! @fdc_generated(from: "Guide", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `Tour` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  tour_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Tour_Data!
+  ): Tour_KeyOutput! @fdc_generated(from: "Tour", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `TourAssignment` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  tourAssignment_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: TourAssignment_Data!
+  ): TourAssignment_KeyOutput! @fdc_generated(from: "TourAssignment", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `User` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  user_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: User_Data!
+  ): User_KeyOutput! @fdc_generated(from: "User", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert `Booking` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  booking_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Booking_Data!]!
+  ): [Booking_KeyOutput!]! @fdc_generated(from: "Booking", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `Guide` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  guide_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Guide_Data!]!
+  ): [Guide_KeyOutput!]! @fdc_generated(from: "Guide", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `Tour` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  tour_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Tour_Data!]!
+  ): [Tour_KeyOutput!]! @fdc_generated(from: "Tour", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `TourAssignment` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  tourAssignment_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [TourAssignment_Data!]!
+  ): [TourAssignment_KeyOutput!]! @fdc_generated(from: "TourAssignment", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `User` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  user_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [User_Data!]!
+  ): [User_KeyOutput!]! @fdc_generated(from: "User", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert or update a single `Booking` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Booking`.
+  """
+  booking_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Booking_Data!
+  ): Booking_KeyOutput! @fdc_generated(from: "Booking", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `Guide` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Guide`.
+  """
+  guide_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Guide_Data!
+  ): Guide_KeyOutput! @fdc_generated(from: "Guide", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `Tour` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Tour`.
+  """
+  tour_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Tour_Data!
+  ): Tour_KeyOutput! @fdc_generated(from: "Tour", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `TourAssignment` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `TourAssignment`.
+  """
+  tourAssignment_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: TourAssignment_Data!
+  ): TourAssignment_KeyOutput! @fdc_generated(from: "TourAssignment", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `User` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `User`.
+  """
+  user_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: User_Data!
+  ): User_KeyOutput! @fdc_generated(from: "User", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update `Booking` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Booking`.
+  """
+  booking_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Booking_Data!]!
+  ): [Booking_KeyOutput!]! @fdc_generated(from: "Booking", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `Guide` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Guide`.
+  """
+  guide_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Guide_Data!]!
+  ): [Guide_KeyOutput!]! @fdc_generated(from: "Guide", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `Tour` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Tour`.
+  """
+  tour_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Tour_Data!]!
+  ): [Tour_KeyOutput!]! @fdc_generated(from: "Tour", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `TourAssignment` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `TourAssignment`.
+  """
+  tourAssignment_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [TourAssignment_Data!]!
+  ): [TourAssignment_KeyOutput!]! @fdc_generated(from: "TourAssignment", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `User` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `User`.
+  """
+  user_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [User_Data!]!
+  ): [User_KeyOutput!]! @fdc_generated(from: "User", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Update a single `Booking` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Booking` or `null` if not found.
+  """
+  booking_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Booking_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Booking_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Booking_Data!
+  ): Booking_KeyOutput @fdc_generated(from: "Booking", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `Guide` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Guide` or `null` if not found.
+  """
+  guide_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Guide_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Guide_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Guide_Data!
+  ): Guide_KeyOutput @fdc_generated(from: "Guide", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `Tour` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Tour` or `null` if not found.
+  """
+  tour_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Tour_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Tour_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Tour_Data!
+  ): Tour_KeyOutput @fdc_generated(from: "Tour", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `TourAssignment` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `TourAssignment` or `null` if not found.
+  """
+  tourAssignment_update(
+    """
+    The key used to identify the object.
+    """
+    key: TourAssignment_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: TourAssignment_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: TourAssignment_Data!
+  ): TourAssignment_KeyOutput @fdc_generated(from: "TourAssignment", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `User` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `User` or `null` if not found.
+  """
+  user_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: User_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: User_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: User_Data!
+  ): User_KeyOutput @fdc_generated(from: "User", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update `Booking` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  booking_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Booking_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Booking_Data!
+  ): Int! @fdc_generated(from: "Booking", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `Guide` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  guide_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Guide_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Guide_Data!
+  ): Int! @fdc_generated(from: "Guide", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `Tour` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  tour_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Tour_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Tour_Data!
+  ): Int! @fdc_generated(from: "Tour", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `TourAssignment` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  tourAssignment_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: TourAssignment_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: TourAssignment_Data!
+  ): Int! @fdc_generated(from: "TourAssignment", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `User` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  user_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: User_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: User_Data!
+  ): Int! @fdc_generated(from: "User", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Delete a single `Booking` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  booking_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Booking_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Booking_FirstRow
+  ): Booking_KeyOutput @fdc_generated(from: "Booking", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `Guide` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  guide_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Guide_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Guide_FirstRow
+  ): Guide_KeyOutput @fdc_generated(from: "Guide", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `Tour` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  tour_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Tour_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Tour_FirstRow
+  ): Tour_KeyOutput @fdc_generated(from: "Tour", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `TourAssignment` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  tourAssignment_delete(
+    """
+    The key used to identify the object.
+    """
+    key: TourAssignment_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: TourAssignment_FirstRow
+  ): TourAssignment_KeyOutput @fdc_generated(from: "TourAssignment", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `User` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  user_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: User_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: User_FirstRow
+  ): User_KeyOutput @fdc_generated(from: "User", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete `Booking` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  booking_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Booking_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Booking", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `Guide` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  guide_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Guide_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Guide", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `Tour` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  tour_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Tour_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Tour", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `TourAssignment` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  tourAssignment_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: TourAssignment_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "TourAssignment", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `User` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  user_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: User_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "User", purpose: DELETE_MULTIPLE)
+}

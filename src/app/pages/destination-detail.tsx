@@ -2,7 +2,6 @@ import { Header } from "../components/header";
 import { Footer } from "../components/footer";
 import { BackButton } from "../components/back-button";
 import { destinations } from "../data/chatbot-data";
-import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { MapPin, CheckCircle, Phone, Calendar, Users } from "lucide-react";
 import { useParams, Link } from "react-router";
 import { ChatBot } from "../components/chatbot";

@@ -3,8 +3,7 @@ import { Footer } from "../components/footer";
 import { BackButton } from "../components/back-button";
 import { ChatBot } from "../components/chatbot";
 import { destinations } from "../data/chatbot-data";
-import { ImageWithFallback } from "../components/figma/ImageWithFallback";
-import { MapPin, Clock, IndianRupee, ArrowRight } from "lucide-react";
+import { MapPin, Clock, ArrowRight } from "lucide-react";
 import { Link } from "react-router";
 
 export function FamilyTrips() {

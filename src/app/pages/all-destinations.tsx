@@ -3,7 +3,6 @@ import { Footer } from "../components/footer";
 import { BackButton } from "../components/back-button";
 import { ChatBot } from "../components/chatbot";
 import { destinations } from "../data/chatbot-data";
-import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { MapPin, Clock, Filter } from "lucide-react";
 import { Link } from "react-router";
 import { useState } from "react";

@@ -6,6 +6,9 @@ import { FamilyTrips } from "./pages/family-trips";
 import { AllDestinations } from "./pages/all-destinations";
 import { DestinationDetail } from "./pages/destination-detail";
 import { Booking } from "./pages/booking";
+import TripBooking from "./pages/TripBooking";
+import BookingStatus from "./pages/BookingStatus";
+import BookingSuccess from "./pages/BookingSuccess";
 
 export const router = createBrowserRouter([
   {
@@ -35,5 +38,17 @@ export const router = createBrowserRouter([
   {
     path: "/booking",
     Component: Booking,
+  },
+  {
+    path: "/trip-booking",
+    Component: TripBooking,
+  },
+  {
+    path: "/booking-success",
+    Component: BookingSuccess,
+  },
+  {
+    path: "/booking-status",
+    Component: BookingStatus,
   },
 ]);

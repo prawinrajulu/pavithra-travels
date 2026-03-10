@@ -210,7 +210,7 @@ export function Hero() {
         </div>
       </div>
 
-      {/* CSS for zoom animation */}
+      
       <style>{`
         @keyframes zoomIn {
           from {

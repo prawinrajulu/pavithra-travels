@@ -1,0 +1,52 @@
+type User @table {
+  displayName: String!
+  email: String!
+  role: String!
+  createdAt: Timestamp!
+  phoneNumber: String
+  address: String
+  photoUrl: String
+}
+
+type Tour @table {
+  name: String!
+  destination: String!
+  durationDays: Int!
+  price: Float!
+  startDate: Date!
+  endDate: Date!
+  status: String!
+  createdAt: Timestamp!
+  description: String
+  itinerary: String
+  maxCapacity: Int
+  difficultyLevel: String
+}
+
+type Guide @table {
+  displayName: String!
+  email: String!
+  expertise: String!
+  createdAt: Timestamp!
+  bio: String
+  phoneNumber: String
+  photoUrl: String
+}
+
+type Booking @table {
+  user: User!
+  tour: Tour!
+  bookingDate: Date!
+  numberOfPeople: Int!
+  totalPrice: Float!
+  status: String!
+  createdAt: Timestamp!
+  specialRequests: String
+}
+
+type TourAssignment @table(key: ["tour", "guide"]) {
+  tour: Tour!
+  guide: Guide!
+  assignedDate: Date!
+  role: String!
+}

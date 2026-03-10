@@ -31,6 +31,7 @@ type BookingStep =
   | "date"
   | "persons"
   | "name"
+  | "email"
   | "phone"
   | "confirm";
 
@@ -46,6 +47,7 @@ interface BookingData {
   travelDate: string;
   numberOfPersons: string;
   name: string;
+  email: string;
   phone: string;
   bookingId?: string;
 }
@@ -66,6 +68,7 @@ export function ChatBot() {
     travelDate: "",
     numberOfPersons: "",
     name: "",
+    email: "",
     phone: "",
   });
   const [currentBookingStep, setCurrentBookingStep] =
@@ -414,7 +417,31 @@ export function ChatBot() {
       setTimeout(() => {
         setIsTyping(false);
         addMessage(
-          "Thank you! 📱\n\nPlease enter your phone number (10 digits):",
+          "Thank you! �\n\nPlease enter your email address:",
+          "bot",
+        );
+        setCurrentBookingStep("email");
+      }, 600);
+    } else if (currentBookingStep === "email") {
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+        setInputValue("");
+        setIsTyping(true);
+        setTimeout(() => {
+          setIsTyping(false);
+          addMessage(
+            "Please enter a valid email address:",
+            "bot",
+          );
+        }, 500);
+        return;
+      }
+      setBookingData((prev) => ({ ...prev, email: value }));
+      setInputValue("");
+      setIsTyping(true);
+      setTimeout(() => {
+        setIsTyping(false);
+        addMessage(
+          "Great! �📱\n\nPlease enter your phone number (10 digits):",
           "bot",
         );
         setCurrentBookingStep("phone");
@@ -442,7 +469,7 @@ export function ChatBot() {
     setIsTyping(true);
     setTimeout(() => {
       setIsTyping(false);
-      const summary = `📋 Booking Summary:\n\n🎯 Destination: ${data.destination?.name}\n📅 Travel Date: ${data.travelDate}\n👥 Persons: ${data.numberOfPersons}\n👤 Name: ${data.name}\n📱 Phone: ${data.phone}\n💰 Est. Cost: ${data.destination?.budget}\n\nPlease confirm your booking:`;
+      const summary = `📋 Booking Summary:\n\n🎯 Destination: ${data.destination?.name}\n📅 Travel Date: ${data.travelDate}\n👥 Persons: ${data.numberOfPersons}\n👤 Name: ${data.name}\n� Email: ${data.email}\n�📱 Phone: ${data.phone}\n💰 Est. Cost: ${data.destination?.budget}\n\nPlease confirm your booking:`;
       addMessage(summary, "bot");
       setCurrentBookingStep("confirm");
     }, 700);
@@ -474,7 +501,7 @@ export function ChatBot() {
       setIsTyping(false);
 
       // Generate WhatsApp message
-      const whatsappMessage = `Hi Pavithra Travels! I've booked a trip to ${bookingData.destination?.name}. Booking ID: ${bookingId}. Name: ${bookingData.name}, Phone: ${bookingData.phone}, Date: ${bookingData.travelDate}, Persons: ${bookingData.numberOfPersons}`;
+      const whatsappMessage = `Hi Pavithra Travels! I've booked a trip to ${bookingData.destination?.name}. Booking ID: ${bookingId}. Name: ${bookingData.name}, Email: ${bookingData.email}, Phone: ${bookingData.phone}, Date: ${bookingData.travelDate}, Persons: ${bookingData.numberOfPersons}`;
       const whatsappUrl = `https://wa.me/919876543210?text=${encodeURIComponent(whatsappMessage)}`;
 
       const successMessage = `✅ Booking Confirmed!\n\nBooking ID: ${bookingId}\n\nThank you for choosing Pavithra Travels!\n\nOur team will contact you shortly to confirm the details and finalize your itinerary.\n\n📞 Call: +91 98765 43210\n💬 WhatsApp: Click below to chat\n\nOperating Hours:\nMon–Sat: 10 AM – 9 PM`;
@@ -545,6 +572,7 @@ export function ChatBot() {
           "date",
           "persons",
           "name",
+          "email",
           "phone",
           "confirm",
         ];
@@ -566,6 +594,7 @@ export function ChatBot() {
       travelDate: "",
       numberOfPersons: "",
       name: "",
+      email: "",
       phone: "",
     });
     setCurrentBookingStep("date");
