@@ -9,46 +9,53 @@ import { Booking } from "./pages/booking";
 import TripBooking from "./pages/TripBooking";
 import BookingStatus from "./pages/BookingStatus";
 import BookingSuccess from "./pages/BookingSuccess";
+import { Layout } from "./components/layout";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    Component: Home,
-  },
-  {
-    path: "/temples",
-    Component: TempleDestinations,
-  },
-  {
-    path: "/temples/:templeId",
-    Component: TempleDetail,
-  },
-  {
-    path: "/family-trips",
-    Component: FamilyTrips,
-  },
-  {
-    path: "/destinations",
-    Component: AllDestinations,
-  },
-  {
-    path: "/destinations/:destinationId",
-    Component: DestinationDetail,
-  },
-  {
-    path: "/booking",
-    Component: Booking,
-  },
-  {
-    path: "/trip-booking",
-    Component: TripBooking,
-  },
-  {
-    path: "/booking-success",
-    Component: BookingSuccess,
-  },
-  {
-    path: "/booking-status",
-    Component: BookingStatus,
+    Component: Layout,
+    children: [
+      {
+        index: true,
+        Component: Home,
+      },
+      {
+        path: "temples",
+        Component: TempleDestinations,
+      },
+      {
+        path: "temples/:templeId",
+        Component: TempleDetail,
+      },
+      {
+        path: "family-trips",
+        Component: FamilyTrips,
+      },
+      {
+        path: "destinations",
+        Component: AllDestinations,
+      },
+      {
+        path: "destinations/:destinationId",
+        Component: DestinationDetail,
+      },
+      {
+        path: "booking",
+        Component: Booking,
+      },
+      {
+        path: "trip-booking",
+        Component: TripBooking,
+      },
+      {
+        path: "booking-success",
+        Component: BookingSuccess,
+      },
+      {
+        path: "booking-status",
+        Component: BookingStatus,
+      },
+    ],
   },
 ]);
