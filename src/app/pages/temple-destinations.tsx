@@ -1,8 +1,11 @@
 import { SmartImage } from "../components/ui/SmartImage";
 import { MapPin, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { BackButton } from "../components/back-button";
+import { destinations } from "../data/chatbot-data";
 
 export function TempleDestinations() {
+  const temples = destinations.filter(d => d.category === "temple");
   return (
     <div className="bg-white">
       <BackButton />
@@ -17,7 +20,7 @@ export function TempleDestinations() {
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {temples.map((temple) => (
+            {temples.map((temple: any) => (
               <Link
                 key={temple.id}
                 to={`/destinations/${temple.slug}`}

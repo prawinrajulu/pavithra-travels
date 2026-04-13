@@ -7,8 +7,7 @@ import {
   ChevronRight,
   ArrowUpRight,
   Clock,
-  CheckCircle2,
-  XCircle
+  CheckCircle2
 } from 'lucide-react';
 import { db } from '../../config/firebase';
 import { collection, getDocs, limit, query, orderBy } from 'firebase/firestore';
@@ -22,7 +21,6 @@ export default function AdminOverview() {
     totalRevenue: 0
   });
   const [recentBookings, setRecentBookings] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,7 +32,7 @@ export default function AdminOverview() {
         const recentSnapshot = await getDocs(recentQuery);
         setRecentBookings(recentSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
 
-        const statsData = bookings.reduce((acc, b) => {
+        const statsData = (bookings as any[]).reduce((acc: any, b: any) => {
           acc.totalBookings++;
           if (b.status?.toLowerCase() === 'confirmed') acc.confirmedBookings++;
           if (b.status?.toLowerCase() === 'pending' || !b.status) acc.pendingBookings++;
@@ -46,7 +44,7 @@ export default function AdminOverview() {
       } catch (err) {
         console.error("Error fetching dashboard data:", err);
       } finally {
-        setLoading(false);
+        // Data fetch complete
       }
     };
 

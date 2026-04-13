@@ -1,4 +1,4 @@
-import { Church, Users, Heart, Compass, MapPin, ArrowRight } from "lucide-react";
+import { Church, Heart, Compass, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const categories = [

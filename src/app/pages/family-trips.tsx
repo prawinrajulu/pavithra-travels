@@ -2,10 +2,11 @@ import { BackButton } from "../components/back-button";
 import { destinations } from "../data/chatbot-data";
 import { MapPin, Clock, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { SmartImage } from "../components/ui/SmartImage";
 
 export function FamilyTrips() {
   const familyDestinations = destinations.filter(
-    d => d.category === "family" || d.category === "honeymoon" || d.category === "beach" || d.category === "hill-station"
+    d => d.category === "family" || d.category === "beach" || d.category === "hill-station"
   );
 
   return (

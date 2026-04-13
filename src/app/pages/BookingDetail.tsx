@@ -1,6 +1,10 @@
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import { Star, Clock, MapPin, Users, Calendar, ArrowRight, Check, AlertCircle } from 'lucide-react';
 import { apiClient } from '../../services/apiClient';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
+import { servicesData } from '../data/services-data';
 
 export function BookingDetail() {
   const { id } = useParams<{ id: string }>();
@@ -19,7 +23,7 @@ export function BookingDetail() {
 
   useEffect(() => {
     // Find destination by ID
-    const found = servicesData.find(d => d.id === id || d.slug === id);
+    const found = servicesData.find((d: any) => d.id === id || d.slug === id);
     if (!found) {
       navigate('/destinations');
       return;

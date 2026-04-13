@@ -3,39 +3,39 @@ import { Star, Quote } from "lucide-react";
 const testimonials = [
   {
     id: 1,
-    name: "Rajesh Kumar",
+    name: "Nithya N",
     location: "Chennai",
-    trip: "Tirupati Darshan",
+    trip: "Chardham Yatra (12 Days)",
     rating: 5,
-    comment: "Excellent service! The driver was very professional and took great care of us throughout the journey. Highly recommended for temple visits.",
-    date: "December 2025"
+    comment: "I recently travelled with Pavithra Travels for Chardham tour (12 days) and it was an amazing and pleasant experience!!! Excellent service and well coordination.",
+    date: "October 2025"
   },
   {
     id: 2,
-    name: "Priya Sharma",
-    location: "Bangalore",
-    trip: "Kerala Family Trip",
+    name: "Niveditha Natarajan",
+    location: "Tamil Nadu",
+    trip: "Chardham Yatra (Group Tour)",
     rating: 5,
-    comment: "We had a wonderful family vacation. Everything was well-planned and the service was very personal. The vehicle was clean and comfortable.",
-    date: "November 2025"
+    comment: "A group of 18 people went on Chardham yatra in October 2025. The trip and organizing was extraordinary. Yatris should not worry about food, itenaries and time management as tip to toe everything was well planned.",
+    date: "October 2025"
   },
   {
     id: 3,
-    name: "Amit Patel",
-    location: "Mumbai",
-    trip: "Custom North India Tour",
+    name: "Krishnamachari Amirtham",
+    location: "Verified Reviewer",
+    trip: "Chardham Special",
     rating: 5,
-    comment: "Pavithra Travels made our dream trip come true! They listened to our requirements and created a perfect itinerary. Great communication throughout.",
+    comment: "The tour was well planned and executed. Drivers Surender Singh and Satish did an excellent job taking us to various destinations and bringing us safely to Delhi.",
     date: "October 2025"
   },
   {
     id: 4,
-    name: "Lakshmi Menon",
-    location: "Coimbatore",
-    trip: "Rameswaram Pilgrimage",
+    name: "Vaidy Sarma",
+    location: "Chennai",
+    trip: "Chardham Divine Experience",
     rating: 5,
-    comment: "Very reliable and trustworthy service. The owner personally ensured everything went smoothly. Will definitely book again for our next trip.",
-    date: "January 2026"
+    comment: "Excellent stays. Tasty and variety of South Indian Breakfast, Lunch, Dinner. Clear and caring guidance. Journey to Chardham is outstanding. Hearty thanks Mr. Rajasekhar for a wonderful and divine experience.",
+    date: "October 2025"
   }
 ];
 
