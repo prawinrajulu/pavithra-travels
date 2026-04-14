@@ -47,7 +47,7 @@ export function Signup() {
       
       // Check for Network Error (server down)
       if (err.message === 'Network Error') {
-        errorMessage = 'Network Error: Cannot connect to the server. Please ensure the backend is running on port 3001.';
+        errorMessage = 'Network Error: Cannot connect to the server. Please ensure the backend is running and accessible.';
       }
       // Extract specific error from backend API
       else {

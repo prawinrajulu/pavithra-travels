@@ -3,10 +3,34 @@ import axios from 'axios';
 import type { AxiosInstance, AxiosError } from 'axios';
 
 const getApiUrl = () => {
+  // Priority 1: Environment variable from Vite (BEST for production)
+  if (import.meta.env.VITE_API_URL) {
+    return import.meta.env.VITE_API_URL;
+  }
+
+  // Priority 2: Relative path if in production (handles same-domain proxying)
+  if (import.meta.env.PROD) {
+    if (typeof window !== 'undefined') {
+      const hostname = window.location.hostname;
+      
+      // Smart detection for Render: if frontend is xxx.onrender.com, 
+      // see if we should try a different domain or just use relative /api
+      // Note: Render Static Sites and Web Services are usually on different domains.
+      if (hostname.endsWith('.onrender.com')) {
+        console.warn('⚠️ No VITE_API_URL set. Attempting relative path /api, but if your backend is a separate Render Web Service, it will likely fail.');
+      }
+    }
+    return '/api';
+  }
+
+  // Priority 3: Smart localhost detection for development
   if (typeof window !== 'undefined') {
     const hostname = window.location.hostname;
+    // If we're on localhost but haven't specified a VITE_API_URL, 
+    // assume backend is on port 3001
     return `http://${hostname}:3001/api`;
   }
+  
   return 'http://127.0.0.1:3001/api';
 };
 

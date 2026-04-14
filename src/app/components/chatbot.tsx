@@ -52,6 +52,10 @@ interface BookingData {
   bookingId?: string;
 }
 
+const WHATSAPP_NUMBER = import.meta.env.VITE_WHATSAPP_NUMBER || "+917824047328";
+const OWNER_EMAIL = import.meta.env.VITE_OWNER_EMAIL || "pprawin48@gmail.com";
+const WHATSAPP_DISPLAY = import.meta.env.VITE_WHATSAPP_DISPLAY || "+91 78240 47328";
+
 export function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -502,9 +506,9 @@ export function ChatBot() {
 
       // Generate WhatsApp message
       const whatsappMessage = `Hi Pavithra Travels! I've booked a trip to ${bookingData.destination?.name}. Booking ID: ${bookingId}. Name: ${bookingData.name}, Email: ${bookingData.email}, Phone: ${bookingData.phone}, Date: ${bookingData.travelDate}, Persons: ${bookingData.numberOfPersons}`;
-      const whatsappUrl = `https://wa.me/919876543210?text=${encodeURIComponent(whatsappMessage)}`;
+      const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER.replace(/\D/g, '')}?text=${encodeURIComponent(whatsappMessage)}`;
 
-      const successMessage = `✅ Booking Confirmed!\n\nBooking ID: ${bookingId}\n\nThank you for choosing Pavithra Travels!\n\nOur team will contact you shortly to confirm the details and finalize your itinerary.\n\n📞 Call: +91 98765 43210\n💬 WhatsApp: Click below to chat\n\nOperating Hours:\nMon–Sat: 10 AM – 9 PM`;
+      const successMessage = `✅ Booking Confirmed!\n\nBooking ID: ${bookingId}\n\nThank you for choosing Pavithra Travels!\n\nOur team will contact you shortly to confirm the details and finalize your itinerary.\n\n📞 Call: ${WHATSAPP_DISPLAY}\n💬 WhatsApp: Click below to chat\n\nOperating Hours:\nMon–Sat: 10 AM – 9 PM`;
 
       addMessage(successMessage, "bot");
       setCurrentStep("success");
@@ -531,11 +535,11 @@ export function ChatBot() {
     setTimeout(() => {
       setIsTyping(false);
       if (booking) {
-        const statusMsg = `✅ Booking Found!\n\nBooking ID: ${booking.bookingId}\nDestination: ${booking.destination?.name}\nStatus: ${booking.status}\nTravel Date: ${booking.travelDate}\nPersons: ${booking.numberOfPersons}\n\nFor updates, call: +91 98765 43210`;
+        const statusMsg = `✅ Booking Found!\n\nBooking ID: ${booking.bookingId}\nDestination: ${booking.destination?.name}\nStatus: ${booking.status}\nTravel Date: ${booking.travelDate}\nPersons: ${booking.numberOfPersons}\n\nFor updates, call: ${WHATSAPP_DISPLAY}`;
         addMessage(statusMsg, "bot");
       } else {
         addMessage(
-          "❌ Booking not found.\n\nPlease check your Booking ID or contact us:\n📞 +91 98765 43210",
+          `❌ Booking not found.\n\nPlease check your Booking ID or contact us:\n📞 ${WHATSAPP_DISPLAY}`,
           "bot",
         );
       }
@@ -548,7 +552,7 @@ export function ChatBot() {
     setTimeout(() => {
       setIsTyping(false);
       addMessage(
-        "📞 Connect with our Travel Experts:\n\nPhone: +91 98765 43210\nEmail: info@pavithratravels.com\n\nOperating Hours:\nMon–Sat: 10 AM – 9 PM\nSunday: Closed\n\nOur team is ready to help plan your perfect journey!",
+        `📞 Connect with our Travel Experts:\n\nPhone: ${WHATSAPP_DISPLAY}\nEmail: ${OWNER_EMAIL}\n\nOperating Hours:\nMon–Sat: 10 AM – 9 PM\nSunday: Closed\n\nOur team is ready to help plan your perfect journey!`,
         "bot",
       );
     }, 600);
