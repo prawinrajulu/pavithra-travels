@@ -1,0 +1,72 @@
+import { Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import { Layout } from "./components/layout";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import { PublicRoute } from "./components/PublicRoute";
+import { AdminRoute } from "./components/AdminRoute";
+
+// Pages
+import { Home } from "./pages/home";
+import { TempleDestinations } from "./pages/temple-destinations";
+import { TempleDetail } from "./pages/temple-detail";
+import { FamilyTrips } from "./pages/family-trips";
+import { AllDestinations } from "./pages/all-destinations";
+import { DestinationDetail } from "./pages/destination-detail";
+import BookingSuccess from "./pages/BookingSuccess";
+import { ServiceCategory } from "./pages/ServiceCategory";
+import { Booking } from "./pages/booking";
+
+// New Pages
+import { Login } from "./pages/Login";
+import { Signup } from "./pages/Signup";
+import { NotFound } from "./pages/NotFound";
+import { CinematicBookingPage } from "./pages/CinematicBookingPage";
+import { Dashboard } from "./pages/Dashboard";
+import { CinematicCheckStatus } from "./pages/CinematicCheckStatus";
+import { ForgotPassword } from "./pages/ForgotPassword";
+import { WhatsAppAutomation } from "./pages/WhatsAppAutomation";
+import AdminMedia from "./pages/AdminMedia";
+import { AdminLayout } from "./components/AdminLayout";
+import AdminOverview from "./pages/AdminOverview";
+import AdminBookings from "./pages/AdminBookings";
+
+export default function App() {
+  return (
+    <AuthProvider>
+      <Routes>
+        {/* Full screen cinematic routes without Layout */}
+        <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
+        <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
+        <Route path="/forgot-password" element={<PublicRoute><ForgotPassword /></PublicRoute>} />
+        
+        {/* Main app routes with Layout */}
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/temples" element={<TempleDestinations />} />
+          <Route path="/temples/:templeId" element={<TempleDetail />} />
+          <Route path="/family-trips" element={<FamilyTrips />} />
+          <Route path="/destinations" element={<AllDestinations />} />
+          <Route path="/destinations/:slug" element={<DestinationDetail />} />
+          <Route path="/booking-success" element={<BookingSuccess />} />
+          <Route path="/services/:type" element={<ServiceCategory />} />
+          <Route path="/booking" element={<ProtectedRoute><Booking /></ProtectedRoute>} />
+          <Route path="/booking/:id" element={<ProtectedRoute><CinematicBookingPage /></ProtectedRoute>} />
+          <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+          
+          {/* Unified Admin Panel */}
+          <Route path="/admin" element={<AdminRoute><AdminLayout /></AdminRoute>}>
+            <Route index element={<AdminOverview />} />
+            <Route path="bookings" element={<AdminBookings />} />
+            <Route path="whatsapp" element={<WhatsAppAutomation />} />
+            <Route path="media" element={<AdminMedia />} />
+          </Route>
+
+          <Route path="/check-status" element={<CinematicCheckStatus />} />
+        </Route>
+        
+        {/* Capture All */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </AuthProvider>
+  );
+}
