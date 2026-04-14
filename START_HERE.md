@@ -123,7 +123,7 @@ npm run dev
 
 ### Terminal 3: Test API
 ```bash
-curl http://localhost:3001/api/health
+curl https://pavithra-travels01.onrender.com/api/health
 ```
 
 ✅ **Done!** Backend on 3001, Frontend on 5173
@@ -317,7 +317,7 @@ For first-time setup:
 
 🔹 Save environment variables in `.env` (never commit!)
 🔹 Always start backend before frontend
-🔹 Test API with `curl http://localhost:3001/api/health`
+🔹 Test API with `curl https://pavithra-travels01.onrender.com/api/health`
 🔹 Use [API_REFERENCE.md](API_REFERENCE.md) as your API guide
 🔹 Check [deployment.md](DEPLOYMENT.md) before going live
 🔹 Bookmark [FIREBASE_SETUP.md](FIREBASE_SETUP.md) for reference

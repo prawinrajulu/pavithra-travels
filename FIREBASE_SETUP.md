@@ -132,10 +132,10 @@ CORS Origin: http://localhost:5173
 
 ```bash
 # Health check
-curl http://localhost:3001/api/health
+curl https://pavithra-travels01.onrender.com/api/health
 
 # Database connection
-curl http://localhost:3001/api/health/db
+curl https://pavithra-travels01.onrender.com/api/health/db
 ```
 
 ---
@@ -147,7 +147,7 @@ curl http://localhost:3001/api/health/db
 Create `.env` in frontend root:
 
 ```env
-VITE_API_URL=http://localhost:3001/api
+VITE_API_URL=https://pavithra-travels01.onrender.com/api
 VITE_FIREBASE_API_KEY=YOUR_API_KEY
 VITE_FIREBASE_AUTH_DOMAIN=pavithra-travels.firebaseapp.com
 VITE_FIREBASE_PROJECT_ID=pavithra-travels
@@ -420,13 +420,13 @@ Response:
 
 ```bash
 # Health check
-curl -X GET http://localhost:3001/api/health
+curl -X GET https://pavithra-travels01.onrender.com/api/health
 
 # Get all destinations
-curl -X GET http://localhost:3001/api/destinations
+curl -X GET https://pavithra-travels01.onrender.com/api/destinations
 
 # Create user (requires body)
-curl -X POST http://localhost:3001/api/auth/register \
+curl -X POST https://pavithra-travels01.onrender.com/api/auth/register \
   -H "Content-Type: application/json" \
   -d '{
     "email": "test@example.com",
@@ -439,7 +439,7 @@ curl -X POST http://localhost:3001/api/auth/register \
 
 1. Import collections from backend/postman/
 2. Set environment variables:
-   - `api_url`: http://localhost:3001/api
+   - `api_url`: https://pavithra-travels01.onrender.com/api
    - `token`: Your Firebase ID token
 3. Run requests from collections
 
@@ -585,7 +585,7 @@ cat backend/.env | grep FIREBASE
 ### Backend not connecting to database
 ```bash
 # Test connection
-curl http://localhost:3001/api/health/db
+curl https://pavithra-travels01.onrender.com/api/health/db
 
 # Check Firebase status at: https://status.firebase.google.com
 ```

@@ -166,10 +166,10 @@ npm run dev
 ### Step 4: Test
 ```bash
 # Should return: { "status": "OK", "timestamp": "..." }
-curl http://localhost:3001/api/health
+curl https://pavithra-travels01.onrender.com/api/health
 ```
 
-**✅ You're done!** Frontend on `http://localhost:5173`, Backend on `http://localhost:3001`
+**✅ You're done!** Frontend on `http://localhost:5173`, Backend on `https://pavithra-travels01.onrender.com`
 
 ---
 
@@ -312,7 +312,7 @@ GET /api/health/db   Database status
    - Terminal 2: `npm run dev` (port 5173)
 
 4. **Test Connection**
-   - `curl http://localhost:3001/api/health`
+   - `curl https://pavithra-travels01.onrender.com/api/health`
    - Should show API status
 
 ---
@@ -327,7 +327,7 @@ GET /api/health/db   Database status
 - [ ] Start backend with `npm run dev`
 - [ ] Setup frontend .env
 - [ ] Start frontend with `npm run dev`
-- [ ] Test: `curl http://localhost:3001/api/health`
+- [ ] Test: `curl https://pavithra-travels01.onrender.com/api/health`
 - [ ] ✅ Backend ready to use!
 
 ---

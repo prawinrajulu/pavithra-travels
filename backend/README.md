@@ -98,7 +98,7 @@ Ensure your Firebase project has:
 npm run dev
 ```
 
-Server will start on `http://localhost:3001`
+Server will start on `https://pavithra-travels01.onrender.com`
 
 ### 6. Run Production Build
 
@@ -162,7 +162,7 @@ const token = await user.getIdToken();
 Then include in API calls:
 
 ```typescript
-const response = await fetch('http://localhost:3001/api/users/profile', {
+const response = await fetch('https://pavithra-travels01.onrender.com/api/users/profile', {
   headers: {
     'Authorization': `Bearer ${token}`
   }

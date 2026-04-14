@@ -391,7 +391,7 @@ All files have been created and can be verified:
 
 5. **Test API**
    ```bash
-   curl http://localhost:3001/api/health
+   curl https://pavithra-travels01.onrender.com/api/health
    ```
 
 ---

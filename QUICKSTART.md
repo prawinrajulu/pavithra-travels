@@ -208,7 +208,7 @@ JWT_EXPIRES_IN=7d
 
 ### Frontend (.env)
 ```env
-VITE_API_URL=http://localhost:3001/api
+VITE_API_URL=https://pavithra-travels01.onrender.com/api
 
 VITE_FIREBASE_API_KEY=from-firebase-console
 VITE_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
@@ -273,7 +273,7 @@ npm install
 ls backend/serviceAccountKey.json
 
 # Check Firebase credentials in .env
-# Test with: curl http://localhost:3001/api/health/db
+# Test with: curl https://pavithra-travels01.onrender.com/api/health/db
 ```
 
 ### CORS errors
@@ -311,7 +311,7 @@ cd backend && npm run dev
 cd .. && npm run dev
 
 # Terminal 3 (to test API)
-curl http://localhost:3001/api/health
+curl https://pavithra-travels01.onrender.com/api/health
 ```
 
 ---
