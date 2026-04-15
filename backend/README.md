@@ -71,7 +71,7 @@ FIREBASE_PRIVATE_KEY=your-private-key-from-json
 FIREBASE_CLIENT_EMAIL=your-service-account-email
 FIREBASE_DATABASE_URL=https://your-project-id.firebaseio.com
 
-PORT=3001
+port=10000
 NODE_ENV=development
 CORS_ORIGIN=http://localhost:5173
 JWT_SECRET=your-secret-key-here

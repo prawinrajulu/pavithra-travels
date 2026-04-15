@@ -199,7 +199,7 @@ FIREBASE_PRIVATE_KEY=your-key-from-json
 FIREBASE_CLIENT_EMAIL=your-service-account@*.iam.gserviceaccount.com
 FIREBASE_DATABASE_URL=https://your-project.firebaseio.com
 
-PORT=3001
+port=10000
 NODE_ENV=development
 CORS_ORIGIN=http://localhost:5173
 JWT_SECRET=change-this-in-production

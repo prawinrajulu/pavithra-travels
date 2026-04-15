@@ -93,7 +93,7 @@ FIREBASE_CLIENT_EMAIL=firebase-adminsdk-xxxxx@pavithra-travels.iam.gserviceaccou
 FIREBASE_DATABASE_URL=https://pavithra-travels.firebaseio.com
 
 # Server Configuration
-PORT=3001
+port=10000
 NODE_ENV=development
 
 # JWT Configuration
