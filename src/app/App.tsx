@@ -14,13 +14,10 @@ import { AllDestinations } from "./pages/all-destinations";
 import { DestinationDetail } from "./pages/destination-detail";
 import BookingSuccess from "./pages/BookingSuccess";
 import { ServiceCategory } from "./pages/ServiceCategory";
-import { Booking } from "./pages/booking";
-
-// New Pages
+import { BookingUnified } from "./pages/BookingUnified";
 import { Login } from "./pages/Login";
 import { Signup } from "./pages/Signup";
 import { NotFound } from "./pages/NotFound";
-import { CinematicBookingPage } from "./pages/CinematicBookingPage";
 import { Dashboard } from "./pages/Dashboard";
 import { CinematicCheckStatus } from "./pages/CinematicCheckStatus";
 import { ForgotPassword } from "./pages/ForgotPassword";
@@ -49,8 +46,8 @@ export default function App() {
           <Route path="/destinations/:slug" element={<DestinationDetail />} />
           <Route path="/booking-success" element={<BookingSuccess />} />
           <Route path="/services/:type" element={<ServiceCategory />} />
-          <Route path="/booking" element={<ProtectedRoute><Booking /></ProtectedRoute>} />
-          <Route path="/booking/:id" element={<ProtectedRoute><CinematicBookingPage /></ProtectedRoute>} />
+          <Route path="/booking" element={<ProtectedRoute><BookingUnified /></ProtectedRoute>} />
+          <Route path="/booking/:id" element={<ProtectedRoute><BookingUnified /></ProtectedRoute>} />
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           
           {/* Unified Admin Panel */}
