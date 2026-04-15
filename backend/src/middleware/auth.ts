@@ -18,7 +18,7 @@ export const authMiddleware = async (
   next: NextFunction,
 ) => {
   try {
-    const token = req.headers.authorization?.split('Bearer ')[1];
+    const token = (req as any).headers.authorization?.split('Bearer ')[1];
 
     if (!token) {
       throw new AppError(401, 'No authentication token provided');
@@ -52,7 +52,7 @@ export const optionalAuth = async (
   next: NextFunction,
 ) => {
   try {
-    const token = req.headers.authorization?.split('Bearer ')[1];
+    const token = (req as any).headers.authorization?.split('Bearer ')[1];
     if (token && firebaseAuth) {
       const decodedToken = await firebaseAuth.verifyIdToken(token);
       const dbUser = await userService.getUserByFirebaseUid(decodedToken.uid);

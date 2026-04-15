@@ -22,7 +22,7 @@ export const emailRateLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
   message: { success: false, error: 'Too many emails sent from this IP, please try again after 15 minutes.' },
-  handler: (req, res, next, options) => {
+  handler: (req: Request, res: Response, next: NextFunction, options: any) => {
     console.warn(`[RATE LIMIT TRIGGERED] IP: ${req.ip} exceeded email send limits.`);
     res.status(options.statusCode).json(options.message);
   }

@@ -1,4 +1,4 @@
-import { Router, Response } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 import { firebaseAuth } from '../config/firebase.js';
 import { userService } from '../services/userService.js';
 import { AuthRequest, authMiddleware, adminMiddleware } from '../middleware/auth.js';
@@ -8,7 +8,7 @@ import { config } from '../config/env.js';
 const router = Router();
 
 // Login via REST API
-router.post('/login', async (req, res, next) => {
+router.post('/login', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { email, password } = req.body;
 
@@ -66,9 +66,9 @@ router.get('/admin', authMiddleware, adminMiddleware, async (req: AuthRequest, r
 });
 
 // Register/Create user
-router.post('/register', async (req: AuthRequest, res: Response, next) => {
+router.post('/register', async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
-    const { email, password, displayName, phone } = req.body;
+    const { email, password, displayName, phone } = (req as any).body;
 
     if (!email || !password || !displayName) {
       return next(new AppError(400, 'Email, password, and displayName are required'));
@@ -117,7 +117,7 @@ router.post('/register', async (req: AuthRequest, res: Response, next) => {
 });
 
 // Get current user info
-router.get('/me', authMiddleware, async (req: AuthRequest, res: Response, next) => {
+router.get('/me', authMiddleware, async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
     if (!req.user) {
       return next(new AppError(401, 'User not found'));
@@ -139,7 +139,7 @@ router.get('/me', authMiddleware, async (req: AuthRequest, res: Response, next) 
 });
 
 // Verify token
-router.post('/verify-token', async (req, res, next) => {
+router.post('/verify-token', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { token } = req.body;
 

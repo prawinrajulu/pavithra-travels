@@ -12,6 +12,7 @@
     "resolveJsonModule": true,
     "moduleResolution": "node",
     "ignoreDeprecations": "5.0",
+    "types": ["node", "express", "cors", "morgan"],
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true

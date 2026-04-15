@@ -9,7 +9,7 @@ const router = Router();
 // Get or create conversation
 router.get('/conversation', optionalAuth, async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
-    let userId = req.query.userId as string;
+    let userId = (req as any).query.userId as string;
 
     if (req.user) {
       const user = await userService.getUserByFirebaseUid(req.user.uid);
@@ -22,7 +22,7 @@ router.get('/conversation', optionalAuth, async (req: AuthRequest, res: Response
       return next(new AppError(400, 'User ID is required'));
     }
 
-    const conversationId = req.query.conversationId as string;
+    const conversationId = (req as any).query.conversationId as string;
     let conversation;
 
     if (conversationId) {
@@ -70,7 +70,7 @@ router.get('/conversations', authMiddleware, async (req: AuthRequest, res: Respo
 // Send message
 router.post('/message', optionalAuth, async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
-    const { message, conversationId, userId } = req.body;
+    const { message, conversationId, userId } = (req as any).body;
 
     if (!message) {
       return next(new AppError(400, 'Message is required'));
@@ -116,7 +116,7 @@ router.post('/conversation/:conversationId/archive', authMiddleware, async (req:
       return next(new AppError(401, 'User not authenticated'));
     }
 
-    const { conversationId } = req.params;
+    const { conversationId } = (req as any).params;
     const conversation = await chatbotService.archiveConversation(conversationId);
 
     res.json({

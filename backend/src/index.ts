@@ -39,7 +39,7 @@ app.use(morgan('combined')); // Standard Apache combined log output
 
 // Strict CORS Middleware
 app.use(cors({
-  origin: (origin, callback) => {
+  origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
     const allowedOrigins = config.corsOrigin 
       ? config.corsOrigin.split(',').map(o => o.trim()) 
       : ['http://localhost:5173', 'http://localhost:5174'];
@@ -73,7 +73,7 @@ app.use('/api/email', emailRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/images', imageRoutes);
 // 404 handler
-app.use((req, res) => {
+app.use((req: express.Request, res: express.Response) => {
   res.status(404).json({
     success: false,
     error: 'Route not found',
