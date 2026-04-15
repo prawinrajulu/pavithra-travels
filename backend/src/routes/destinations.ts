@@ -1,4 +1,4 @@
-import { Router, Response, Request } from 'express';
+import { Router, Response, Request, NextFunction } from 'express';
 import { destinationService } from '../services/destinationService.js';
 import { AppError } from '../middleware/errorHandler.js';
 import { optionalAuth } from '../middleware/auth.js';
@@ -6,7 +6,7 @@ import { optionalAuth } from '../middleware/auth.js';
 const router = Router();
 
 // Get all destinations
-router.get('/', optionalAuth, async (req: Request, res: Response, next) => {
+router.get('/', optionalAuth, async (req: Request, res: Response, next: NextFunction) => {
   try {
     const destinations = await destinationService.getAllDestinations();
 
@@ -21,7 +21,7 @@ router.get('/', optionalAuth, async (req: Request, res: Response, next) => {
 });
 
 // Get destination by ID
-router.get('/:destinationId', optionalAuth, async (req: Request, res: Response, next) => {
+router.get('/:destinationId', optionalAuth, async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { destinationId } = req.params;
     const destination = await destinationService.getDestination(destinationId);
@@ -40,7 +40,7 @@ router.get('/:destinationId', optionalAuth, async (req: Request, res: Response, 
 });
 
 // Get destinations by category
-router.get('/category/:category', optionalAuth, async (req: Request, res: Response, next) => {
+router.get('/category/:category', optionalAuth, async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { category } = req.params;
     const destinations = await destinationService.getDestinationsByCategory(category);
@@ -56,7 +56,7 @@ router.get('/category/:category', optionalAuth, async (req: Request, res: Respon
 });
 
 // Get destinations by region
-router.get('/region/:region', optionalAuth, async (req: Request, res: Response, next) => {
+router.get('/region/:region', optionalAuth, async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { region } = req.params;
     const destinations = await destinationService.getDestinationsByRegion(region);
@@ -72,7 +72,7 @@ router.get('/region/:region', optionalAuth, async (req: Request, res: Response, 
 });
 
 // Filter destinations
-router.post('/filter', optionalAuth, async (req: Request, res: Response, next) => {
+router.post('/filter', optionalAuth, async (req: Request, res: Response, next: NextFunction) => {
   try {
     const filters = req.body;
     const destinations = await destinationService.filterDestinations(filters);

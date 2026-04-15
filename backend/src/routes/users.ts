@@ -1,4 +1,4 @@
-import { Router, Response } from 'express';
+import { Router, Response, NextFunction } from 'express';
 import { userService } from '../services/userService.js';
 import { AuthRequest, authMiddleware } from '../middleware/auth.js';
 import { AppError } from '../middleware/errorHandler.js';
@@ -6,7 +6,7 @@ import { AppError } from '../middleware/errorHandler.js';
 const router = Router();
 
 // Get user profile
-router.get('/profile', authMiddleware, async (req: AuthRequest, res: Response, next) => {
+router.get('/profile', authMiddleware, async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
     if (!req.user) {
       return next(new AppError(401, 'User not authenticated'));
@@ -30,7 +30,7 @@ router.get('/profile', authMiddleware, async (req: AuthRequest, res: Response, n
 });
 
 // Update user profile
-router.put('/profile', authMiddleware, async (req: AuthRequest, res: Response, next) => {
+router.put('/profile', authMiddleware, async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
     if (!req.user) {
       return next(new AppError(401, 'User not authenticated'));
@@ -63,7 +63,7 @@ router.put('/profile', authMiddleware, async (req: AuthRequest, res: Response, n
 });
 
 // Get user by ID
-router.get('/:userId', async (req: AuthRequest, res: Response, next) => {
+router.get('/:userId', async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
     const { userId } = req.params;
     const user = await userService.getUserById(userId);

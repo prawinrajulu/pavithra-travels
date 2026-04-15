@@ -1,4 +1,4 @@
-import { Router, Response, NextFunction } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 import { bookingService } from '../services/bookingService.js';
 import { AppError } from '../middleware/errorHandler.js';
 import { authMiddleware, AuthRequest } from '../middleware/auth.js';
@@ -8,7 +8,7 @@ const router = Router();
 console.log('✅ Bookings router initialized and mounted.');
 
 // Diagnostic Ping (Public)
-router.get('/ping', (req, res) => {
+router.get('/ping', (req: Request, res: Response) => {
   console.log('[BOOKINGS ROUTER] Ping received');
   res.json({ success: true, message: 'Bookings router is alive!', timestamp: new Date().toISOString() });
 });

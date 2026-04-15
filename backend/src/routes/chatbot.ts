@@ -1,4 +1,4 @@
-import { Router, Response } from 'express';
+import { Router, Response, NextFunction } from 'express';
 import { chatbotService } from '../services/chatbotService.js';
 import { userService } from '../services/userService.js';
 import { AuthRequest, authMiddleware, optionalAuth } from '../middleware/auth.js';
@@ -7,7 +7,7 @@ import { AppError } from '../middleware/errorHandler.js';
 const router = Router();
 
 // Get or create conversation
-router.get('/conversation', optionalAuth, async (req: AuthRequest, res: Response, next) => {
+router.get('/conversation', optionalAuth, async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
     let userId = req.query.userId as string;
 
@@ -44,7 +44,7 @@ router.get('/conversation', optionalAuth, async (req: AuthRequest, res: Response
 });
 
 // Get user conversations
-router.get('/conversations', authMiddleware, async (req: AuthRequest, res: Response, next) => {
+router.get('/conversations', authMiddleware, async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
     if (!req.user) {
       return next(new AppError(401, 'User not authenticated'));
@@ -68,7 +68,7 @@ router.get('/conversations', authMiddleware, async (req: AuthRequest, res: Respo
 });
 
 // Send message
-router.post('/message', optionalAuth, async (req: AuthRequest, res: Response, next) => {
+router.post('/message', optionalAuth, async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
     const { message, conversationId, userId } = req.body;
 
@@ -110,7 +110,7 @@ router.post('/message', optionalAuth, async (req: AuthRequest, res: Response, ne
 });
 
 // Archive conversation
-router.post('/conversation/:conversationId/archive', authMiddleware, async (req: AuthRequest, res: Response, next) => {
+router.post('/conversation/:conversationId/archive', authMiddleware, async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
     if (!req.user) {
       return next(new AppError(401, 'User not authenticated'));

@@ -1,11 +1,11 @@
-import { Router, Request, Response } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 import { unsplashService } from '../services/unsplashService.js';
 import { optionalAuth } from '../middleware/auth.js';
 
 const router = Router();
 
 // Search Unsplash images
-router.get('/unsplash/search', optionalAuth, async (req: Request, res: Response, next) => {
+router.get('/unsplash/search', optionalAuth, async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { query, page, perPage } = req.query;
 
@@ -32,7 +32,7 @@ router.get('/unsplash/search', optionalAuth, async (req: Request, res: Response,
 });
 
 // Trigger download for Unsplash API attribution tracking
-router.post('/unsplash/trigger-download', optionalAuth, async (req: Request, res: Response, next) => {
+router.post('/unsplash/trigger-download', optionalAuth, async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { downloadLocation } = req.body;
     if (downloadLocation) {
