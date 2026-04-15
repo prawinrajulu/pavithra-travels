@@ -1,4 +1,4 @@
-import { Router, Response, NextFunction } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 import { userService } from '../services/userService.js';
 import { AuthRequest, authMiddleware } from '../middleware/auth.js';
 import { AppError } from '../middleware/errorHandler.js';
@@ -6,13 +6,14 @@ import { AppError } from '../middleware/errorHandler.js';
 const router = Router();
 
 // Get user profile
-router.get('/profile', authMiddleware, async (req: AuthRequest, res: Response, next: NextFunction) => {
+router.get('/profile', authMiddleware, async (req: Request, res: Response, next: NextFunction) => {
   try {
-    if (!req.user) {
+    const authReq = req as AuthRequest;
+    if (!authReq.user) {
       return next(new AppError(401, 'User not authenticated'));
     }
 
-    const user = await userService.getUserByFirebaseUid(req.user.uid);
+    const user = await userService.getUserByFirebaseUid(authReq.user.uid);
 
     if (!user) {
       return next(new AppError(404, 'User not found'));
@@ -30,25 +31,26 @@ router.get('/profile', authMiddleware, async (req: AuthRequest, res: Response, n
 });
 
 // Update user profile
-router.put('/profile', authMiddleware, async (req: AuthRequest, res: Response, next: NextFunction) => {
+router.put('/profile', authMiddleware, async (req: Request, res: Response, next: NextFunction) => {
   try {
-    if (!req.user) {
+    const authReq = req as AuthRequest;
+    if (!authReq.user) {
       return next(new AppError(401, 'User not authenticated'));
     }
 
-    const user = await userService.getUserByFirebaseUid(req.user.uid);
+    const user = await userService.getUserByFirebaseUid(authReq.user.uid);
 
     if (!user) {
       return next(new AppError(404, 'User not found'));
     }
 
     const updates = {
-      displayName: (req as any).body.displayName || user.displayName,
-      phone: (req as any).body.phone,
-      address: (req as any).body.address,
-      city: (req as any).body.city,
-      state: (req as any).body.state,
-      pincode: (req as any).body.pincode,
+      displayName: req.body.displayName || user.displayName,
+      phone: req.body.phone,
+      address: req.body.address,
+      city: req.body.city,
+      state: req.body.state,
+      pincode: req.body.pincode,
     };
 
     const updated = await userService.updateUser(user.id, updates);
@@ -63,9 +65,9 @@ router.put('/profile', authMiddleware, async (req: AuthRequest, res: Response, n
 });
 
 // Get user by ID
-router.get('/:userId', async (req: AuthRequest, res: Response, next: NextFunction) => {
+router.get('/:userId', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { userId } = (req as any).params;
+    const { userId } = req.params;
     const user = await userService.getUserById(userId);
 
     if (!user) {

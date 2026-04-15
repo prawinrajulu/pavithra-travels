@@ -57,18 +57,19 @@ router.post('/login', async (req: Request, res: Response, next: NextFunction) =>
 });
 
 // Admin-only protected route
-router.get('/admin', authMiddleware, adminMiddleware, async (req: AuthRequest, res: Response) => {
+router.get('/admin', authMiddleware, adminMiddleware, async (req: Request, res: Response, next: NextFunction) => {
+  const authReq = req as AuthRequest;
   res.json({
     success: true,
     message: 'Welcome Admin!',
-    data: req.user,
+    data: authReq.user,
   });
 });
 
 // Register/Create user
-router.post('/register', async (req: AuthRequest, res: Response, next: NextFunction) => {
+router.post('/register', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { email, password, displayName, phone } = (req as any).body;
+    const { email, password, displayName, phone } = req.body;
 
     if (!email || !password || !displayName) {
       return next(new AppError(400, 'Email, password, and displayName are required'));
@@ -117,13 +118,14 @@ router.post('/register', async (req: AuthRequest, res: Response, next: NextFunct
 });
 
 // Get current user info
-router.get('/me', authMiddleware, async (req: AuthRequest, res: Response, next: NextFunction) => {
+router.get('/me', authMiddleware, async (req: Request, res: Response, next: NextFunction) => {
   try {
-    if (!req.user) {
+    const authReq = req as AuthRequest;
+    if (!authReq.user) {
       return next(new AppError(401, 'User not found'));
     }
 
-    const user = await userService.getUserByFirebaseUid(req.user.uid);
+    const user = await userService.getUserByFirebaseUid(authReq.user.uid);
 
     if (!user) {
       return next(new AppError(404, 'User not found in database'));

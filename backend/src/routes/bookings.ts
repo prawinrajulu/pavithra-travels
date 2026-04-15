@@ -14,7 +14,7 @@ router.get('/ping', (req: Request, res: Response) => {
 });
 
 // Create booking (no auth required for basic booking)
-router.post('/', async (req: any, res: Response, next: NextFunction) => {
+router.post('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const booking = await bookingService.createBooking(req.body);
 
@@ -28,9 +28,13 @@ router.post('/', async (req: any, res: Response, next: NextFunction) => {
 });
 
 // Get booking by booking ID (public access for status checking)
-router.get('/status/:bookingId', async (req: any, res: Response, next: NextFunction) => {
+router.get('/status/:bookingId', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { bookingId } = req.params;
+    if (!bookingId) {
+      return next(new AppError(400, 'Booking ID is required'));
+    }
+    
     const booking = await bookingService.getBooking(bookingId);
 
     if (!booking) {
@@ -47,7 +51,7 @@ router.get('/status/:bookingId', async (req: any, res: Response, next: NextFunct
 });
 
 // Get user's own bookings by Phone (Requirement #3B)
-router.get('/user/:phone', async (req: any, res: Response, next: NextFunction) => {
+router.get('/user/:phone', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { phone } = req.params;
     console.log(`[BACKEND] Fetching bookings for Phone: ${phone}`);
@@ -70,9 +74,10 @@ router.get('/user/:phone', async (req: any, res: Response, next: NextFunction) =
 });
 
 // Get user's own bookings (Legacy/Authenticated sync)
-router.get('/my', authMiddleware, async (req: AuthRequest, res: Response, next: NextFunction) => {
+router.get('/my', authMiddleware, async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const userId = req.user?.uid;
+    const authReq = req as AuthRequest;
+    const userId = authReq.user?.uid;
     console.log(`[BACKEND] Fetching bookings for UserID: ${userId}`);
     
     if (!userId) {
@@ -94,7 +99,7 @@ router.get('/my', authMiddleware, async (req: AuthRequest, res: Response, next: 
 });
 
 // Get all bookings (for admin purposes)
-router.get('/', async (req: any, res: Response, next: NextFunction) => {
+router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const bookings = await bookingService.getAllBookings();
 
@@ -108,10 +113,14 @@ router.get('/', async (req: any, res: Response, next: NextFunction) => {
 });
 
 // Update booking status
-router.put('/:bookingId/status', async (req: any, res: Response, next: NextFunction) => {
+router.put('/:bookingId/status', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { bookingId } = req.params;
     const { status } = req.body;
+
+    if (!bookingId) {
+      return next(new AppError(400, 'Booking ID is required'));
+    }
 
     const booking = await bookingService.updateBooking(bookingId, { status });
 

@@ -3,29 +3,35 @@ import { firebaseAuth } from '../config/firebase.js';
 import { AppError } from './errorHandler.js';
 import { userService } from '../services/userService.js';
 
-export interface AuthRequest extends Request {
-  user?: {
-    uid: string;
-    email?: string;
-    name?: string;
-    role?: 'user' | 'admin';
-  };
+export interface UserContext {
+  uid: string;
+  email?: string;
+  name?: string;
+  role?: 'user' | 'admin';
 }
 
+export interface AuthRequest extends Request {
+  user?: UserContext;
+}
+
+/**
+ * Standard Express Middleware for Auth
+ */
 export const authMiddleware = async (
-  req: AuthRequest,
+  req: Request,
   res: Response,
   next: NextFunction,
-) => {
+): Promise<void> => {
   try {
-    const token = (req as any).headers.authorization?.split('Bearer ')[1];
+    const authReq = req as AuthRequest;
+    const token = req.headers.authorization?.split('Bearer ')[1];
 
     if (!token) {
-      throw new AppError(401, 'No authentication token provided');
+      return next(new AppError(401, 'No authentication token provided'));
     }
 
     if (!firebaseAuth) {
-      throw new AppError(503, 'Authentication service is currently unavailable. Please contact the administrator.');
+      return next(new AppError(503, 'Authentication service is unavailable.'));
     }
 
     const decodedToken = await firebaseAuth.verifyIdToken(token);
@@ -33,7 +39,7 @@ export const authMiddleware = async (
     // Fetch matching user from our database to get their role
     const dbUser = await userService.getUserByFirebaseUid(decodedToken.uid);
     
-    req.user = {
+    authReq.user = {
       uid: decodedToken.uid,
       email: decodedToken.email,
       name: decodedToken.name,
@@ -46,17 +52,22 @@ export const authMiddleware = async (
   }
 };
 
+/**
+ * Optional Auth Middleware - Does not fail if no token
+ */
 export const optionalAuth = async (
-  req: AuthRequest,
+  req: Request,
   res: Response,
   next: NextFunction,
-) => {
+): Promise<void> => {
   try {
-    const token = (req as any).headers.authorization?.split('Bearer ')[1];
+    const authReq = req as AuthRequest;
+    const token = req.headers.authorization?.split('Bearer ')[1];
+    
     if (token && firebaseAuth) {
       const decodedToken = await firebaseAuth.verifyIdToken(token);
       const dbUser = await userService.getUserByFirebaseUid(decodedToken.uid);
-      req.user = {
+      authReq.user = {
         uid: decodedToken.uid,
         email: decodedToken.email,
         name: decodedToken.name,
@@ -69,12 +80,16 @@ export const optionalAuth = async (
   next();
 };
 
+/**
+ * Admin Only Middleware
+ */
 export const adminMiddleware = (
-  req: AuthRequest,
+  req: Request,
   res: Response,
   next: NextFunction,
-) => {
-  if (req.user && req.user.role === 'admin') {
+): void => {
+  const authReq = req as AuthRequest;
+  if (authReq.user && authReq.user.role === 'admin') {
     next();
   } else {
     next(new AppError(403, 'Access denied. Admin permissions required.'));
