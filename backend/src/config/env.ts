@@ -20,7 +20,7 @@ for (const envPath of envPaths) {
 export const config = {
   port: parseInt(process.env.PORT || '3001', 10),
   nodeEnv: process.env.NODE_ENV || 'development',
-  corsOrigin: process.env.CORS_ORIGIN || 'http://localhost:5173,http://localhost:5174',
+  corsOrigin: process.env.CORS_ORIGIN || 'http://localhost:5173,http://localhost:5174,https://pavithra-travels.onrender.com',
   jwtSecret: process.env.JWT_SECRET || 'your-secret-key',
   jwtExpiresIn: process.env.JWT_EXPIRES_IN || '7d',
   firebase: {

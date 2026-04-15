@@ -91,11 +91,21 @@ Once your **Static Site** is deployed, you will get a URL (e.g., `https://pavith
 
 ## Troubleshooting
 
+### "Route Not Found" or 404 on API calls
+This is the most common issue on Render. It happens when:
+1. **Misconfigured `VITE_API_URL`**: Ensure your frontend has `VITE_API_URL` set to the **absolute** URL of your backend (e.g., `https://pavithra-travels-api.onrender.com/api`).
+2. **Relative Path Fallback**: If you see the browser trying to fetch from `pavithra-travels.onrender.com/api/...`, it means the environment variable was not found, and the app is defaulting to its own domain.
+3. **Smart Discovery**: The project now includes "Smart API Discovery". If your frontend is `xxx.onrender.com`, it will automatically try to connect to `xxx-api.onrender.com/api` as a fallback.
+
+### API Connection Refused / CORS Errors
+If the 404 is gone but you see "CORS Refused" in the console:
+1. Verify the `CORS_ORIGIN` in your **Backend Web Service**.
+2. It should match your frontend URL (e.g., `https://pavithra-travels.onrender.com`).
+3. Check the backend logs for `🚨 CORS Refused` to see exactly what origin was blocked.
+Check that the `CORS_ORIGIN` in the backend matches the frontend URL exactly (no trailing slash).
+
 ### "White Screen" on Frontend
 Ensure `VITE_API_URL` includes the `/api` suffix and that you've used the `https` version of your backend URL.
 
 ### Firebase Credentials Error
 If you see errors related to `FIREBASE_PRIVATE_KEY`, ensure the newlines (`\n`) are preserved properly in the Render environment variable input.
-
-### API Connection Refused
-Check that the `CORS_ORIGIN` in the backend matches the frontend URL exactly (no trailing slash).

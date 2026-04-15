@@ -38,17 +38,19 @@ app.use(helmet()); // Sets robust HTTP security headers
 app.use(morgan('combined')); // Standard Apache combined log output
 
 // Strict CORS Middleware
+const allowedOrigins = config.corsOrigin 
+  ? config.corsOrigin.split(',').map(o => o.trim()) 
+  : ['http://localhost:5173', 'http://localhost:5174'];
+
+console.log(`[CORS] Initialized with origins: ${allowedOrigins.join(', ')}`);
+
 app.use(cors({
   origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
-    const allowedOrigins = config.corsOrigin 
-      ? config.corsOrigin.split(',').map(o => o.trim()) 
-      : ['http://localhost:5173', 'http://localhost:5174'];
-    
     // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin || allowedOrigins.indexOf(origin) !== -1 || allowedOrigins.includes('*')) {
       callback(null, true);
     } else {
-      console.error(`🚨 CORS Refused: The origin ${origin} is not allowed. Check CORS_ORIGIN in your environment.`);
+      console.error(`🚨 CORS Refused: The origin "${origin}" is not allowed. Check CORS_ORIGIN in your environment.`);
       callback(new Error('Not allowed by CORS'));
     }
   },

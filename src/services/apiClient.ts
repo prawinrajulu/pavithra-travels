@@ -3,38 +3,41 @@ import axios from 'axios';
 import type { AxiosInstance, AxiosError } from 'axios';
 
 const getApiUrl = () => {
+  const isBrowser = typeof window !== 'undefined';
+  const hostname = isBrowser ? window.location.hostname : '';
+  const isRender = hostname.endsWith('.onrender.com');
+
   // Priority 1: Environment variable from Vite (BEST for production)
-  if (import.meta.env.VITE_API_URL) {
-    return import.meta.env.VITE_API_URL;
+  // Ensure we don't accidentally use a relative path in production if it's set as such in .env
+  const envUrl = import.meta.env.VITE_API_URL;
+  if (envUrl && (envUrl.startsWith('http') || !import.meta.env.PROD)) {
+    return envUrl;
   }
 
-  // Priority 2: Relative path if in production (handles same-domain proxying)
+  // Priority 2: Smart detection for Render
+  if (isRender) {
+    // If the frontend is pavithra-travels.onrender.com
+    // The backend is likely pavithra-travels-api.onrender.com
+    const backendHost = hostname.replace('pavithra-travels', 'pavithra-travels-api');
+    console.log(`[API_DISCOVERY] Render detected. Using backend: https://${backendHost}/api`);
+    return `https://${backendHost}/api`;
+  }
+
+  // Priority 3: Relative path fallback (only if same domain)
   if (import.meta.env.PROD) {
-    if (typeof window !== 'undefined') {
-      const hostname = window.location.hostname;
-      
-      // Smart detection for Render: if frontend is xxx.onrender.com, 
-      // see if we should try a different domain or just use relative /api
-      // Note: Render Static Sites and Web Services are usually on different domains.
-      if (hostname.endsWith('.onrender.com')) {
-        console.warn('⚠️ No VITE_API_URL set. Attempting relative path /api, but if your backend is a separate Render Web Service, it will likely fail.');
-      }
-    }
     return '/api';
   }
 
-  // Priority 3: Smart localhost detection for development
-  if (typeof window !== 'undefined') {
-    const hostname = window.location.hostname;
-    // If we're on localhost but haven't specified a VITE_API_URL, 
-    // assume backend is on port 3001
-    return `http://${hostname}:3001/api`;
+  // Priority 4: Development localhost
+  if (isBrowser) {
+    // If we're on localhost, assume backend is on port 10000 (standard for this project)
+    return `http://${hostname}:10000/api`;
   }
   
-  return 'http://127.0.0.1:3001/api';
+  return 'http://127.0.0.1:10000/api';
 };
 
-const API_URL = import.meta.env.VITE_API_URL || getApiUrl();
+const API_URL = getApiUrl();
 
 class ApiClient {
   private client: AxiosInstance;
