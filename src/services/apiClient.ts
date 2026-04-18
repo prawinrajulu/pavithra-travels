@@ -11,15 +11,27 @@ const getApiUrl = () => {
   // Ensure we don't accidentally use a relative path in production if it's set as such in .env
   const envUrl = import.meta.env.VITE_API_URL;
   if (envUrl && (envUrl.startsWith('http') || !import.meta.env.PROD)) {
-    return envUrl;
+    // Ensure the URL ends with /api to match backend routes
+    return envUrl.endsWith('/api') ? envUrl : `${envUrl.replace(/\/$/, '')}/api`;
   }
 
   // Priority 2: Smart detection for Render
   if (isRender) {
-    // If the frontend is pavithra-travels.onrender.com
-    // The backend is likely pavithra-travels-api.onrender.com
+    // Try to detect backend host based on common naming patterns
+    // Default is usually pavithra-travels-api or pavithra-travels01
+    const baseName = hostname.split('.')[0];
+    
+    // Check if we're on the main frontend domain
+    if (baseName === 'pavithra-travels') {
+      // In this specific project, backend is known to be pavithra-travels01 or pavithra-travels-api
+      // We'll prefer pavithra-travels01 as it's the current active one
+      const backendHost = 'pavithra-travels01.onrender.com';
+      console.log(`[API_DISCOVERY] Render detected. Using backend: https://${backendHost}/api`);
+      return `https://${backendHost}/api`;
+    }
+
+    // Fallback to -api suffix pattern
     const backendHost = hostname.replace('pavithra-travels', 'pavithra-travels-api');
-    console.log(`[API_DISCOVERY] Render detected. Using backend: https://${backendHost}/api`);
     return `https://${backendHost}/api`;
   }
 
