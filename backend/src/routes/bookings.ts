@@ -1,5 +1,7 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { bookingService } from '../services/bookingService.js';
+import { emailService } from '../services/emailService.js';
+import { whatsappService } from '../services/whatsappService.js';
 import { AppError } from '../middleware/errorHandler.js';
 import { authMiddleware, AuthRequest } from '../middleware/auth.js';
 
@@ -113,6 +115,15 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
 });
 
 // Update booking status
+router.put('/:bookingId/status', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { bookingId } = req.params;
+    const { status } = req.body;
+
+    if (!bookingId) {
+      return next(new AppError(400, 'Booking ID is required'));
+    }
+
     const booking = await bookingService.updateBooking(bookingId, { status });
     console.log(`[BOOKINGS ROUTER] Status for ${bookingId} updated to ${status}`);
 
