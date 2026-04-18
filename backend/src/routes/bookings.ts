@@ -113,16 +113,36 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
 });
 
 // Update booking status
-router.put('/:bookingId/status', async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const { bookingId } = req.params;
-    const { status } = req.body;
-
-    if (!bookingId) {
-      return next(new AppError(400, 'Booking ID is required'));
-    }
-
     const booking = await bookingService.updateBooking(bookingId, { status });
+    console.log(`[BOOKINGS ROUTER] Status for ${bookingId} updated to ${status}`);
+
+    // Trigger Completion Notifications
+    if (status === 'completed') {
+      try {
+        console.log(`[BOOKINGS ROUTER] Triggering completion notifications for ${bookingId}`);
+        await Promise.allSettled([
+          emailService.sendTripCompletionNotification({
+            toEmail: booking.email || '',
+            customerName: booking.name,
+            destination: booking.destinationName || '',
+            travelDate: new Date(booking.travelDate).toLocaleDateString(),
+            passengers: booking.passengers,
+            bookingId: booking.bookingId,
+            phone: booking.phone
+          }),
+          whatsappService.sendTripCompletionAlert({
+            customerName: booking.name,
+            destination: booking.destinationName || '',
+            travelDate: booking.travelDate,
+            phone: booking.phone,
+            bookingId: booking.bookingId
+          })
+        ]);
+        console.log(`[BOOKINGS ROUTER] Completion notifications dispatched.`);
+      } catch (notifyErr) {
+        console.error('[BOOKINGS ROUTER] Notification error:', notifyErr);
+      }
+    }
 
     res.json({
       success: true,

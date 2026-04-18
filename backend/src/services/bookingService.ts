@@ -4,6 +4,7 @@ import { AppError } from '../middleware/errorHandler.js';
 import { v4 as uuidv4 } from 'uuid';
 import { emailService } from './emailService.js';
 import { whatsappService } from './whatsappService.js';
+import { serializeFirestoreData } from '../utils/serialize-data.js';
 
 export class BookingService {
   // Generate unique booking ID in TRV-XXXXXX format
@@ -93,7 +94,7 @@ export class BookingService {
       console.error('[BOOKING SERVICE] Notifications failed:', notificationError);
     }
 
-    return booking;
+    return serializeFirestoreData(booking);
   }
 
   async getBooking(bookingId: string): Promise<Booking | null> {
@@ -103,12 +104,12 @@ export class BookingService {
       return null;
     }
 
-    return snapshot.docs[0].data() as Booking;
+    return serializeFirestoreData(snapshot.docs[0].data());
   }
 
   async getBookingById(id: string): Promise<Booking | null> {
     const doc = await db.collection('bookings').doc(id).get();
-    return doc.exists ? (doc.data() as Booking) : null;
+    return doc.exists ? serializeFirestoreData(doc.data()) : null;
   }
 
   async updateBooking(bookingId: string, updates: Partial<Booking>): Promise<Booking> {
@@ -144,7 +145,7 @@ export class BookingService {
       .where('destinationId', '==', destinationId)
       .get();
 
-    return snapshot.docs.map((doc: any) => doc.data() as Booking);
+    return snapshot.docs.map((doc: any) => serializeFirestoreData(doc.data()));
   }
 
   async getBookingsByUser(userId: string): Promise<Booking[]> {
@@ -153,7 +154,7 @@ export class BookingService {
       .where('userId', '==', userId)
       .get();
 
-    const bookings = snapshot.docs.map((doc: any) => doc.data() as Booking);
+    const bookings = snapshot.docs.map((doc: any) => serializeFirestoreData(doc.data()));
     
     // Sort in memory to avoid index requirement
     return bookings.sort((a: Booking, b: Booking) => 
@@ -170,7 +171,7 @@ export class BookingService {
       .where('phone', '==', cleanPhone)
       .get();
 
-    const bookings = snapshot.docs.map((doc: any) => doc.data() as Booking);
+    const bookings = snapshot.docs.map((doc: any) => serializeFirestoreData(doc.data()));
     
     // Sort in memory to avoid index requirement
     return bookings.sort((a: Booking, b: Booking) => 
@@ -180,7 +181,7 @@ export class BookingService {
 
   async getAllBookings(): Promise<Booking[]> {
     const snapshot = await db.collection('bookings').orderBy('createdAt', 'desc').get();
-    return snapshot.docs.map((doc: any) => doc.data() as Booking);
+    return snapshot.docs.map((doc: any) => serializeFirestoreData(doc.data()));
   }
 }
 

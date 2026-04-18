@@ -162,6 +162,12 @@ class ApiClient {
     return response.data;
   }
 
+  async getAllBookings() {
+    console.log('[API CLIENT] Fetching all bookings for admin');
+    const response = await this.client.get('/bookings');
+    return response.data;
+  }
+
   async getBooking(bookingId: string) {
     const response = await this.client.get(`/bookings/${bookingId}`);
     return response.data;

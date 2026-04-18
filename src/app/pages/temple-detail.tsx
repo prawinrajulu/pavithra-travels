@@ -1,11 +1,8 @@
 import { SmartImage } from "../components/ui/SmartImage";
-import { Header } from "../components/header";
-import { Footer } from "../components/footer";
 import { BackButton } from "../components/back-button";
 import { temples } from "../data/temples";
 import { MapPin, CheckCircle, Phone } from "lucide-react";
 import { useParams, Link } from "react-router-dom";
-import { ChatBot } from "../components/chatbot";
 
 export function TempleDetail() {
   const { templeId } = useParams<{ templeId: string }>();
@@ -14,26 +11,20 @@ export function TempleDetail() {
 
   if (!temple) {
     return (
-      <div className="min-h-screen bg-white">
-        <Header />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-          <h1 className="text-3xl text-gray-900 mb-4">Temple not found</h1>
-          <Link
-            to="/temples"
-            className="text-amber-600 hover:text-amber-700"
-          >
-            ← Back to Temple Destinations
-          </Link>
-        </div>
-        <Footer />
-        <ChatBot />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+        <h1 className="text-3xl text-gray-900 mb-4">Temple not found</h1>
+        <Link
+          to="/temples"
+          className="text-amber-600 hover:text-amber-700"
+        >
+          ← Back to Temple Destinations
+        </Link>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <Header />
+    <div className="bg-white">
       <BackButton />
       
       <section className="py-12">
@@ -114,9 +105,6 @@ export function TempleDetail() {
           </div>
         </div>
       </section>
-
-      <Footer />
-      <ChatBot />
     </div>
   );
 }

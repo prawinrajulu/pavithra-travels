@@ -99,6 +99,42 @@ _System generated alert from Pavithra Travels_
       return { success: false, error: error.message };
     }
   }
+
+  async sendTripCompletionAlert(data: WhatsAppData): Promise<boolean> {
+    if (!this.client) return false;
+
+    try {
+      const dateStr = data.travelDate instanceof Date 
+        ? data.travelDate.toLocaleDateString() 
+        : data.travelDate;
+
+      const message = `
+*Journey Completed!* 🎊
+--------------------------
+Dear *${data.customerName}*,
+
+We hope you had a blessed journey to *${data.destination}* on ${dateStr}.
+
+Your booking *${data.bookingId}* is now marked as completed. Thank you for travelling with *Pavithra Travels*.
+
+_May your pilgrimage bring you peace and joy._
+`.trim();
+
+      const to = `whatsapp:+${data.phone.replace(/\D/g, '')}`;
+      const from = this.fromNumber.startsWith('whatsapp:') ? this.fromNumber : `whatsapp:${this.fromNumber}`;
+
+      await this.client.messages.create({
+        body: message,
+        from,
+        to
+      });
+      console.log(`[WHATSAPP SERVICE] Completion alert sent to ${to}`);
+      return true;
+    } catch (error) {
+      console.error('[WHATSAPP SERVICE] Failed to send completion alert:', error);
+      return false;
+    }
+  }
 }
 
 export const whatsappService = new WhatsAppService();

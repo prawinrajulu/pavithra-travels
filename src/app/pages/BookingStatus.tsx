@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { localBookingService, type BookingData } from "../../services/localBookingService";
-import { Header } from "../components/header";
-import { Footer } from "../components/footer";
 import { BackButton } from "../components/back-button";
 import { Search, CheckCircle, Clock, XCircle, AlertCircle, User, Phone, MapPin, Calendar, Users } from "lucide-react";
 
@@ -86,8 +84,7 @@ export default function BookingStatus() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header />
+    <div className="bg-gray-50">
       <div className="container mx-auto px-4 py-8">
         <BackButton />
         <div className="max-w-2xl mx-auto">
@@ -256,7 +253,7 @@ export default function BookingStatus() {
           )}
         </div>
       </div>
-      <Footer />
+      </div>
     </div>
   );
 }

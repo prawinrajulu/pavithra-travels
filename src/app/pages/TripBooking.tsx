@@ -3,8 +3,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { localBookingService } from "../../services/localBookingService";
 import { sendBookingConfirmation } from "../../services/emailService";
 import { destinations } from "../data/chatbot-data";
-import { Header } from "../components/header";
-import { Footer } from "../components/footer";
 import { BackButton } from "../components/back-button";
 import { useAuth } from "../context/AuthContext";
 import { Calendar, Users, Phone, User as UserIcon, MapPin } from "lucide-react";
@@ -116,8 +114,7 @@ export default function TripBooking() {
   }, [location.search]);
 
   return (
-    <div className="min-h-screen bg-[#FFFBF0]">
-      <Header />
+    <div className="bg-[#FFFBF0]">
       <div className="container mx-auto px-4 py-8">
         <BackButton />
         <div className="max-w-2xl mx-auto">
@@ -272,7 +269,6 @@ export default function TripBooking() {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }
