@@ -62,6 +62,16 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
+// Root health check for Render port detection
+app.get('/', (req, res) => {
+  res.json({
+    success: true,
+    message: 'Pavithra Travels API is running',
+    environment: config.nodeEnv,
+    version: '1.0.1'
+  });
+});
+
 // Health check
 app.use('/api', healthRoutes);
 
