@@ -162,6 +162,50 @@ export class BookingService {
     );
   }
 
+  async getBookingsByEmail(email: string): Promise<Booking[]> {
+    if (!email) return [];
+    const cleanEmail = email.trim().toLowerCase();
+    console.log(`[BOOKING SERVICE] Querying Firestore for email: ${cleanEmail}`);
+    
+    const snapshot = await db
+      .collection('bookings')
+      .where('email', '==', cleanEmail)
+      .get();
+
+    const bookings = snapshot.docs.map((doc: any) => serializeFirestoreData(doc.data()));
+    
+    return bookings.sort((a: Booking, b: Booking) => 
+      new Date(b.createdAt as any).getTime() - new Date(a.createdAt as any).getTime()
+    );
+  }
+
+  async getBookingsByUserOrEmail(userId?: string, email?: string): Promise<Booking[]> {
+    const results: Map<string, Booking> = new Map();
+
+    // 1. Fetch by userId if provided
+    if (userId) {
+      const byUser = await this.getBookingsByUser(userId);
+      byUser.forEach(b => results.set(b.id, b));
+    }
+
+    // 2. Fetch by email if provided
+    if (email) {
+      const byEmail = await this.getBookingsByEmail(email);
+      byEmail.forEach(b => {
+        if (!results.has(b.id)) {
+          results.set(b.id, b);
+        }
+      });
+    }
+
+    const merged = Array.from(results.values());
+    
+    // Final sort
+    return merged.sort((a: Booking, b: Booking) => 
+      new Date(b.createdAt as any).getTime() - new Date(a.createdAt as any).getTime()
+    );
+  }
+
   async getBookingsByPhone(phone: string): Promise<Booking[]> {
     const cleanPhone = this.normalizePhone(phone);
     console.log(`[BOOKING SERVICE] Querying Firestore for normalized phone: ${cleanPhone}`);

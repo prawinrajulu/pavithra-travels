@@ -80,15 +80,16 @@ router.get('/my', authMiddleware, async (req: Request, res: Response, next: Next
   try {
     const authReq = req as AuthRequest;
     const userId = authReq.user?.uid;
-    console.log(`[BACKEND] Fetching bookings for UserID: ${userId}`);
+    const email = authReq.user?.email;
+    console.log(`[BACKEND] Fetching bookings for UserID: ${userId}, Email: ${email}`);
     
-    if (!userId) {
-      console.error('[BACKEND] Unauthorized access attempt (no userId)');
+    if (!userId && !email) {
+      console.error('[BACKEND] Unauthorized access attempt (no userId or email)');
       return next(new AppError(401, 'User not identified'));
     }
 
-    const bookings = await bookingService.getBookingsByUser(userId);
-    console.log(`[BACKEND] Found ${bookings.length} bookings for user ${userId}`);
+    const bookings = await bookingService.getBookingsByUserOrEmail(userId, email);
+    console.log(`[BACKEND] Found ${bookings.length} bookings for user`);
 
     res.json({
       success: true,
@@ -101,7 +102,7 @@ router.get('/my', authMiddleware, async (req: Request, res: Response, next: Next
 });
 
 // Get all bookings (for admin purposes)
-router.get('/', async (req: Request, res: Response, next: NextFunction) => {
+router.get('/', authMiddleware, async (req: Request, res: Response, next: NextFunction) => {
   try {
     const bookings = await bookingService.getAllBookings();
 

@@ -23,20 +23,12 @@ export function Dashboard() {
 
   useEffect(() => {
     const fetchBookings = async () => {
-      // Preference: Use phone if available, then fallback to current user's authenticated /my
-      const identifier = user?.phone || localStorage.getItem('userPhone') || user?.email;
-      
       if (user) {
-        console.log(`[DASHBOARD] Fetching bookings for identifier: ${identifier}`);
+        console.log(`[DASHBOARD] Fetching bookings for User: ${user.email}`);
         setLoading(true);
         try {
-          let response;
-          if (user.phone) {
-            response = await apiClient.getBookingsByPhone(user.phone);
-          } else {
-            // Fallback for users without phone in profile
-            response = await apiClient.getMyBookings();
-          }
+          // Both UID and Email are now handled by the /my endpoint in the backend
+          const response = await apiClient.getMyBookings();
 
           if (response && response.bookings) {
             console.log(`[DASHBOARD] Received ${response.bookings.length} bookings.`);
