@@ -10,9 +10,14 @@ const getApiUrl = () => {
   // Priority 1: Environment variable from Vite (BEST for production)
   // Ensure we don't accidentally use a relative path in production if it's set as such in .env
   const envUrl = import.meta.env.VITE_API_URL;
-  if (envUrl && (envUrl.startsWith('http') || !import.meta.env.PROD)) {
-    // Ensure the URL ends with /api to match backend routes
-    return envUrl.endsWith('/api') ? envUrl : `${envUrl.replace(/\/$/, '')}/api`;
+  if (envUrl) {
+    const isLocalhost = envUrl.includes('localhost') || envUrl.includes('127.0.0.1');
+    const isValidForProd = !isLocalhost || !import.meta.env.PROD;
+    
+    if (isValidForProd && (envUrl.startsWith('http') || !import.meta.env.PROD)) {
+      // Ensure the URL ends with /api to match backend routes
+      return envUrl.endsWith('/api') ? envUrl : `${envUrl.replace(/\/$/, '')}/api`;
+    }
   }
 
   // Priority 2: Smart detection for Render

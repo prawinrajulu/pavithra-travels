@@ -62,6 +62,10 @@ const initializeFirebase = () => {
       }
     }
 
+    if (!keyData) {
+      console.error('[FIREBASE] No service account credentials provided (file or env). Skipping initialization.');
+      return;
+    }
 
       try {
         admin.initializeApp({

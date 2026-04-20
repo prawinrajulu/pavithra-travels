@@ -105,7 +105,15 @@ router.post('/register', async (req: Request, res: Response, next: NextFunction)
     }
 
     // Create user document in Firestore - include phone if provided
-    const user = await userService.createUser(firebaseUser.uid, email, displayName, phone);
+    let user;
+    try {
+      user = await userService.createUser(firebaseUser.uid, email, displayName, phone);
+    } catch (dbError: any) {
+      console.error(`[AUTH] Failed to create user document in Firestore for UID ${firebaseUser.uid}:`, dbError.message);
+      // We don't delete the Firebase Auth user here to avoid complex rollback, 
+      // but logging it helps debug perm issues.
+      throw dbError; 
+    }
 
     res.json({
       success: true,
@@ -113,6 +121,7 @@ router.post('/register', async (req: Request, res: Response, next: NextFunction)
       firebaseUid: firebaseUser.uid,
     });
   } catch (error) {
+    console.error("[AUTH] Registration process failed:", error);
     next(error);
   }
 });
