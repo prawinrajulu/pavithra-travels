@@ -5,6 +5,7 @@ import { destinations } from '../data/chatbot-data';
 import { apiClient } from '../../services/apiClient';
 import { Calendar, Users, MapPin, Phone, CheckCircle } from 'lucide-react';
 import { SmartImage } from '../components/ui/SmartImage';
+import { BackButton } from '../components/back-button';
 
 export function BookingUnified() {
   const { id } = useParams<{ id: string }>();
@@ -95,6 +96,7 @@ export function BookingUnified() {
 
   return (
     <div className="bg-white min-h-screen py-12" style={{ fontFamily: 'var(--font-sans)' }}>
+      <BackButton />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header matching destination-detail */}
@@ -243,7 +245,7 @@ export function BookingUnified() {
           </div>
           
           {/* Destination Preview Column matching destination-detail */}
-          <div className="lg:col-span-5 sticky top-24">
+          <div className="lg:col-span-5 lg:sticky lg:top-24">
             {destination ? (
               <div className="space-y-6">
                 <div className="rounded-3xl overflow-hidden shadow-2xl bg-slate-100 border border-slate-200 group flex items-center justify-center h-[300px]">
