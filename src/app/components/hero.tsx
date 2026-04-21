@@ -139,18 +139,18 @@ export function Hero() {
                 {heroSlides[selectedIndex]?.description || "Discover spiritual, cultural, and scenic journeys across India."}
               </p>
 
-              <div className="flex gap-4">
+              <div className="flex flex-col sm:flex-row gap-4">
 
                 <a
                   href="#contact"
-                  className="bg-[#FF8C00] text-white px-8 py-4 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                  className="bg-[#FF8C00] text-white px-8 py-4 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 text-center"
                 >
                   Book Your Trip
                 </a>
 
                 <a
                   href="#services"
-                  className="bg-white/20 backdrop-blur-md text-white px-8 py-4 rounded-lg border border-white/40"
+                  className="bg-white/20 backdrop-blur-md text-white px-8 py-4 rounded-lg border border-white/40 text-center"
                 >
                   Explore Packages
                 </a>

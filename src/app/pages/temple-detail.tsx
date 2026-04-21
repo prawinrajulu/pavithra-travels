@@ -30,7 +30,7 @@ export function TempleDetail() {
       <section className="py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-start">
-            <div className="sticky top-24">
+            <div className="lg:sticky lg:top-24">
               <div className="rounded-2xl overflow-hidden shadow-2xl bg-slate-100 border border-slate-200 flex items-center justify-center h-[400px] sm:h-[500px]">
                 <SmartImage
                   destinationName={temple.name}

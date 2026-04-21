@@ -33,7 +33,7 @@ export function DestinationDetail() {
       <section className="py-12" style={{ fontFamily: 'var(--font-sans)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-start">
-            <div className="sticky top-24">
+            <div className="lg:sticky lg:top-24">
               <div className="rounded-3xl overflow-hidden shadow-2xl bg-slate-100 border border-slate-200 group flex items-center justify-center h-[400px] sm:h-[500px]">
                 <SmartImage
                   destinationName={destination.name}
@@ -96,24 +96,28 @@ export function DestinationDetail() {
                   Contact us to plan your journey to {destination.name}. We'll handle all travel arrangements 
                   with personalized care and attention to ensure a comfortable and memorable experience.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex flex-col gap-4">
                   <Link
                     to={`/booking/${destination.slug}`}
-                    className="flex-1 bg-[#FF8C00] text-white px-8 py-5 rounded-2xl hover:bg-[#F28C00] transition-all shadow-xl shadow-orange-500/20 text-center font-bold text-lg"
+                    className="w-full bg-[#FF8C00] text-white px-8 py-5 rounded-2xl hover:bg-[#F28C00] transition-all shadow-xl shadow-orange-500/20 text-center font-bold text-lg"
                   >
                     Book Now
                   </Link>
-                  <ShareTrip 
-                    tripName={destination.name}
-                    tripUrl={`https://pavithratravels.com/trip/${destination.id}`}
-                  />
-                  <a
-                    href="tel:+919876543210"
-                    className="flex-1 bg-white text-gray-900 px-8 py-4 rounded-lg hover:bg-gray-50 transition-all border border-gray-200 flex items-center justify-center gap-2 font-semibold"
-                  >
-                    <Phone className="h-5 w-5" />
-                    <span>Call Now</span>
-                  </a>
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <div className="flex-1">
+                      <ShareTrip 
+                        tripName={destination.name}
+                        tripUrl={`https://pavithratravels.com/trip/${destination.id}`}
+                      />
+                    </div>
+                    <a
+                      href="tel:+919876543210"
+                      className="flex-1 bg-white text-gray-900 px-8 py-4 rounded-xl hover:bg-gray-50 transition-all border border-gray-200 flex items-center justify-center gap-2 font-semibold shadow-sm"
+                    >
+                      <Phone className="h-5 w-5 text-primary" />
+                      <span>Call Now</span>
+                    </a>
+                  </div>
                 </div>
               </div>
 

@@ -58,10 +58,10 @@ export function ShareTrip({ tripName, tripUrl }: ShareTripProps) {
     <div className="relative">
       <button
         onClick={() => setShowShareOptions(!showShareOptions)}
-        className="flex items-center gap-2 px-3 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition-colors text-sm font-medium"
+        className="w-full flex items-center justify-center gap-2 px-8 py-4 bg-amber-500 text-white rounded-xl hover:bg-amber-600 transition-all font-semibold shadow-md active:scale-95"
       >
-        <Share2 className="h-4 w-4" />
-        Share
+        <Share2 className="h-5 w-5" />
+        <span>Share</span>
       </button>
 
       {showShareOptions && (
