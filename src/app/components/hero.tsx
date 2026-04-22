@@ -6,47 +6,46 @@ import { ImageWithFallback } from "./figma/ImageWithFallback";
 
 // Import hero images from assets
 import attariBorderImg from "../../assets/Attari Border.jpg";
-import assamTeaImg from "../../assets/Assam.jpg";
-import badrinathTempleImg from "../../assets/Badrinath Temple.jpg";
-import amritsarImg from "../../assets/Amritsar.jpg";
-import amarnathYatraImg from "../../assets/Amarnath Yatra.jpg";
+import kedarnathImg from "../../assets/destination/Kedarnath Temple.jpg";
+import nepalImg from "../../assets/destination/Nepal.png";
+import bhutanImg from "../../assets/destination/Bhutan.png";
 
 // Dedicated hero slide data
 const heroSlides = [
   {
     id: 1,
-    image: attariBorderImg,
-    title: "Patriotic",
-    highlight: "Pride",
-    description: "Witness the grand beating retreat ceremony and the towering national flag at the Wagah-Attari border."
+    image: kedarnathImg,
+    title: "Divine",
+    highlight: "Kedarnath",
+    description: "Seek spiritual solace at the sacred Kedarnath Temple, nestled in the majestic lap of the Himalayas."
   },
   {
     id: 2,
-    image: assamTeaImg,
+    image: nepalImg,
     title: "Serene",
-    highlight: "Escapes",
-    description: "Wander through the emerald green tea plantations and misty valleys of India's hill stations."
+    highlight: "Pokhara Lake",
+    description: "Experience the tranquil beauty and breathtaking mountain reflections of Phewa Lake in Nepal."
   },
   {
     id: 3,
-    image: badrinathTempleImg,
-    title: "Divine",
-    highlight: "Journeys",
-    description: "Seek spiritual solace at the colorful Badrinath Temple, nestled in the majestic lap of the Himalayas."
+    image: bhutanImg,
+    title: "Peaceful",
+    highlight: "Bhutan",
+    description: "Discover the Land of the Thunder Dragon, home to mystical monasteries and pristine nature."
   },
   {
     id: 4,
-    image: amritsarImg,
-    title: "Sacred",
-    highlight: "Harmony",
-    description: "Experience the ethereal beauty and tranquil waters of the Golden Temple at the break of dawn."
+    image: "https://i.ibb.co/sd5kr5Tk/ayodhya.jpg",
+    title: "Historic",
+    highlight: "Ayodhya Temple",
+    description: "Visit the grand Ram Mandir in Ayodhya, a monumental symbol of faith and cultural heritage."
   },
   {
     id: 5,
-    image: amarnathYatraImg,
-    title: "Eternal",
-    highlight: "Devotion",
-    description: "Reach the sacred ice lingam of Lord Shiva in the holy Amarnath Cave, a pilgrimage of a lifetime."
+    image: attariBorderImg,
+    title: "Patriotic",
+    highlight: "Wagah Border",
+    description: "Witness the electric atmosphere and patriotic pride of the grand Wagah-Attari border ceremony."
   }
 ];
 
@@ -168,8 +167,6 @@ export function Hero() {
 
           {/* Navigation */}
           <div className="flex items-center justify-center gap-6 mt-12">
-
-  
             <div className="flex gap-2">
               {heroSlides.map((_, index) => (
                 <button
@@ -183,29 +180,9 @@ export function Hero() {
                 />
               ))}
             </div>
-
-            <div className="flex gap-2">
-
-              <button
-                onClick={scrollPrev}
-                className="p-2 rounded-full bg-white/20 border border-white/30 text-white"
-              >
-                <ChevronLeft className="h-5 w-5" />
-              </button>
-
-              <button
-                onClick={scrollNext}
-                className="p-2 rounded-full bg-white/20 border border-white/30 text-white"
-              >
-                <ChevronRight className="h-5 w-5" />
-              </button>
-
-            </div>
-
           </div>
 
         </div>
-
       </div>
     </section>
   );

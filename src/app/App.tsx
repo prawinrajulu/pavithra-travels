@@ -26,6 +26,7 @@ import AdminMedia from "./pages/AdminMedia";
 import { AdminLayout } from "./components/AdminLayout";
 import AdminOverview from "./pages/AdminOverview";
 import AdminBookings from "./pages/AdminBookings";
+import AdminSpecialTrips from "./pages/AdminSpecialTrips";
 
 export default function App() {
   return (
@@ -56,6 +57,7 @@ export default function App() {
             <Route path="bookings" element={<AdminBookings />} />
             <Route path="whatsapp" element={<WhatsAppAutomation />} />
             <Route path="media" element={<AdminMedia />} />
+            <Route path="special-trips" element={<AdminSpecialTrips />} />
           </Route>
 
           <Route path="/check-status" element={<CinematicCheckStatus />} />

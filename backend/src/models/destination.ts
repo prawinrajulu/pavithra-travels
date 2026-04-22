@@ -1,7 +1,9 @@
 export interface Destination {
   id: string;
+  slug: string;
   name: string;
   state: string;
+  isSpecial?: boolean;
   category: 'temple' | 'family' | 'adventure' | 'beach' | 'hill-station';
   region: 'north' | 'south' | 'east' | 'west' | 'central';
   duration: string;

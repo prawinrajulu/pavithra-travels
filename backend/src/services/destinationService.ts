@@ -113,6 +113,10 @@ export class DestinationService {
 
     return url;
   }
+
+  async deleteDestination(destinationId: string): Promise<void> {
+    await db.collection('destinations').doc(destinationId).delete();
+  }
 }
 
 export const destinationService = new DestinationService();

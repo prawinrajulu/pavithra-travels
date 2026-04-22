@@ -1,7 +1,7 @@
 import { Router, Response, Request, NextFunction } from 'express';
 import { destinationService } from '../services/destinationService.js';
 import { AppError } from '../middleware/errorHandler.js';
-import { optionalAuth } from '../middleware/auth.js';
+import { optionalAuth, authMiddleware, adminMiddleware } from '../middleware/auth.js';
 
 const router = Router();
 
@@ -71,16 +71,50 @@ router.get('/region/:region', optionalAuth, async (req: Request, res: Response, 
   }
 });
 
-// Filter destinations
-router.post('/filter', optionalAuth, async (req: Request, res: Response, next: NextFunction) => {
+// Create destination (Admin only)
+router.post('/', authMiddleware, adminMiddleware, async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const filters = req.body;
-    const destinations = await destinationService.filterDestinations(filters);
+    const destination = req.body;
+    const newDestination = await destinationService.createDestination(destination);
+
+    res.status(201).json({
+      success: true,
+      destination: newDestination,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Update destination (Admin only)
+router.put('/:destinationId', authMiddleware, adminMiddleware, async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { destinationId } = req.params;
+    const updates = req.body;
+    const updatedDestination = await destinationService.updateDestination(destinationId, updates);
 
     res.json({
       success: true,
-      destinations,
-      count: destinations.length,
+      destination: updatedDestination,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Delete destination (Admin only)
+router.delete('/:destinationId', authMiddleware, adminMiddleware, async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { destinationId } = req.params;
+    
+    // Using update to set a deleted flag or just deleting it
+    // For now let's implement a delete method in service if it doesn't exist
+    // Let's check service first.
+    await destinationService.deleteDestination(destinationId);
+
+    res.json({
+      success: true,
+      message: 'Destination deleted successfully',
     });
   } catch (error) {
     next(error);

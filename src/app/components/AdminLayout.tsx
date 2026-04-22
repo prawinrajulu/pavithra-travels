@@ -6,7 +6,8 @@ import {
   MessageSquare, 
   LogOut, 
   ChevronRight,
-  User
+  User,
+  Package
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
@@ -24,6 +25,7 @@ export function AdminLayout() {
     { to: '/admin/bookings', icon: <BookOpen size={20} />, label: 'Bookings' },
     { to: '/admin/media', icon: <ImageIcon size={20} />, label: 'Media Library' },
     { to: '/admin/whatsapp', icon: <MessageSquare size={20} />, label: 'WhatsApp' },
+    { to: '/admin/special-trips', icon: <Package size={20} />, label: 'Special Trips' },
   ];
 
   return (

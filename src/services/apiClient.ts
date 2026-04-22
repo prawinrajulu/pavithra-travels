@@ -206,6 +206,21 @@ class ApiClient {
     return response.data;
   }
 
+  async createDestination(data: any) {
+    const response = await this.client.post('/destinations', data);
+    return response.data;
+  }
+
+  async updateDestination(id: string, data: any) {
+    const response = await this.client.put(`/destinations/${id}`, data);
+    return response.data;
+  }
+
+  async deleteDestination(id: string) {
+    const response = await this.client.delete(`/destinations/${id}`);
+    return response.data;
+  }
+
   async getDestination(destinationId: string) {
     const response = await this.client.get(`/destinations/${destinationId}`);
     return response.data;
