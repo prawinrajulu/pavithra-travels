@@ -37,7 +37,7 @@ export function Header() {
               <img
                 src={logo}
                 alt="Pavithra Travels"
-                className="h-16 sm:h-20 object-contain cursor-pointer"
+                className="h-10 sm:h-13 object-contain cursor-pointer"
               />
             </Link>
           </div>

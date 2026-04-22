@@ -4,7 +4,7 @@ import logo from "../../assets/logo.png";
 
 export function Footer() {
   return (
-    <footer className="bg-[#0B132B] text-white py-14 relative overflow-hidden">
+    <footer className="bg-[#FDFBF7] text-[#0B1221] py-14 relative overflow-hidden border-t border-[#E2E8F0]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
           {/* BRAND SECTION */}
@@ -29,7 +29,7 @@ export function Footer() {
               </h2>
             </div>
 
-            <p className="text-[#ADB5BD] text-sm leading-relaxed">
+            <p className="text-[#475569] text-sm leading-relaxed">
               Explore India with Comfort and Care. Your trusted
               partner for divine and memorable journeys.
             </p>
@@ -37,14 +37,14 @@ export function Footer() {
 
           {/* SERVICES */}
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-white">
+            <h3 className="text-lg font-semibold mb-4 text-[#701C1C]">
               Services
             </h3>
-            <ul className="space-y-2 text-sm text-gray-400">
+            <ul className="space-y-2 text-sm text-[#1E293B]">
               <li>
                 <Link
                   to="/services/family-honeymoon"
-                  className="hover:text-primary transition-colors"
+                  className="hover:text-[#701C1C] transition-colors"
                 >
                   Family & Honeymoon Trips
                 </Link>
@@ -52,7 +52,7 @@ export function Footer() {
               <li>
                 <Link
                   to="/destinations?type=temple"
-                  className="hover:text-primary transition-colors"
+                  className="hover:text-[#701C1C] transition-colors"
                 >
                   Temple Tours
                 </Link>
@@ -60,7 +60,7 @@ export function Footer() {
               <li>
                 <Link
                   to="/destinations"
-                  className="hover:text-primary transition-colors"
+                  className="hover:text-[#701C1C] transition-colors"
                 >
                   Pan India Tour Packages
                 </Link>
@@ -70,14 +70,14 @@ export function Footer() {
 
           {/* QUICK LINKS */}
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-white">
+            <h3 className="text-lg font-semibold mb-4 text-[#701C1C]">
               Quick Links
             </h3>
-            <ul className="space-y-2 text-sm text-gray-400">
+            <ul className="space-y-2 text-sm text-[#1E293B]">
               <li>
                 <Link
                   to="/destinations"
-                  className="hover:text-primary transition-colors"
+                  className="hover:text-[#701C1C] transition-colors"
                 >
                   Our Services
                 </Link>
@@ -85,7 +85,7 @@ export function Footer() {
               <li>
                 <Link
                   to="/booking"
-                  className="hover:text-primary transition-colors"
+                  className="hover:text-[#701C1C] transition-colors"
                 >
                   Book Now
                 </Link>
@@ -93,7 +93,7 @@ export function Footer() {
               <li>
                 <Link
                   to="/contact"
-                  className="hover:text-primary transition-colors"
+                  className="hover:text-[#701C1C] transition-colors"
                 >
                   Contact Us
                 </Link>
@@ -103,10 +103,10 @@ export function Footer() {
 
           {/* CONTACT */}
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-white">
+            <h3 className="text-lg font-semibold mb-4 text-[#701C1C]">
               Contact
             </h3>
-            <ul className="space-y-2 text-sm text-gray-400">
+            <ul className="space-y-2 text-sm text-[#1E293B]">
               <li>+91 9342094598</li>
               <li>pavithratravelshoppee@gmail.com</li>
               <li>Serving All Over India</li>
@@ -115,14 +115,14 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-gray-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-[#ADB5BD]">
+        <div className="border-t border-[#E2E8F0] pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-sm text-[#64748B]">
             © 2026 Pavithra Travels. All rights reserved.
           </p>
 
-          <p className="text-sm text-[#ADB5BD] flex items-center gap-2">
+          <p className="text-sm text-[#64748B] flex items-center gap-2">
             Crafted with{" "}
-            <Heart className="h-4 w-4 text-primary fill-primary" />{" "}
+            <Heart className="h-4 w-4 text-[#701C1C] fill-[#701C1C]" />{" "}
             for our travelers
           </p>
         </div>
