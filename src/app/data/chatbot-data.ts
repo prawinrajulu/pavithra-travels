@@ -70,7 +70,7 @@ export const destinations: Destination[] = [
     durationDays: 5,
 
 
-    bestSeason: "May to June, September to October",
+    bestSeason: "April To June, Sep to April",
     highlights: ["Char Dham pilgrimage", "Himalayan trek", "Mandakini river views"],
     description: "Himalayan pilgrimage to one of the twelve Jyotirlingas",
     imageUrl: kedarnathImg
@@ -134,7 +134,7 @@ export const destinations: Destination[] = [
     durationDays: 3,
 
 
-    bestSeason: "October to March",
+    bestSeason: "October To June",
     highlights: ["Sai Baba Temple", "Dwarkamai", "Chavadi"],
     description: "Spiritual visit to the home of Sai Baba, a universal saint",
     imageUrl: shirdiImg
@@ -150,7 +150,7 @@ export const destinations: Destination[] = [
     durationDays: 3,
 
 
-    bestSeason: "September to March",
+    bestSeason: "October To June",
     highlights: ["Vishnupad Temple", "Pinda Daan rituals", "Falgu River"],
     description: "Ancient city known for spiritual rituals and religious significance",
     imageUrl: gayaImg
@@ -166,7 +166,7 @@ export const destinations: Destination[] = [
     durationDays: 3,
 
 
-    bestSeason: "October to March",
+    bestSeason: "October to July",
     highlights: ["Triveni Sangam", "Kumbh Mela site", "Allahabad Fort"],
     description: "City of the sacred confluence of three holy rivers",
     imageUrl: prayagrajImg
@@ -264,7 +264,7 @@ export const destinations: Destination[] = [
     durationDays: 6,
 
 
-    bestSeason: "March to October, December to February",
+    bestSeason: "January to June, September to December",
     highlights: ["Shikara ride on Dal Lake", "Gulmarg snow fields", "Pahalgam meadows"],
     description: "Paradise on Earth with breathtaking valleys and snowy peaks",
     imageUrl: kashmirImg

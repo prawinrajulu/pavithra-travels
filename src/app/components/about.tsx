@@ -4,7 +4,7 @@ import { Users, MapPinned, Clock, Star } from "lucide-react";
 const stats = [
   {
     icon: Users,
-    value: "10000+",
+    value: "25000+",
     label: "Happy Travelers"
   },
   {

@@ -1,4 +1,4 @@
-import { Church, Heart, Compass, ArrowRight } from "lucide-react";
+import { Church, Heart, Compass, ArrowRight, Map } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const categories = [
@@ -28,6 +28,16 @@ const categories = [
     color: "text-green-600",
     bg: "bg-green-50",
     hoverBg: "hover:bg-green-100"
+  },
+  {
+    title: "Customized Trip",
+    type: "customized",
+    description: "Design your own personal travel itinerary",
+    icon: Map,
+    color: "text-amber-600",
+    bg: "bg-amber-50",
+    hoverBg: "hover:bg-amber-100",
+    path: "/customized-trip"
   }
 ];
 
@@ -42,13 +52,13 @@ export function ServicesNew() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-center">
           {categories.map((cat) => {
             const Icon = cat.icon;
             return (
               <Link
                 key={cat.type}
-                to={`/services/${cat.type}`}
+                to={cat.path || `/services/${cat.type}`}
                 className="group bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col items-center text-center transform hover:-translate-y-1"
               >
                 <div className={`w-20 h-20 rounded-full flex items-center justify-center mb-6 transition-colors duration-300 ${cat.bg} ${cat.hoverBg}`}>

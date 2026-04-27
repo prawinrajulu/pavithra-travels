@@ -27,6 +27,7 @@ import { AdminLayout } from "./components/AdminLayout";
 import AdminOverview from "./pages/AdminOverview";
 import AdminBookings from "./pages/AdminBookings";
 import AdminSpecialTrips from "./pages/AdminSpecialTrips";
+import CustomizedTrip from "./pages/CustomizedTrip";
 
 export default function App() {
   return (
@@ -45,24 +46,24 @@ export default function App() {
           <Route path="/family-trips" element={<FamilyTrips />} />
           <Route path="/destinations" element={<AllDestinations />} />
           <Route path="/destinations/:slug" element={<DestinationDetail />} />
+          <Route path="/customized-trip" element={<CustomizedTrip />} />
           <Route path="/booking-success" element={<BookingSuccess />} />
           <Route path="/services/:type" element={<ServiceCategory />} />
           <Route path="/booking" element={<ProtectedRoute><BookingUnified /></ProtectedRoute>} />
           <Route path="/booking/:id" element={<ProtectedRoute><BookingUnified /></ProtectedRoute>} />
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-          
-          {/* Unified Admin Panel */}
-          <Route path="/admin" element={<AdminRoute><AdminLayout /></AdminRoute>}>
-            <Route index element={<AdminOverview />} />
-            <Route path="bookings" element={<AdminBookings />} />
-            <Route path="whatsapp" element={<WhatsAppAutomation />} />
-            <Route path="media" element={<AdminMedia />} />
-            <Route path="special-trips" element={<AdminSpecialTrips />} />
-          </Route>
-
           <Route path="/check-status" element={<CinematicCheckStatus />} />
         </Route>
         
+        {/* Unified Admin Panel - Moved outside of main Layout to avoid header/footer overlap */}
+        <Route path="/admin" element={<AdminRoute><AdminLayout /></AdminRoute>}>
+          <Route index element={<AdminOverview />} />
+          <Route path="bookings" element={<AdminBookings />} />
+          <Route path="whatsapp" element={<WhatsAppAutomation />} />
+          <Route path="media" element={<AdminMedia />} />
+          <Route path="special-trips" element={<AdminSpecialTrips />} />
+        </Route>
+
         {/* Capture All */}
         <Route path="*" element={<NotFound />} />
       </Routes>
