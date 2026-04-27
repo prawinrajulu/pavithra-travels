@@ -1,5 +1,7 @@
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Users, MapPinned, Clock, Star } from "lucide-react";
+import aboutShiva from "../../assets/about-shiva.jpg";
+import aboutVishnu from "../../assets/about-vishnu.jpg";
 
 const stats = [
   {
@@ -30,12 +32,26 @@ export function About() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="order-2 lg:order-1">
-            <div className="rounded-2xl overflow-hidden shadow-xl">
-              <ImageWithFallback
-                src="https://images.unsplash.com/photo-1715015175957-751f1288cef5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0cmF2ZWwlMjBhZ2VudCUyMHBsYW5uaW5nJTIwSW5kaWElMjB0b3VyJTIwcHJvZmVzc2lvbmFsfGVufDF8fHx8MTc3MjQ1NTU2M3ww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-                alt="Professional travel planning"
-                className="w-full h-auto"
-              />
+            <div className="grid grid-cols-2 gap-6 relative items-start">
+              <div className="rounded-3xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500 h-[300px] sm:h-[450px]">
+                <ImageWithFallback
+                  src={aboutShiva}
+                  alt="Lord Shiva"
+                  className="w-full h-full"
+                  fillMode="cover"
+                />
+              </div>
+              <div className="rounded-3xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500 h-[300px] sm:h-[450px]">
+                <ImageWithFallback
+                  src={aboutVishnu}
+                  alt="Lord Vishnu"
+                  className="w-full h-full"
+                  fillMode="cover"
+                />
+              </div>
+              {/* Decorative background element */}
+              <div className="absolute -z-10 -bottom-6 -left-6 w-32 h-32 bg-amber-200/20 rounded-full blur-3xl"></div>
+              <div className="absolute -z-10 -top-6 -right-6 w-32 h-32 bg-orange-200/20 rounded-full blur-3xl"></div>
             </div>
           </div>
 

@@ -24,6 +24,8 @@ import attariBorderImg from "../../assets/destination/Attari Border.jpg";
 import sikkimImg from "../../assets/destination/Sikkim.jpg";
 import nepalCoverImg from "../../assets/destination/Nepal.png";
 import bhutanCoverImg from "../../assets/destination/Bhutan.png";
+import ayodhyaImg from "../../assets/destination/ayodhya.jpg";
+import JothirlingamImg from "../../assets/destination/12 Jothirlingam.jpg";
 
 export interface TravelPackage {
   id: number;
@@ -67,7 +69,7 @@ export const travelData: TravelPackage[] = [
     slug: "12-jyotirlinga-temples",
     name: "12 Jyotirlinga Temples",
     location: "India",
-    image: "https://images.unsplash.com/photo-1621360841013-c7683c659ec6"
+    image: JothirlingamImg
   },
   {
     id: 6,
@@ -95,7 +97,7 @@ export const travelData: TravelPackage[] = [
     slug: "ayodhya",
     name: "Ayodhya",
     location: "Uttar Pradesh",
-    image: "https://i.ibb.co/sd5kr5Tk/ayodhya.jpg"
+    image: ayodhyaImg
   },
   {
     id: 10,

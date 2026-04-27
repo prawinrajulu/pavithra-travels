@@ -5,6 +5,8 @@ import amarnathImg from "../../assets/destination/Amarnath Yatra.jpg";
 import shirdiImg from "../../assets/destination/Shirdi Darshan.jpg";
 import gayaImg from "../../assets/destination/Gaya.jpg";
 import prayagrajImg from "../../assets/destination/Prayagraj.jpg";
+import ayodhyaImg from "../../assets/destination/ayodhya.jpg";
+import JothirlingamImg from "../../assets/destination/12 Jothirlingam.jpg";
 
 export interface Temple {
   id: string;
@@ -65,7 +67,7 @@ export const temples: Temple[] = [
     location: "Pan India",
     shortDescription: "Grand tour of the 12 sacred Shiva abodes",
     description: "Experience the ultimate spiritual journey by visiting all 12 Jyotirlingas, the most sacred shrines dedicated to Lord Shiva across India. This unified tour takes you through ancient temples with deep spiritual and architectural significance.",
-    image: "https://images.unsplash.com/photo-1621360841013-c7683c659ec6",
+    image: JothirlingamImg,
     highlights: ["Somnath & Nageshwar (Gujarat)", "Mallikarjuna (Andhra)", "Mahakaleshwar & Omkareshwar (MP)", "Kedarnath (Uttarakhand)", "Bhimashankar, Trimbakeshwar, Grishneshwar (Maharashtra)", "Kashi Vishwanath (UP)", "Vaidyanath (Jharkhand)", "Ramanathaswamy (Tamil Nadu)"]
   },
   {
@@ -105,7 +107,7 @@ export const temples: Temple[] = [
     location: "Uttar Pradesh",
     shortDescription: "Birthplace of Lord Rama and divine heritage",
     description: "Ayodhya is an ancient temple city on the banks of the Sarayu River, celebrated as the birthplace of Lord Rama. The city is a centerpiece of Indian heritage, featuring the grand Ram Janmabhoomi Temple and numerous sacred ghats and shrines.",
-    image: "https://i.ibb.co/sd5kr5Tk/ayodhya.jpg",
+    image: ayodhyaImg,
     highlights: ["Ram Janmabhoomi Mandir", "Hanuman Garhi Temple", "Sarayu River Aarti", "Kanak Bhawan", "City of divine history"]
   }
 ];

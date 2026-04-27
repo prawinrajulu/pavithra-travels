@@ -24,6 +24,8 @@ import attariBorderImg from "../../assets/destination/Attari Border.jpg";
 import sikkimImg from "../../assets/destination/Sikkim.jpg";
 import nepalCoverImg from "../../assets/destination/Nepal.png";
 import bhutanCoverImg from "../../assets/destination/Bhutan.png";
+import ayodhyaImg from "../../assets/destination/ayodhya.jpg";
+import JothirlingamImg from "../../assets/destination/12 Jothirlingam.jpg";
 
 export interface Destination {
   id: string;
@@ -121,7 +123,7 @@ export const destinations: Destination[] = [
     bestSeason: "Year-round",
     highlights: ["Visit all 12 sacred Shiva shrines", "Major spiritual tour", "Cultural immersion"],
     description: "Cover the twelve most sacred abodes of Lord Shiva across India",
-    imageUrl: "https://images.unsplash.com/photo-1621360841013-c7683c659ec6"
+    imageUrl: JothirlingamImg
   },
   {
     id: "shirdi",
@@ -185,7 +187,7 @@ export const destinations: Destination[] = [
     bestSeason: "October to March",
     highlights: ["Ram Mandir", "Hanuman Garhi", "Sarayu River Aarti"],
     description: "Birthplace of Lord Rama and a major spiritual center",
-    imageUrl: "https://i.ibb.co/sd5kr5Tk/ayodhya.jpg"
+    imageUrl: ayodhyaImg
   },
 
   // Scenic & Nature Tours

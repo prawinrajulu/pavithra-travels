@@ -13,6 +13,8 @@ import manaliImg from "../../assets/destination/Manali.jpg";
 import kulluImg from "../../assets/destination/Kullu.jpg";
 import kashmirImg from "../../assets/destination/Kashmir.jpg";
 import mysoreImg from "../../assets/destination/Mysore.jpg";
+import ayodhyaImg from "../../assets/destination/ayodhya.jpg";
+import JothirlingamImg from "../../assets/destination/12 Jothirlingam.jpg";
 
 export interface ServiceDestination {
   id: string;
@@ -30,9 +32,9 @@ export const servicesData: ServiceDestination[] = [
   { id: "t2", slug: "kedarnath", title: "Kedarnath Temple", category: "temple", location: "Uttarakhand", rating: 5, image: kedarnathImg },
   { id: "t3", slug: "muktinath", title: "Muktinath Temple", category: "temple", location: "Nepal", rating: 5, image: muktinathImg },
   { id: "t4", slug: "amarnath-yatra", title: "Amarnath Yatra", category: "temple", location: "Jammu & Kashmir", rating: 5, image: amarnathImg },
-  { id: "t5", slug: "12-jyotirlinga-temples", title: "12 Jyotirlinga Temples", category: "temple", location: "Pan India", rating: 5, image: "https://images.unsplash.com/photo-1621360841013-c7683c659ec6" },
+  { id: "t5", slug: "12-jyotirlinga-temples", title: "12 Jyotirlinga Temples", category: "temple", location: "Pan India", rating: 5, image: JothirlingamImg },
   { id: "t6", slug: "shirdi-darshan", title: "Shirdi Darshan", category: "temple", location: "Maharashtra", rating: 5, image: shirdiImg },
-  { id: "t7", slug: "ayodhya", title: "Ayodhya Ram Mandir", category: "temple", location: "Uttar Pradesh", rating: 5, image: "https://i.ibb.co/sd5kr5Tk/ayodhya.jpg" },
+  { id: "t7", slug: "ayodhya", title: "Ayodhya Ram Mandir", category: "temple", location: "Uttar Pradesh", rating: 5, image: ayodhyaImg },
   
   // Family Trips
   { id: "f1", slug: "kerala", title: "Kerala Nature Tour", category: "family", location: "Kerala", rating: 5, image: keralaImg },

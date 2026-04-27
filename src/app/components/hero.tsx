@@ -9,6 +9,7 @@ import attariBorderImg from "../../assets/Attari Border.jpg";
 import kedarnathImg from "../../assets/destination/Kedarnath Temple.jpg";
 import nepalImg from "../../assets/destination/Nepal.png";
 import bhutanImg from "../../assets/destination/Bhutan.png";
+import ayodhyaImg from "../../assets/destination/ayodhya.jpg";
 
 // Dedicated hero slide data
 const heroSlides = [
@@ -35,7 +36,7 @@ const heroSlides = [
   },
   {
     id: 4,
-    image: "https://i.ibb.co/sd5kr5Tk/ayodhya.jpg",
+    image: ayodhyaImg,
     title: "Historic",
     highlight: "Ayodhya Temple",
     description: "Visit the grand Ram Mandir in Ayodhya, a monumental symbol of faith and cultural heritage."
@@ -44,7 +45,7 @@ const heroSlides = [
     id: 5,
     image: attariBorderImg,
     title: "Patriotic",
-    highlight: "Wagah Border",
+    highlight: "ATTARI Border",
     description: "Witness the electric atmosphere and patriotic pride of the grand Wagah-Attari border ceremony."
   }
 ];
