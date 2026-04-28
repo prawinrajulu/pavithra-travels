@@ -56,7 +56,7 @@ export const destinations: Destination[] = [
     durationDays: 5,
 
 
-    bestSeason: "May to June, September to October",
+    bestSeason: "April to June, September to Till Temple closing Day",
     highlights: ["Char Dham yatra", "Tapt Kund hot springs", "Neelkanth peak views"],
     description: "Divine journey to Lord Vishnu's sacred abode in the Himalayas",
     imageUrl: badrinathImg
@@ -72,7 +72,7 @@ export const destinations: Destination[] = [
     durationDays: 5,
 
 
-    bestSeason: "April To June, Sep to April",
+    bestSeason: "April To June, September to Till Temple closing Day",
     highlights: ["Char Dham pilgrimage", "Himalayan trek", "Mandakini river views"],
     description: "Himalayan pilgrimage to one of the twelve Jyotirlingas",
     imageUrl: kedarnathImg
@@ -104,7 +104,7 @@ export const destinations: Destination[] = [
     durationDays: 5,
 
 
-    bestSeason: "July to August",
+    bestSeason: "July and August",
     highlights: ["Ice Lingam darshan", "Scenic Baltal/Pahalgam route", "Spiritual atmosphere"],
     description: "Holy pilgrimage to the cave of Lord Shiva in the Kashmir Himalayas",
     imageUrl: amarnathImg
@@ -120,7 +120,7 @@ export const destinations: Destination[] = [
     durationDays: 15,
 
 
-    bestSeason: "Year-round",
+    bestSeason: "feb to june, Sept to Jan (Except Kedarnath Temple)",
     highlights: ["Visit all 12 sacred Shiva shrines", "Major spiritual tour", "Cultural immersion"],
     description: "Cover the twelve most sacred abodes of Lord Shiva across India",
     imageUrl: JothirlingamImg
@@ -136,7 +136,7 @@ export const destinations: Destination[] = [
     durationDays: 3,
 
 
-    bestSeason: "October To June",
+    bestSeason: "All Season",
     highlights: ["Sai Baba Temple", "Dwarkamai", "Chavadi"],
     description: "Spiritual visit to the home of Sai Baba, a universal saint",
     imageUrl: shirdiImg
@@ -184,7 +184,7 @@ export const destinations: Destination[] = [
     durationDays: 3,
 
 
-    bestSeason: "October to March",
+    bestSeason: "October to July",
     highlights: ["Ram Mandir", "Hanuman Garhi", "Sarayu River Aarti"],
     description: "Birthplace of Lord Rama and a major spiritual center",
     imageUrl: ayodhyaImg
@@ -460,7 +460,7 @@ export const destinations: Destination[] = [
     durationDays: 6,
 
 
-    bestSeason: "December to April",
+    bestSeason: "October to August",
     highlights: ["Tea estates", "Wildlife safaris", "Historic temples"],
     description: "Island nation with beautiful beaches, history, and lush nature",
     imageUrl: "https://images.unsplash.com/photo-1546708973-b339540b5162"
@@ -481,6 +481,7 @@ export const destinations: Destination[] = [
     description: "Mountain kingdom with ancient culture and majestic peaks",
     imageUrl: nepalCoverImg
   },
+
   {
     id: "bhutan",
     slug: "bhutan",
@@ -512,6 +513,52 @@ export const destinations: Destination[] = [
     highlights: ["Gangtok city", "Nathula Pass", "Buddhist monasteries"],
     description: "Beautiful Himalayan state with diverse culture and landscapes",
     imageUrl: sikkimImg
+  },
+
+  {
+    id: "dwarka",
+    slug: "dwarka",
+    name: "Dwarka",
+    state: "Gujarat",
+    category: "temple",
+    region: "west",
+    duration: "2-3 Days",
+    durationDays: 3,
+
+    bestSeason: "September to June",
+    highlights: ["Dwarkadhish Temple", "Nageshwar Jyotirlinga", "Bet Dwarka"],
+    description: "Ancient coastal city of Lord Krishna and one of the sacred Chardham pilgrimage sites.",
+    imageUrl: "https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3"
+  },
+  {
+    id: "somnath",
+    slug: "somnath",
+    name: "Somnath",
+    state: "Gujarat",
+    category: "temple",
+    region: "west",
+    duration: "2-3 Days",
+    durationDays: 3,
+
+    bestSeason: "October to March",
+    highlights: ["Somnath Jyotirlinga", "Bhalka Tirth", "Somnath Beach"],
+    description: "The first among the twelve Jyotirlinga shrines of Shiva, located on the serene western coast.",
+    imageUrl: "https://images.unsplash.com/photo-1629255286259-2821f57f6d48"
+  },
+  {
+    id: "bhavnagar",
+    slug: "bhavnagar",
+    name: "Bhavnagar",
+    state: "Gujarat",
+    category: "family",
+    region: "west",
+    duration: "2-3 Days",
+    durationDays: 3,
+
+    bestSeason: "October to March",
+    highlights: ["Nishkalank Mahadev Temple", "Takhteshwar Temple", "Blackbuck National Park"],
+    description: "A culturally rich city in Gujarat known for its coastal temples and diverse wildlife.",
+    imageUrl: "https://images.unsplash.com/photo-1620023617300-36a524a1e944"
   }
 ];
 

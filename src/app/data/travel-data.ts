@@ -238,5 +238,26 @@ export const travelData: TravelPackage[] = [
     name: "Sikkim",
     location: "Sikkim",
     image: sikkimImg
+  },
+  {
+    id: 30,
+    slug: "dwarka",
+    name: "Dwarka",
+    location: "Gujarat",
+    image: "https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3"
+  },
+  {
+    id: 31,
+    slug: "somnath",
+    name: "Somnath",
+    location: "Gujarat",
+    image: "https://images.unsplash.com/photo-1629255286259-2821f57f6d48"
+  },
+  {
+    id: 32,
+    slug: "bhavnagar",
+    name: "Bhavnagar",
+    location: "Gujarat",
+    image: "https://images.unsplash.com/photo-1620023617300-36a524a1e944"
   }
 ];

@@ -33,19 +33,19 @@ export function About() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="order-2 lg:order-1">
             <div className="grid grid-cols-2 gap-6 relative items-start">
-              <div className="rounded-3xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500 h-[300px] sm:h-[450px]">
+              <div className="rounded-3xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500 h-auto">
                 <ImageWithFallback
                   src={aboutShiva}
                   alt="Lord Shiva"
-                  className="w-full h-full"
+                  className="w-full h-auto"
                   fillMode="cover"
                 />
               </div>
-              <div className="rounded-3xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500 h-[300px] sm:h-[450px]">
+              <div className="rounded-3xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500 h-auto">
                 <ImageWithFallback
                   src={aboutVishnu}
                   alt="Lord Vishnu"
-                  className="w-full h-full"
+                  className="w-full h-auto"
                   fillMode="cover"
                 />
               </div>

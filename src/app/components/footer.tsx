@@ -107,9 +107,10 @@ export function Footer() {
               Contact
             </h3>
             <ul className="space-y-2 text-sm text-[#1E293B]">
-              <li>+91 9342094598</li>
-              <li>pavithratravelshoppee@gmail.com</li>
+              <li>+91 9380612789 / 9150557789</li>
+              <li>pavithrashoppee@gmail.com</li>
               <li>Serving All Over India</li>
+              <li>190, 80 Feet Rd, A-Block, Thanikachalam Nagar, Srinivasa Nagar, Ponniammanmedu, Chennai, Tamil Nadu 600110</li>
             </ul>
           </div>
         </div>
