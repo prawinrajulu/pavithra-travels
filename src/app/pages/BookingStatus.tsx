@@ -253,7 +253,6 @@ export default function BookingStatus() {
           )}
         </div>
       </div>
-      </div>
     </div>
   );
 }
