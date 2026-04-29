@@ -28,6 +28,7 @@ import AdminOverview from "./pages/AdminOverview";
 import AdminBookings from "./pages/AdminBookings";
 import AdminSpecialTrips from "./pages/AdminSpecialTrips";
 import CustomizedTrip from "./pages/CustomizedTrip";
+import { TermsAndConditions } from "./pages/TermsAndConditions";
 
 export default function App() {
   return (
@@ -53,6 +54,7 @@ export default function App() {
           <Route path="/booking/:id" element={<ProtectedRoute><BookingUnified /></ProtectedRoute>} />
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/check-status" element={<CinematicCheckStatus />} />
+          <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
         </Route>
         
         {/* Unified Admin Panel - Moved outside of main Layout to avoid header/footer overlap */}

@@ -98,6 +98,14 @@ export function Footer() {
                   Contact Us
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/terms-and-conditions"
+                  className="hover:text-[#701C1C] transition-colors"
+                >
+                  Terms & Conditions
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -107,10 +115,10 @@ export function Footer() {
               Contact
             </h3>
             <ul className="space-y-2 text-sm text-[#1E293B]">
-              <li>+91 9380612789 / 9150557789</li>
+              <li style={{ fontWeight: "bold" }}>+91 9380612789 / 9150557789</li>
               <li>pavithrashoppee@gmail.com</li>
               <li>Serving All Over India</li>
-              <li>190, 80 Feet Rd, A-Block, Thanikachalam Nagar, Srinivasa Nagar, Ponniammanmedu, Chennai, Tamil Nadu 600110</li>
+              <li>190 Thanikachalam nagar A Block 80ft Road Ponniammanmedu</li>
             </ul>
           </div>
         </div>

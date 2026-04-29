@@ -1,26 +1,8 @@
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 
 export function BackButton() {
   const navigate = useNavigate();
-  const [isVisible, setIsVisible] = useState(true);
-
-  useEffect(() => {
-    const handleScroll = () => {
-        if (window.scrollY < 50) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   const handleBack = () => {
     navigate(-1);
@@ -37,12 +19,10 @@ export function BackButton() {
         backdrop-blur-md border border-orange-300/30
         hover:bg-orange-400/25 hover:border-orange-300/50
         transition-all duration-500 ease-out
-        ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12 pointer-events-none"}
+        opacity-100 translate-x-0
       `}
       style={{
-        boxShadow: isVisible
-          ? '0 8px 32px rgba(251, 146, 60, 0.15), 0 0 20px rgba(251, 146, 60, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.3)'
-          : 'none',
+        boxShadow: '0 8px 32px rgba(251, 146, 60, 0.15), 0 0 20px rgba(251, 146, 60, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
       }}
       aria-label="Go back to previous page"
     >
@@ -51,7 +31,7 @@ export function BackButton() {
         absolute -inset-2 bg-gradient-to-r from-orange-300 via-amber-300 to-orange-300 
         rounded-full blur-lg opacity-0 group-hover:opacity-30 
         transition-all duration-500 -z-10
-        ${isVisible ? "scale-100" : "scale-0"}
+        scale-100
       `}></div>
 
       {/* Arrow icon with smooth animation */}
