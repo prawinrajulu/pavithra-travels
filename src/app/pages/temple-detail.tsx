@@ -3,6 +3,7 @@ import { BackButton } from "../components/back-button";
 import { temples } from "../data/temples";
 import { MapPin, CheckCircle, Phone } from "lucide-react";
 import { useParams, Link } from "react-router-dom";
+import { ReviewSection } from "../components/ReviewSection";
 
 export function TempleDetail() {
   const { templeId } = useParams<{ templeId: string }>();
@@ -101,6 +102,8 @@ export function TempleDetail() {
                   <li>✓ 24/7 customer support</li>
                 </ul>
               </div>
+
+              <ReviewSection destinationId={`temple-${temple.id}`} />
             </div>
           </div>
         </div>

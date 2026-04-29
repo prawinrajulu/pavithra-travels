@@ -25,6 +25,7 @@ import chatbotRoutes from './routes/chatbot.js';
 import emailRoutes from './routes/email.js';
 import adminRoutes from './routes/admin.js';
 import imageRoutes from './routes/images.js';
+import reviewRoutes from './routes/reviews.js';
 
 // Initialize Firebase
 import './config/firebase.js';
@@ -84,6 +85,7 @@ app.use('/api/chatbot', chatbotRoutes);
 app.use('/api/email', emailRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/images', imageRoutes);
+app.use('/api/reviews', reviewRoutes);
 // 404 handler
 app.use((req: express.Request, res: express.Response) => {
   res.status(404).json({

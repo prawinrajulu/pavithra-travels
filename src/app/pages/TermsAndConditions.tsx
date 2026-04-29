@@ -68,9 +68,7 @@ export function TermsAndConditions() {
                 </li>
               ))}
             </ul>
-            <div className="bg-amber-50 rounded-lg p-4 border border-amber-100 text-amber-800 text-sm">
-              <strong>Note:</strong> Please read Cancellation and refund policy in our website for more details.
-            </div>
+           
           </section>
 
           <div className="pt-8 border-t border-gray-100 text-center">

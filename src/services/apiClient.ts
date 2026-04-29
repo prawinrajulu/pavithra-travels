@@ -241,6 +241,17 @@ class ApiClient {
     return response.data;
   }
 
+  // Reviews endpoints
+  async getReviews(destinationId: string) {
+    const response = await this.client.get(`/reviews/${destinationId}`);
+    return response.data;
+  }
+
+  async createReview(reviewData: any) {
+    const response = await this.client.post('/reviews', reviewData);
+    return response.data;
+  }
+
   // Chatbot endpoints
   async getOrCreateConversation(conversationId?: string, userId?: string) {
     const params = new URLSearchParams();

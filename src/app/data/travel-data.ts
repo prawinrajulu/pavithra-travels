@@ -26,6 +26,9 @@ import nepalCoverImg from "../../assets/destination/Nepal.png";
 import bhutanCoverImg from "../../assets/destination/Bhutan.png";
 import ayodhyaImg from "../../assets/destination/ayodhya.jpg";
 import JothirlingamImg from "../../assets/destination/12 Jothirlingam.jpg";
+import dwarkaImg from "../../assets/destination/Dwarakadish.jpg";
+import somnathImg from "../../assets/destination/somnath.jpeg";
+import bhavnagarImg from "../../assets/destination/bhavnagar.jpeg";
 
 export interface TravelPackage {
   id: number;
@@ -244,20 +247,20 @@ export const travelData: TravelPackage[] = [
     slug: "dwarka",
     name: "Dwarka",
     location: "Gujarat",
-    image: "https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3"
+    image: dwarkaImg
   },
   {
     id: 31,
     slug: "somnath",
     name: "Somnath",
     location: "Gujarat",
-    image: "https://images.unsplash.com/photo-1629255286259-2821f57f6d48"
+    image: somnathImg
   },
   {
     id: 32,
     slug: "bhavnagar",
     name: "Bhavnagar",
     location: "Gujarat",
-    image: "https://images.unsplash.com/photo-1620023617300-36a524a1e944"
+    image: bhavnagarImg
   }
 ];

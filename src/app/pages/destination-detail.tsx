@@ -4,6 +4,7 @@ import { MapPin, CheckCircle, Phone, Calendar, Users } from "lucide-react";
 import { useParams, Link } from "react-router-dom";
 import { SmartImage } from "../components/ui/SmartImage";
 import { ShareTrip } from "../components/share-trip";
+import { ReviewSection } from "../components/ReviewSection";
 
 export function DestinationDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -132,6 +133,8 @@ export function DestinationDetail() {
                   <li>✓ 24/7 customer support</li>
                 </ul>
               </div>
+
+              <ReviewSection destinationId={String(destination.id)} />
             </div>
           </div>
         </div>
