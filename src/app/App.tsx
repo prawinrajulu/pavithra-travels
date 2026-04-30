@@ -62,7 +62,7 @@ export default function App() {
           <Route path="/booking" element={<ProtectedRoute><BookingUnified /></ProtectedRoute>} />
           <Route path="/booking/:id" element={<ProtectedRoute><BookingUnified /></ProtectedRoute>} />
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-          <Route path="/check-status" element={<CinematicCheckStatus />} />
+          <Route path="/check-status" element={<ProtectedRoute><CinematicCheckStatus /></ProtectedRoute>} />
           <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
         </Route>
         

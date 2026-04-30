@@ -19,10 +19,10 @@ export function Header() {
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "Destinations", path: "/destinations" },
-    { name: "Check Status", path: "/check-status" },
   ];
 
   if (user) {
+    navLinks.push({ name: "Check Status", path: "/check-status" });
     navLinks.push({ name: "Dashboard", path: "/dashboard" });
   }
 
