@@ -19,7 +19,10 @@ export const AdminRoute = ({ children }: { children: React.ReactNode }) => {
   // Check if user is logged in AND has admin role
   if (!user || user.role !== 'admin') {
     console.warn("Access denied: User is not an admin", user);
-    return <Navigate to="/" replace />;
+    if (user) {
+      alert("Access Denied: Administrative privileges required.");
+    }
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
   return <>{children}</>;

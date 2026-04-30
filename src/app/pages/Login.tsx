@@ -23,9 +23,16 @@ export function Login() {
 
     try {
       // Use real async login from AuthContext
-      await login(email, password);
-      // Successful login - redirect to the intended page
-      navigate(from, { replace: true });
+      const user = await login(email, password);
+      
+      // Successful login - redirect based on role or original destination
+      if (from && from !== '/') {
+        navigate(from, { replace: true });
+      } else if (user?.role === 'admin') {
+        navigate('/admin', { replace: true });
+      } else {
+        navigate('/dashboard', { replace: true });
+      }
     } catch (err: any) {
       console.error("Login error:", err);
       let errorMessage = 'Failed to log in. Please check your credentials.';

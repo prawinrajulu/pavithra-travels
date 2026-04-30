@@ -69,26 +69,33 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setInitialCheckDone(true);
       console.log("Auth state: Logged In (Basic Info)");
 
-      // Fetch extended profile in the background
-      apiClient.getUserProfile()
-        .then(response => {
-          if (response.success && response.profile) {
-            console.log("Auth state: Profile synchronized from backend");
-            if (response.profile.phone) {
-              localStorage.setItem('userPhone', response.profile.phone);
-            }
-            setUser({
-              id: response.profile.id,
-              name: response.profile.displayName || response.profile.name,
-              email: response.profile.email,
-              phone: response.profile.phone,
-              role: response.profile.role
-            });
+      // Fetch extended profile - await it to ensure role is available for redirection
+      try {
+        const response = await apiClient.getUserProfile();
+        if (response.success && response.profile) {
+          console.log("Auth state: Profile synchronized from backend");
+          if (response.profile.phone) {
+            localStorage.setItem('userPhone', response.profile.phone);
           }
-        })
-        .catch(err => {
-          console.warn("Extended profile fetch failed, continuing with basic info", err);
-        });
+          const fullUser = {
+            id: response.profile.id,
+            name: response.profile.displayName || response.profile.name,
+            email: response.profile.email,
+            phone: response.profile.phone,
+            role: response.profile.role
+          };
+          setUser(fullUser);
+          setLoading(false);
+          setInitialCheckDone(true);
+          return fullUser; // Return the full user for immediate use in login page
+        }
+      } catch (err) {
+        console.warn("Extended profile fetch failed, continuing with basic info", err);
+      }
+
+      setLoading(false);
+      setInitialCheckDone(true);
+      return basicUser;
     } catch (error) {
       console.error("Auth synchronization failed critical error:", error);
       setUser(null);
