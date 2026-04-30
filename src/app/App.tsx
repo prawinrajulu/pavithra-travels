@@ -30,7 +30,7 @@ import AdminSpecialTrips from "./pages/AdminSpecialTrips";
 import CustomizedTrip from "./pages/CustomizedTrip";
 import { TermsAndConditions } from "./pages/TermsAndConditions";
 import { useEffect } from "react";
-import { apiClient } from "./services/apiClient";
+import { apiClient } from "../services/apiClient";
 
 export default function App() {
   useEffect(() => {
