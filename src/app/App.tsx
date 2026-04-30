@@ -29,8 +29,17 @@ import AdminBookings from "./pages/AdminBookings";
 import AdminSpecialTrips from "./pages/AdminSpecialTrips";
 import CustomizedTrip from "./pages/CustomizedTrip";
 import { TermsAndConditions } from "./pages/TermsAndConditions";
+import { useEffect } from "react";
+import { apiClient } from "./services/apiClient";
 
 export default function App() {
+  useEffect(() => {
+    // Warm up the backend early to handle Render cold starts
+    apiClient.healthCheck().catch(() => {
+      // Ignore errors, we just want to wake up the server
+    });
+  }, []);
+
   return (
     <AuthProvider>
       <Routes>

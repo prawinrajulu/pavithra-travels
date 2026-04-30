@@ -1,16 +1,32 @@
 import { useState, useEffect } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { apiClient } from "../../services/apiClient";
-import { Search, CheckCircle, Clock, XCircle, AlertCircle, User, Phone, MapPin, Calendar, Users, Hash, ArrowLeft } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
+import { Search, CheckCircle, Clock, XCircle, AlertCircle, User, Phone, MapPin, Calendar, Users, Hash, ArrowLeft, ShieldCheck, Lock } from "lucide-react";
 
 export function CinematicCheckStatus() {
   const [searchParams] = useSearchParams();
   const prefilledBookingId = searchParams.get('check') || '';
 
+  const { user: currentUser } = useAuth();
   const [searchValue, setSearchValue] = useState(prefilledBookingId);
   const [bookings, setBookings] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const maskEmail = (email: string) => {
+    if (!email) return "Not provided";
+    const [name, domain] = email.split("@");
+    if (!domain) return "****";
+    return `${name.substring(0, 2)}***@${domain}`;
+  };
+
+  const maskPhone = (phone: string) => {
+    if (!phone) return "Not provided";
+    const p = String(phone).replace(/\D/g, '');
+    if (p.length < 4) return "****";
+    return `******${p.slice(-4)}`;
+  };
 
 
   useEffect(() => {
@@ -187,21 +203,48 @@ export function CinematicCheckStatus() {
                     </div>
                   </div>
 
-                  <div>
-                    <div className="text-white/50 text-sm mb-1">Contact Details</div>
-                    <div className="text-lg text-white font-medium flex items-center gap-2">
-                      <Phone className="h-5 w-5 text-blue-400" />
-                      {item.phone}
-                    </div>
-                  </div>
+                  {/* Privacy Logic: Mask details if not owner or admin */}
+                  {(() => {
+                    const isOwner = currentUser && (
+                      currentUser.email === item.email || 
+                      (currentUser.phone && item.phone && currentUser.phone.includes(item.phone)) || 
+                      (item.phone && currentUser.phone && item.phone.includes(currentUser.phone)) ||
+                      currentUser.role === 'admin'
+                    );
 
-                  <div>
-                    <div className="text-white/50 text-sm mb-1">Email Address</div>
-                    <div className="text-lg text-white font-medium flex items-center gap-2">
-                      <CheckCircle className="h-5 w-5 text-blue-400" />
-                      {item.email}
-                    </div>
-                  </div>
+                    return (
+                      <>
+                        <div>
+                          <div className="text-white/50 text-sm mb-1 flex items-center gap-1.5">
+                            Contact Details {!isOwner && <Lock className="h-3 w-3 text-white/30" />}
+                          </div>
+                          <div className="text-lg text-white font-medium flex items-center gap-2">
+                            <Phone className="h-5 w-5 text-blue-400" />
+                            {isOwner ? item.phone : maskPhone(item.phone)}
+                          </div>
+                        </div>
+
+                        <div>
+                          <div className="text-white/50 text-sm mb-1 flex items-center gap-1.5">
+                            Email Address {!isOwner && <Lock className="h-3 w-3 text-white/30" />}
+                          </div>
+                          <div className="text-lg text-white font-medium flex items-center gap-2">
+                            <CheckCircle className="h-5 w-5 text-blue-400" />
+                            {isOwner ? item.email : maskEmail(item.email)}
+                          </div>
+                        </div>
+
+                        {!isOwner && (
+                          <div className="pt-4 mt-4 border-t border-white/5">
+                            <p className="text-[10px] text-white/30 flex items-center gap-1.5 uppercase tracking-wider font-semibold">
+                              <ShieldCheck className="h-3 w-3" /> Privacy Protected View
+                            </p>
+                            <p className="text-[10px] text-white/20 mt-1">Login to view full traveler details</p>
+                          </div>
+                        )}
+                      </>
+                    );
+                  })()}
                 </div>
               </div>
             </div>

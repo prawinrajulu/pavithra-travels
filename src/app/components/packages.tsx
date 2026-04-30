@@ -43,17 +43,16 @@ export function Packages() {
           </p>
         </div>
 
-        {loading ? (
-          <div className="flex justify-center py-12">
-            <Loader2 className="h-8 w-8 text-[#FF8C00] animate-spin" />
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {displayTrips.map((pkg) => (
-              <DestinationCard key={pkg.id} destination={pkg} />
-            ))}
-          </div>
-        )}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          {displayTrips.map((pkg) => (
+            <DestinationCard key={pkg.id} destination={pkg} />
+          ))}
+          {loading && specialTrips.length === 0 && (
+            <div className="col-span-full flex justify-center py-4">
+              <Loader2 className="h-6 w-6 text-[#FF8C00]/30 animate-spin" />
+            </div>
+          )}
+        </div>
         
         <div className="mt-12 text-center">
           <a href="/destinations" className="inline-flex items-center gap-2 bg-white text-[#FF8C00] px-6 py-3 rounded-lg border border-[#FF8C00]/20 hover:bg-[#FF8C00]/5 font-bold transition-all">

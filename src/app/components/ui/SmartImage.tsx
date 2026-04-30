@@ -35,12 +35,33 @@ export function SmartImage({
   
   const [isResolving, setIsResolving] = useState(needsResolving);
   
+  const [isInView, setIsInView] = useState(false);
+  
   useEffect(() => {
     if (!needsResolving) {
       if (fallbackUrl) setCurrentUrl(fallbackUrl);
       setIsResolving(false);
       return;
     }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '100px' }
+    );
+
+    const element = document.querySelector(`[data-place="${destinationName}"]`);
+    if (element) observer.observe(element);
+
+    return () => observer.disconnect();
+  }, [destinationName, needsResolving, fallbackUrl]);
+
+  useEffect(() => {
+    if (!needsResolving || !isInView) return;
 
     let isMounted = true;
     
@@ -62,7 +83,7 @@ export function SmartImage({
     resolveImage();
     
     return () => { isMounted = false; };
-  }, [destinationName, needsResolving, fallbackUrl]);
+  }, [destinationName, needsResolving, isInView]);
 
   return (
     <div 
