@@ -108,7 +108,7 @@ export function DestinationDetail() {
                     <div className="flex-1">
                       <ShareTrip 
                         tripName={destination.name}
-                        tripUrl={`https://pavithratravels.com/trip/${destination.id}`}
+                        tripUrl={window.location.href}
                       />
                     </div>
                     <a
