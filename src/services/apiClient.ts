@@ -252,6 +252,11 @@ class ApiClient {
     return response.data;
   }
 
+  async deleteReview(reviewId: string) {
+    const response = await this.client.delete(`/reviews/${reviewId}`);
+    return response.data;
+  }
+
   // Chatbot endpoints
   async getOrCreateConversation(conversationId?: string, userId?: string) {
     const params = new URLSearchParams();
