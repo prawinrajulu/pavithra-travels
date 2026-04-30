@@ -20,7 +20,7 @@ export function CinematicCheckStatus() {
   }, [prefilledBookingId]);
 
   const checkStatus = async () => {
-    const query = searchValue.trim();
+    const query = searchValue.trim().replace(/#/g, '');
     if (!query) {
       setError("Please enter a valid PNR Number or Phone");
       setBookings([]);
