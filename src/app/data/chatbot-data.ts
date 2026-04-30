@@ -26,6 +26,9 @@ import nepalCoverImg from "../../assets/destination/Nepal.png";
 import bhutanCoverImg from "../../assets/destination/Bhutan.png";
 import ayodhyaImg from "../../assets/destination/ayodhya.jpg";
 import JothirlingamImg from "../../assets/destination/12 Jothirlingam.jpg";
+import dwarkaImg from "../../assets/destination/Dwarakadish.jpg";
+import somnathImg from "../../assets/destination/somnath.jpeg";
+import bhavnagarImg from "../../assets/destination/bhavnagar.jpeg";
 
 export interface Destination {
   id: string;
@@ -528,7 +531,7 @@ export const destinations: Destination[] = [
     bestSeason: "September to June",
     highlights: ["Dwarkadhish Temple", "Nageshwar Jyotirlinga", "Bet Dwarka"],
     description: "Ancient coastal city of Lord Krishna and one of the sacred Chardham pilgrimage sites.",
-    imageUrl: "https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3"
+    imageUrl: dwarkaImg
   },
   {
     id: "somnath",
@@ -543,7 +546,7 @@ export const destinations: Destination[] = [
     bestSeason: "October to March",
     highlights: ["Somnath Jyotirlinga", "Bhalka Tirth", "Somnath Beach"],
     description: "The first among the twelve Jyotirlinga shrines of Shiva, located on the serene western coast.",
-    imageUrl: "https://images.unsplash.com/photo-1629255286259-2821f57f6d48"
+    imageUrl: somnathImg
   },
   {
     id: "bhavnagar",
@@ -558,7 +561,7 @@ export const destinations: Destination[] = [
     bestSeason: "October to March",
     highlights: ["Nishkalank Mahadev Temple", "Takhteshwar Temple", "Blackbuck National Park"],
     description: "A culturally rich city in Gujarat known for its coastal temples and diverse wildlife.",
-    imageUrl: "https://images.unsplash.com/photo-1620023617300-36a524a1e944"
+    imageUrl: bhavnagarImg
   }
 ];
 

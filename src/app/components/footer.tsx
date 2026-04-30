@@ -118,7 +118,7 @@ export function Footer() {
               <li style={{ fontWeight: "bold" }}>+91 9380612789 / 9150557789</li>
               <li>pavithrashoppee@gmail.com</li>
               <li>Serving All Over India</li>
-              <li>190 Thanikachalam nagar A Block 80ft Road Ponniammanmedu</li>
+              <li>190 Thanikachalam nagar A Block 80ft Road Ponniammanmedu, Chennai 600110</li>
             </ul>
           </div>
         </div>

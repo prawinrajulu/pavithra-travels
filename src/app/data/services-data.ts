@@ -37,8 +37,8 @@ export const servicesData: ServiceDestination[] = [
   { id: "t2", slug: "kedarnath", title: "Kedarnath Temple", category: "temple", location: "Uttarakhand", rating: 5, image: kedarnathImg },
   { id: "t3", slug: "dwarka", title: "Dwarka", category: "temple", location: "Gujarat", rating: 5, image: dwarkaImg },
   { id: "t4", slug: "somnath", title: "Somnath", category: "temple", location: "Gujarat", rating: 5, image: somnathImg },
-  { id: "t5", slug: "kerala-temple", title: "Kerala Temple Trip", category: "temple", location: "Kerala", rating: 5, image: keralaImg },
-  { id: "t6", slug: "gujarat-temple", title: "Gujarat Temple & Family", category: "temple", location: "Gujarat", rating: 5, image: gujaratImg },
+  { id: "t5", slug: "kerala", title: "Kerala Temple Trip", category: "temple", location: "Kerala", rating: 5, image: keralaImg },
+  { id: "t6", slug: "gujarat", title: "Gujarat Temple & Family", category: "temple", location: "Gujarat", rating: 5, image: gujaratImg },
   { id: "t7", slug: "muktinath", title: "Muktinath Temple", category: "temple", location: "Nepal", rating: 5, image: muktinathImg },
   { id: "t8", slug: "amarnath-yatra", title: "Amarnath Yatra", category: "temple", location: "Jammu & Kashmir", rating: 5, image: amarnathImg },
   { id: "t9", slug: "12-jyotirlinga-temples", title: "12 Jyotirlinga Temples", category: "temple", location: "Pan India", rating: 5, image: JothirlingamImg },
@@ -47,17 +47,17 @@ export const servicesData: ServiceDestination[] = [
 
   // Family Trips
   { id: "f1", slug: "kerala-backwaters", title: "Kerala Backwaters", category: "family", location: "Kerala", rating: 5, image: keralaBackwaterImg },
-  { id: "f2", slug: "gujarat-state", title: "Gujarat State Tour", category: "family", location: "Gujarat", rating: 5, image: gujaratImg },
+  { id: "f2", slug: "gujarat", title: "Gujarat State Tour", category: "family", location: "Gujarat", rating: 5, image: gujaratImg },
   { id: "f3", slug: "dehradun", title: "Dehradun", category: "family", location: "Uttarakhand", rating: 5, image: dehradunImg },
   { id: "f4", slug: "bhavnagar", title: "Bhavnagar", category: "family", location: "Gujarat", rating: 5, image: bhavnagarImg },
-  { id: "f5", slug: "himachal-family", title: "Himachal Pradesh Family Tour", category: "family", location: "Himachal Pradesh", rating: 5, image: shimlaImg },
-  { id: "f6", slug: "gujarat-family", title: "Gujarat Temple & Family", category: "family", location: "Gujarat", rating: 5, image: gujaratImg },
+  { id: "f5", slug: "shimla", title: "Himachal Pradesh Family Tour", category: "family", location: "Himachal Pradesh", rating: 5, image: shimlaImg },
+  { id: "f6", slug: "gujarat", title: "Gujarat Temple & Family", category: "family", location: "Gujarat", rating: 5, image: gujaratImg },
   { id: "f7", slug: "kerala", title: "Kerala Nature Tour", category: "family", location: "Kerala", rating: 5, image: keralaImg },
   { id: "f8", slug: "rajasthan", title: "Rajasthan Heritage", category: "family", location: "Rajasthan", rating: 5, image: rajasthanImg },
   { id: "f9", slug: "mysore", title: "Mysore Palace", category: "family", location: "Karnataka", rating: 5, image: mysoreImg },
 
   // Adventure Trips
-  { id: "a1", slug: "munnar-adventure", title: "Munnar Adventure", category: "adventure", location: "Kerala", rating: 5, image: munnarImg },
+  { id: "a1", slug: "munnar", title: "Munnar Adventure", category: "adventure", location: "Kerala", rating: 5, image: munnarImg },
   { id: "a2", slug: "manali", title: "Manali Adventure", category: "adventure", location: "Himachal Pradesh", rating: 5, image: manaliImg },
   { id: "a3", slug: "kullu", title: "Kullu River Rafting", category: "adventure", location: "Himachal Pradesh", rating: 5, image: kulluImg },
   { id: "a4", slug: "kashmir", title: "Kashmir Valley", category: "adventure", location: "Jammu & Kashmir", rating: 5, image: kashmirImg },
