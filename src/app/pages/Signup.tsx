@@ -154,7 +154,7 @@ export function Signup() {
                     value={formData.phone}
                     onChange={handleChange}
                     className="w-full pl-11 pr-4 py-3 bg-white/5 backdrop-blur-md border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:border-blue-400/50 transition-all duration-300"
-                    placeholder="(Optional) Enter phone"
+                    placeholder="Enter phone"
                   />
                 </div>
               </div>
