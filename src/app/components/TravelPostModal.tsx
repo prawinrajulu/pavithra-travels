@@ -83,9 +83,8 @@ export function TravelPostModal({ postId, onClose }: TravelPostModalProps) {
       setSubmitting(true);
       const response = await apiClient.addPostReview({
         postId,
-        name,
-        rating,
-        comment
+        username: name,
+        message: comment
       });
 
       if (response.success) {

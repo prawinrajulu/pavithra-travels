@@ -16,7 +16,7 @@ async function testStorage() {
     });
     console.log('✅ Successfully saved test file to storage!');
     
-    await file.makePublic().catch(e => console.warn('Could not make public:', e.message));
+    await file.makePublic().catch((e: any) => console.warn('Could not make public:', e.message));
     console.log('Public URL:', `https://storage.googleapis.com/${bucketName}/test-connection.txt`);
     
     await file.delete();

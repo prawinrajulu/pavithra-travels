@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BlogCard } from '../components/BlogCard';
 import { apiClient } from '../../services/apiClient';
-import { Search, Filter, TrendingUp, Sparkles, Map, Loader2 } from 'lucide-react';
+import { Search, TrendingUp, Sparkles, Map, Loader2 } from 'lucide-react';
 
 export default function BlogHome() {
   const [blogs, setBlogs] = useState([]);
@@ -146,7 +146,7 @@ export default function BlogHome() {
         ) : filteredBlogs.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             <AnimatePresence>
-              {filteredBlogs.map((blog: any, index) => (
+              {filteredBlogs.map((blog: any) => (
                 <BlogCard key={blog.id} blog={blog} />
               ))}
             </AnimatePresence>

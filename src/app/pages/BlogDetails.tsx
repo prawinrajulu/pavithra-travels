@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { apiClient } from '../../services/apiClient';
 import { 
-  MapPin, Calendar, User, Heart, MessageCircle, Share2, 
-  ChevronLeft, Info, Play, Maximize2, Loader2, ArrowLeft 
+  MapPin, Calendar, Heart, Share2, 
+  ChevronLeft, Info, Play, Loader2, ArrowLeft 
 } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules';
@@ -20,7 +20,6 @@ export default function BlogDetails() {
   const [blog, setBlog] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [liked, setLiked] = useState(false);
-  const [showGallery, setShowGallery] = useState(false);
 
   useEffect(() => {
     fetchBlog();

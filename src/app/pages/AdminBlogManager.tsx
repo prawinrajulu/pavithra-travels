@@ -5,8 +5,8 @@ import { MediaUploader } from '../components/MediaUploader';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Plus, Save, X, Edit3, Trash2, MapPin, Tag, 
-  Layers, Type, AlignLeft, Info, CheckCircle2, AlertCircle, Loader2,
-  Calendar, User, Globe
+  Layers, Type, AlignLeft, Info, Loader2,
+  Globe
 } from 'lucide-react';
 import imageCompression from 'browser-image-compression';
 

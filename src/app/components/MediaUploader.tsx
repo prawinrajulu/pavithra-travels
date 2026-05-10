@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Upload, X, FileImage, FileVideo, Plus, Loader2, CheckCircle2 } from 'lucide-react';
+import { Upload, X, FileImage, FileVideo, Plus } from 'lucide-react';
 
 interface MediaFile {
   file: File;
