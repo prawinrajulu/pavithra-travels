@@ -45,6 +45,7 @@ export function AdminLayout() {
     { to: '/admin/media', icon: <ImageIcon size={20} />, label: 'Media Library' },
     { to: '/admin/whatsapp', icon: <MessageSquare size={20} />, label: 'WhatsApp' },
     { to: '/admin/special-trips', icon: <Package size={20} />, label: 'Special Trips' },
+    { to: '/admin/blogs-manager', icon: <BookOpen size={20} />, label: 'Travel Blogs' },
   ];
 
   return (

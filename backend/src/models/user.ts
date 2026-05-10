@@ -11,7 +11,7 @@ export interface User {
   createdAt: Date;
   updatedAt: Date;
   firebaseUid?: string;
-  role?: 'user' | 'admin';
+  role?: 'user' | 'admin' | 'super_admin';
 }
 
 export interface UserProfile extends User {

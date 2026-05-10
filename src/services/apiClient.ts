@@ -131,6 +131,18 @@ class ApiClient {
     return response.data;
   }
 
+  async resetPassword(emailOrId: string, newPassword: string) {
+    // If it looks like an email, send as email, otherwise as userId
+    const payload = emailOrId.includes('@') ? { email: emailOrId, newPassword } : { userId: emailOrId, newPassword };
+    const response = await this.client.post('/auth/reset-password', payload);
+    return response.data;
+  }
+
+  async changePassword(currentPassword: string, newPassword: string) {
+    const response = await this.client.post('/auth/change-password', { currentPassword, newPassword });
+    return response.data;
+  }
+
   // User endpoints
   async getUserProfile() {
     const response = await this.client.get('/users/profile');
@@ -307,6 +319,114 @@ class ApiClient {
 
   async triggerUnsplashDownload(downloadLocation: string) {
     const response = await this.client.post('/images/unsplash/trigger-download', { downloadLocation });
+    return response.data;
+  }
+
+  // Travel Posts endpoints
+  async getPosts() {
+    const response = await this.client.get('/posts');
+    return response.data;
+  }
+
+  async getPost(id: string) {
+    const response = await this.client.get(`/posts/${id}`);
+    return response.data;
+  }
+
+  async createPost(formData: FormData) {
+    const response = await this.client.post('/posts', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  }
+
+  async updatePost(id: string, formData: FormData) {
+    const response = await this.client.put(`/posts/${id}`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+    return response.data;
+  }
+
+  // JSON-based methods (images already uploaded to Firebase Storage)
+  async createPostJson(postData: { title: string; description: string; location: string; imageUrl: string; images?: string[] }) {
+    const response = await this.client.post('/posts', postData);
+    return response.data;
+  }
+
+  async updatePostJson(id: string, postData: { title: string; description: string; location: string; imageUrl: string; images?: string[] }) {
+    const response = await this.client.put(`/posts/${id}`, postData);
+    return response.data;
+  }
+
+  async deletePost(id: string) {
+    const response = await this.client.delete(`/posts/${id}`);
+    return response.data;
+  }
+
+  async uploadImage(formData: FormData) {
+    const response = await this.client.post('/upload', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      onUploadProgress: () => {
+        // This can be used if we want progress tracking from Axios
+      },
+    });
+    return response.data;
+  }
+
+  async addPostReview(reviewData: { postId: string; username: string; message: string }) {
+    const response = await this.client.post('/posts/reviews', reviewData);
+    return response.data;
+  }
+
+  // Blog endpoints
+  async getBlogs() {
+    const response = await this.client.get('/blogs');
+    return response.data;
+  }
+
+  async getBlog(id: string) {
+    const response = await this.client.get(`/blogs/${id}`);
+    return response.data;
+  }
+
+  async createBlog(blogData: any) {
+    const response = await this.client.post('/blogs', blogData);
+    return response.data;
+  }
+
+  async updateBlog(id: string, blogData: any) {
+    const response = await this.client.put(`/blogs/${id}`, blogData);
+    return response.data;
+  }
+
+  async deleteBlog(id: string) {
+    const response = await this.client.delete(`/blogs/${id}`);
+    return response.data;
+  }
+
+  async toggleBlogLike(id: string) {
+    const response = await this.client.post(`/blogs/${id}/like`);
+    return response.data;
+  }
+
+  async getBlogComments(id: string) {
+    const response = await this.client.get(`/blogs/${id}/comments`);
+    return response.data;
+  }
+
+  async addBlogComment(id: string, commentData: { message: string }) {
+    const response = await this.client.post(`/blogs/${id}/comments`, commentData);
+    return response.data;
+  }
+
+  async uploadBlogMedia(formData: FormData) {
+    const response = await this.client.post('/blogs/upload-media', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
     return response.data;
   }
 

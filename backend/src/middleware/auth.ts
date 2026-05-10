@@ -7,7 +7,7 @@ export interface UserContext {
   uid: string;
   email?: string;
   name?: string;
-  role?: 'user' | 'admin';
+  role?: 'user' | 'admin' | 'super_admin';
 }
 
 export interface AuthRequest extends Request {
@@ -37,13 +37,19 @@ export const authMiddleware = async (
     const decodedToken = await firebaseAuth.verifyIdToken(token);
     
     // Fetch matching user from our database to get their role
-    const dbUser = await userService.getUserByFirebaseUid(decodedToken.uid);
+    let dbUser = await userService.getUserByFirebaseUid(decodedToken.uid);
     
+    // Automatically assign super_admin if email matches
+    if (decodedToken.email === 'pavithrashoppee@gmail.com' && dbUser?.role !== 'super_admin') {
+      await userService.setSuperAdmin('pavithrashoppee@gmail.com');
+      dbUser = await userService.getUserByFirebaseUid(decodedToken.uid); // Refresh
+    }
+
     authReq.user = {
       uid: decodedToken.uid,
       email: decodedToken.email,
       name: decodedToken.name,
-      role: dbUser?.role || 'user',
+      role: (decodedToken.email === 'pavithrashoppee@gmail.com' ? 'super_admin' : (dbUser?.role || 'user')) as any,
     };
 
     next();
@@ -71,7 +77,7 @@ export const optionalAuth = async (
         uid: decodedToken.uid,
         email: decodedToken.email,
         name: decodedToken.name,
-        role: dbUser?.role || 'user',
+        role: (decodedToken.email === 'pavithrashoppee@gmail.com' ? 'super_admin' : (dbUser?.role || 'user')) as any,
       };
     }
   } catch (error) {
@@ -81,7 +87,7 @@ export const optionalAuth = async (
 };
 
 /**
- * Admin Only Middleware
+ * Admin Only Middleware (Includes Super Admin)
  */
 export const adminMiddleware = (
   req: Request,
@@ -89,9 +95,25 @@ export const adminMiddleware = (
   next: NextFunction,
 ): void => {
   const authReq = req as AuthRequest;
-  if (authReq.user && authReq.user.role === 'admin') {
+  if (authReq.user && (authReq.user.role === 'admin' || authReq.user.role === 'super_admin')) {
     next();
   } else {
     next(new AppError(403, 'Access denied. Admin permissions required.'));
+  }
+};
+
+/**
+ * Super Admin Only Middleware
+ */
+export const superAdminMiddleware = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): void => {
+  const authReq = req as AuthRequest;
+  if (authReq.user && authReq.user.role === 'super_admin') {
+    next();
+  } else {
+    next(new AppError(403, 'Access denied. Super Admin permissions required.'));
   }
 };

@@ -161,7 +161,7 @@ export const sendBookingConfirmation: RequestHandler = async (req: Request, res:
       </div>
     `;
 
-    const ownerEmail = process.env.OWNER_EMAIL || 'pprawin48@gmail.com';
+    const ownerEmail = process.env.OWNER_EMAIL || 'pavithrashoppee@gmail.com';
 
     if (!resend) {
       console.error('[EMAIL] Resend not initialized. Email skipped.');

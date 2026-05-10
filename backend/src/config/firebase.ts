@@ -36,29 +36,14 @@ const initializeFirebase = () => {
     if (!keyData) {
       const fb = config.firebase;
       if (fb.projectId && fb.privateKey && fb.privateKey !== 'your-private-key-here') {
-        const rawKey = fb.privateKey.replace(/^"|"$/g, '').trim();
-        
-        // 1. Extract the base64 content only by removing headers and ALL non-base64 characters
-        const base64Content = rawKey
-          .replace(/-----BEGIN PRIVATE KEY-----/g, '')
-          .replace(/-----END PRIVATE KEY-----/g, '')
-          .replace(/\\n/g, '') // Remove literal \n sequences
-          .replace(/\\r/g, '') // Remove literal \r sequences
-          .replace(/\\f/g, '') // Remove literal \f sequences
-          .replace(/\\t/g, '') // Remove literal \t sequences
-          .replace(/[^A-Za-z0-9+/=]/g, ''); // Super aggressive: remove actual newlines, \f, typos, etc.
-
-          
-        // 2. Re-format with exactly 64 characters per line (standard PEM)
-        const lines = base64Content.match(/.{1,64}/g) || [];
-        const cleanKey = `-----BEGIN PRIVATE KEY-----\n${lines.join('\n')}\n-----END PRIVATE KEY-----\n`;
+        const cleanKey = fb.privateKey.replace(/\\n/g, '\n').replace(/^"|"$/g, '');
         
         keyData = {
           projectId: fb.projectId,
           clientEmail: fb.clientEmail,
           privateKey: cleanKey,
         };
-        console.log(`[FIREBASE] Using environment variables for project: ${fb.projectId} (Stabilization active)`);
+        console.log(`[FIREBASE] Using environment variables for project: ${fb.projectId}`);
       }
     }
 
@@ -71,6 +56,7 @@ const initializeFirebase = () => {
         admin.initializeApp({
           credential: admin.credential.cert(keyData as admin.ServiceAccount),
           databaseURL: config.firebase.databaseUrl,
+          storageBucket: config.firebase.storageBucket,
         });
         isInitialized = true;
         console.log('[FIREBASE] Initialization successful');

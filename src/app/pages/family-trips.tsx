@@ -1,6 +1,6 @@
 import { BackButton } from "../components/back-button";
 import { destinations } from "../data/chatbot-data";
-import { MapPin, Clock, ArrowRight } from "lucide-react";
+import { MapPin, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SmartImage } from "../components/ui/SmartImage";
 
@@ -68,12 +68,6 @@ export function FamilyTrips() {
                     {destination.description}
                   </p>
 
-                  <div className="flex items-center justify-between text-sm text-gray-600 pt-4 border-t border-gray-100">
-                    <div className="flex items-center gap-1">
-                      <Clock className="h-4 w-4" />
-                      <span>{destination.duration}</span>
-                    </div>
-                  </div>
 
                   <div className="mt-4 flex items-center gap-2 text-blue-600 text-sm font-medium group-hover:gap-3 transition-all">
                     View Details

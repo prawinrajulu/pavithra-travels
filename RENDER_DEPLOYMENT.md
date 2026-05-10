@@ -36,7 +36,7 @@ The backend is located in the `/backend` directory.
 | `JWT_SECRET` | *A unique long random string* |
 | `JWT_EXPIRES_IN` | `7d` |
 | `RESEND_API_KEY` | *Your Resend API Key* |
-| `OWNER_EMAIL` | `pprawin48@gmail.com` |
+| `OWNER_EMAIL` | `pavithrashoppee@gmail.com` |
 | `CORS_ORIGIN` | *Wait until frontend is deployed, then add its URL here* |
 
 6. Click **Create Web Service**.

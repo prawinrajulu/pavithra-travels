@@ -12,7 +12,7 @@ export class UserService {
       email,
       displayName,
       phone,
-      role: 'user', // Default role
+      role: email === 'pavithrashoppee@gmail.com' ? 'super_admin' : 'user',
       createdAt: new Date(),
       updatedAt: new Date(),
     };
@@ -32,7 +32,22 @@ export class UserService {
       .where('firebaseUid', '==', firebaseUid)
       .limit(1)
       .get();
-    return snapshot.empty ? null : (snapshot.docs[0].data() as User);
+    if (snapshot.empty) return null;
+    const data = snapshot.docs[0].data() as User;
+    if (!data.id) data.id = snapshot.docs[0].id;
+    return data;
+  }
+
+  async getUserByEmail(email: string): Promise<User | null> {
+    const snapshot = await db
+      .collection('users')
+      .where('email', '==', email)
+      .limit(1)
+      .get();
+    if (snapshot.empty) return null;
+    const data = snapshot.docs[0].data() as User;
+    if (!data.id) data.id = snapshot.docs[0].id;
+    return data;
   }
 
   async updateUser(userId: string, updates: Partial<User>): Promise<User> {
@@ -63,6 +78,7 @@ export class UserService {
 
     const profile: UserProfile = {
       ...user,
+      role: user.email === 'pavithrashoppee@gmail.com' ? 'super_admin' : user.role,
       totalBookings: bookings.size,
     };
 
@@ -81,6 +97,41 @@ export class UserService {
     });
 
     return url;
+  }
+
+  async changePassword(uid: string, newPassword: string): Promise<void> {
+    if (!firebaseAuth) {
+      throw new AppError(503, 'Firebase Authentication service is unavailable.');
+    }
+    await firebaseAuth.updateUser(uid, {
+      password: newPassword,
+    });
+  }
+
+  async setSuperAdmin(email: string): Promise<void> {
+    const snapshot = await db.collection('users').where('email', '==', email).get();
+    if (!snapshot.empty) {
+      const userDoc = snapshot.docs[0];
+      await userDoc.ref.update({ 
+        role: 'super_admin',
+        updatedAt: new Date()
+      });
+    }
+
+    // Revoke admin/super_admin from any other user who is not this email
+    const admins = await db.collection('users')
+      .where('role', 'in', ['admin', 'super_admin'])
+      .get();
+    
+    for (const doc of admins.docs) {
+      if (doc.data().email !== email) {
+        console.log(`[AUTH] Revoking admin privileges from ${doc.data().email}`);
+        await doc.ref.update({ 
+          role: 'user',
+          updatedAt: new Date()
+        });
+      }
+    }
   }
 }
 

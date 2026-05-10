@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import logo from "../../../assets/logo.png";
 
 export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
@@ -67,7 +67,7 @@ export function LoadingScreen({ onComplete }: { onComplete: () => void }) {
         >
           <motion.div
             className="h-full bg-gradient-to-r from-cyan-500 to-blue-600 shadow-[0_0_8px_rgba(6,182,212,0.3)]"
-            style={{ width: `${progress}%`, transition: 'width 20ms linear' }}
+            style={{ width: `${progress}%` }}
           />
         </motion.div>
       </div>

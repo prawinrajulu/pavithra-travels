@@ -3,8 +3,7 @@ import {
   onAuthStateChanged, 
   signInWithEmailAndPassword, 
   signOut,
-  getIdToken,
-  sendPasswordResetEmail
+  getIdToken
 } from 'firebase/auth';
 import { auth } from '../../config/firebase';
 import { apiClient } from '../../services/apiClient';
@@ -14,16 +13,15 @@ export interface User {
   name: string;
   email: string;
   phone?: string;
-  role?: string;
+  role?: 'user' | 'admin' | 'super_admin';
 }
 
 interface AuthContextType {
   user: User | null;
   loading: boolean;
   initialCheckDone: boolean;
-  login: (email: string, password: string) => Promise<void>;
-  signup: (userData: { name: string; email: string; phone: string; password: string }) => Promise<void>;
-  resetPassword: (email: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<User | null>;
+  signup: (userData: { name: string; email: string; phone: string; password: string }) => Promise<User | null>;
   logout: () => Promise<void>;
   isAuthenticated: boolean;
 }
@@ -45,7 +43,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setLoading(false);
       setInitialCheckDone(true);
       console.log("Auth state: Logged Out");
-      return;
+      return null;
     }
 
     try {
@@ -101,6 +99,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setUser(null);
       setLoading(false);
       setInitialCheckDone(true);
+      return null;
     }
   };
 
@@ -119,7 +118,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setLoading(true);
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       console.log("Firebase login successful!");
-      await syncUser(userCredential.user);
+      return await syncUser(userCredential.user) || null;
     } catch (error: any) {
       console.error("Login process failed:", error);
       setLoading(false);
@@ -159,8 +158,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         
         if (userCredential) {
           console.log("Firebase sign-in successful after signup!");
-          await syncUser(userCredential.user);
+          return await syncUser(userCredential.user) || null;
         }
+        return null;
       } else {
         throw new Error(response.message || 'Signup failed at backend');
       }
@@ -171,19 +171,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const resetPassword = async (email: string) => {
-    try {
-      console.log("Sending password reset email to:", email);
-      setLoading(true);
-      await sendPasswordResetEmail(auth, email);
-      console.log("Password reset email sent!");
-      setLoading(false);
-    } catch (error: any) {
-      console.error("Password reset failure:", error);
-      setLoading(false);
-      throw error;
-    }
-  };
+
 
   const logout = async () => {
     try {
@@ -204,7 +192,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       initialCheckDone,
       login,
       signup,
-      resetPassword,
       logout,
       isAuthenticated: !!user
     }}>

@@ -46,7 +46,7 @@ export function Contact() {
                   </div>
                   <div>
                     <p className="text-gray-900">Phone</p>
-                    <a href="tel:+919876543210" className="text-gray-600 hover:text-amber-600">
+                    <a href="tel:+919150557789" className="text-gray-600 hover:text-amber-600">
                       +91 91505 57789
                     </a>
                   </div>

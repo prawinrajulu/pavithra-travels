@@ -20,7 +20,7 @@ import { Signup } from "./pages/Signup";
 import { NotFound } from "./pages/NotFound";
 import { Dashboard } from "./pages/Dashboard";
 import { CinematicCheckStatus } from "./pages/CinematicCheckStatus";
-import { ForgotPassword } from "./pages/ForgotPassword";
+
 import { WhatsAppAutomation } from "./pages/WhatsAppAutomation";
 import AdminMedia from "./pages/AdminMedia";
 import { AdminLayout } from "./components/AdminLayout";
@@ -29,6 +29,9 @@ import AdminBookings from "./pages/AdminBookings";
 import AdminSpecialTrips from "./pages/AdminSpecialTrips";
 import CustomizedTrip from "./pages/CustomizedTrip";
 import { TermsAndConditions } from "./pages/TermsAndConditions";
+import BlogHome from "./pages/BlogHome";
+import BlogDetails from "./pages/BlogDetails";
+import AdminBlogManager from "./pages/AdminBlogManager";
 import { useEffect } from "react";
 import { apiClient } from "../services/apiClient";
 
@@ -43,10 +46,20 @@ export default function App() {
   return (
     <AuthProvider>
       <Routes>
+        {/* Unified Admin Panel - Moved outside of main Layout to avoid header/footer overlap */}
+        <Route path="/admin" element={<AdminRoute><AdminLayout /></AdminRoute>}>
+          <Route index element={<AdminOverview />} />
+          <Route path="bookings" element={<AdminBookings />} />
+          <Route path="whatsapp" element={<WhatsAppAutomation />} />
+          <Route path="media" element={<AdminMedia />} />
+          <Route path="special-trips" element={<AdminSpecialTrips />} />
+          <Route path="blogs-manager" element={<AdminBlogManager />} />
+        </Route>
+
         {/* Full screen cinematic routes without Layout */}
         <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
         <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
-        <Route path="/forgot-password" element={<PublicRoute><ForgotPassword /></PublicRoute>} />
+
         
         {/* Main app routes with Layout */}
         <Route element={<Layout />}>
@@ -64,15 +77,8 @@ export default function App() {
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/check-status" element={<ProtectedRoute><CinematicCheckStatus /></ProtectedRoute>} />
           <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
-        </Route>
-        
-        {/* Unified Admin Panel - Moved outside of main Layout to avoid header/footer overlap */}
-        <Route path="/admin" element={<AdminRoute><AdminLayout /></AdminRoute>}>
-          <Route index element={<AdminOverview />} />
-          <Route path="bookings" element={<AdminBookings />} />
-          <Route path="whatsapp" element={<WhatsAppAutomation />} />
-          <Route path="media" element={<AdminMedia />} />
-          <Route path="special-trips" element={<AdminSpecialTrips />} />
+          <Route path="/blog" element={<BlogHome />} />
+          <Route path="/blog/:id" element={<BlogDetails />} />
         </Route>
 
         {/* Capture All */}

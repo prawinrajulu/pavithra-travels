@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Star, Clock, MapPin, Users, Calendar, ArrowRight, Check, AlertCircle } from 'lucide-react';
+import { Star, MapPin, Users, Calendar, ArrowRight, Check, AlertCircle } from 'lucide-react';
 import { apiClient } from '../../services/apiClient';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { servicesData } from '../data/services-data';
@@ -134,10 +134,6 @@ export function BookingDetail() {
                     <div className="flex items-center gap-2">
                       <Star className="h-4 w-4 text-amber-400 fill-current" />
                       <span className="text-white">⭐ {destination.rating}.0</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Clock className="h-4 w-4 text-blue-400" />
-                      <span className="text-white">Custom Duration</span>
                     </div>
                   </div>
 

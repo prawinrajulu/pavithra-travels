@@ -26,7 +26,7 @@ JWT_SECRET=1b21cf6437f22d5ef9503ea399172f98ac431d419cfbce038d5495339e129a3a8a55e
 JWT_EXPIRES_IN=7d
 CORS_ORIGIN=http://localhost:5173,http://localhost:5174,http://localhost:5175,http://127.0.0.1:5173,http://127.0.0.1:5174,http://127.0.0.1:5175,http://10.123.76.166:5173
 RESEND_API_KEY=re_UNBmmmmq_Nf8UJ251f44Z2KvLH76YGc71
-OWNER_EMAIL=pprawin48@gmail.com
+OWNER_EMAIL=pavithrashoppee@gmail.com
 `;
 
 fs.writeFileSync('.env', envContent);

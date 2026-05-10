@@ -8,7 +8,7 @@ export class AdminController {
       res.json({
         success: true,
         isConfigured,
-        provider: 'Twilio',
+        provider: 'Meta Cloud API',
         ownerNumber: process.env.OWNER_WHATSAPP || 'Not Set'
       });
     } catch (error) {

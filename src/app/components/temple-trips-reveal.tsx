@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Church, MapPin, Star, Clock, ArrowRight } from "lucide-react";
+import { Church, MapPin, Star, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { destinations } from "../data/chatbot-data";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
@@ -84,10 +84,7 @@ export function TempleTripsReveal() {
                   <div className="p-6">
                     <div className="flex items-center gap-2 mb-3">
                       <Star className="h-4 w-4 text-amber-400 fill-current" />
-                      <span className="text-sm text-gray-600">⭐ 4.8</span>
-                      <span className="text-gray-400">•</span>
-                      <Clock className="h-4 w-4 text-blue-500" />
-                      <span className="text-sm text-gray-600">{destination.duration}</span>
+                      <span className="text-sm text-gray-600">4.8</span>
                     </div>
 
                     <div className="mb-6">

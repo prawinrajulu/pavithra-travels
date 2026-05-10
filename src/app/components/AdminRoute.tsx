@@ -16,8 +16,8 @@ export const AdminRoute = ({ children }: { children: React.ReactNode }) => {
     );
   }
 
-  // Check if user is logged in AND has admin role
-  if (!user || user.role !== 'admin') {
+  // Check if user is logged in AND has admin or super_admin role
+  if (!user || (user.role !== 'admin' && user.role !== 'super_admin')) {
     console.warn("Access denied: User is not an admin", user);
     if (user) {
       alert("Access Denied: Administrative privileges required.");

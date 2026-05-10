@@ -1,7 +1,7 @@
 import { Router, Response, Request, NextFunction } from 'express';
 import { destinationService } from '../services/destinationService.js';
 import { AppError } from '../middleware/errorHandler.js';
-import { optionalAuth, authMiddleware, adminMiddleware } from '../middleware/auth.js';
+import { optionalAuth, authMiddleware, adminMiddleware, superAdminMiddleware } from '../middleware/auth.js';
 
 const router = Router();
 
@@ -71,8 +71,8 @@ router.get('/region/:region', optionalAuth, async (req: Request, res: Response, 
   }
 });
 
-// Create destination (Admin only)
-router.post('/', authMiddleware, adminMiddleware, async (req: Request, res: Response, next: NextFunction) => {
+// Create destination (Super Admin only)
+router.post('/', authMiddleware, superAdminMiddleware, async (req: Request, res: Response, next: NextFunction) => {
   try {
     const destination = req.body;
     const newDestination = await destinationService.createDestination(destination);
@@ -86,8 +86,8 @@ router.post('/', authMiddleware, adminMiddleware, async (req: Request, res: Resp
   }
 });
 
-// Update destination (Admin only)
-router.put('/:destinationId', authMiddleware, adminMiddleware, async (req: Request, res: Response, next: NextFunction) => {
+// Update destination (Super Admin only)
+router.put('/:destinationId', authMiddleware, superAdminMiddleware, async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { destinationId } = req.params;
     const updates = req.body;
@@ -102,8 +102,8 @@ router.put('/:destinationId', authMiddleware, adminMiddleware, async (req: Reque
   }
 });
 
-// Delete destination (Admin only)
-router.delete('/:destinationId', authMiddleware, adminMiddleware, async (req: Request, res: Response, next: NextFunction) => {
+// Delete destination (Super Admin only)
+router.delete('/:destinationId', authMiddleware, superAdminMiddleware, async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { destinationId } = req.params;
     

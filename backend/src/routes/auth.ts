@@ -1,7 +1,7 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { firebaseAuth } from '../config/firebase.js';
 import { userService } from '../services/userService.js';
-import { AuthRequest, authMiddleware, adminMiddleware } from '../middleware/auth.js';
+import { AuthRequest, authMiddleware, adminMiddleware, superAdminMiddleware } from '../middleware/auth.js';
 import { AppError } from '../middleware/errorHandler.js';
 import { config } from '../config/env.js';
 
@@ -40,6 +40,13 @@ router.post('/login', async (req: Request, res: Response, next: NextFunction) =>
     // Get the user data from our database
     const dbUser = await userService.getUserByFirebaseUid(data.localId);
 
+    // Automatically assign super_admin if email matches
+    let role = dbUser?.role || 'user';
+    if (data.email === 'pavithrashoppee@gmail.com' && role !== 'super_admin') {
+      await userService.setSuperAdmin('pavithrashoppee@gmail.com');
+      role = 'super_admin';
+    }
+
     // Provide the token and user data
     res.json({
       success: true,
@@ -48,7 +55,7 @@ router.post('/login', async (req: Request, res: Response, next: NextFunction) =>
         id: data.localId,
         email: data.email,
         name: data.displayName || dbUser?.displayName,
-        role: dbUser?.role || 'user',
+        role: role,
       }
     });
   } catch (error) {
@@ -178,5 +185,76 @@ router.post('/verify-token', async (req: Request, res: Response, next: NextFunct
     });
   }
 });
+
+// Reset user password (Super Admin Only)
+router.post('/reset-password', authMiddleware, superAdminMiddleware, async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { userId, email, newPassword } = req.body;
+
+    if ((!userId && !email) || !newPassword) {
+      return next(new AppError(400, 'User ID or email, and new password are required'));
+    }
+
+    let user;
+    if (email) {
+      user = await userService.getUserByEmail(email);
+    } else {
+      user = await userService.getUserById(userId);
+    }
+
+    if (!user || !user.firebaseUid) {
+      return next(new AppError(404, 'User not found'));
+    }
+
+    await userService.changePassword(user.firebaseUid, newPassword);
+
+    res.json({
+      success: true,
+      message: 'Password reset successfully'
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Self password change (Authenticated users)
+router.post('/change-password', authMiddleware, async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const authReq = req as AuthRequest;
+    const { newPassword, currentPassword } = req.body;
+
+    if (!newPassword || !currentPassword) {
+      return next(new AppError(400, 'Current and new password are required'));
+    }
+
+    // To verify current password, we try to log in with it
+    const response = await fetch(
+      `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${config.firebase.apiKey}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          email: authReq.user?.email, 
+          password: currentPassword, 
+          returnSecureToken: true 
+        })
+      }
+    );
+
+    if (!response.ok) {
+      return next(new AppError(401, 'Invalid current password'));
+    }
+
+    await userService.changePassword(authReq.user!.uid, newPassword);
+
+    res.json({
+      success: true,
+      message: 'Password updated successfully'
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 
 export default router;

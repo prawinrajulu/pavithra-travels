@@ -72,7 +72,7 @@ export function WhatsAppAutomation() {
             </div>
             <div>
               <h1 className="text-3xl font-bold">WhatsApp Automation</h1>
-              <p className="text-white/60">Manage your real-time booking alerts powered by Twilio</p>
+              <p className="text-white/60">Manage your real-time booking alerts powered by Meta WhatsApp</p>
             </div>
           </div>
           <button 
@@ -111,7 +111,7 @@ export function WhatsAppAutomation() {
                 <div className="space-y-4 pt-4">
                   <div className="flex justify-between items-center text-sm">
                     <span className="text-[#0B132B]/50 font-medium">Provider</span>
-                    <span className="text-[#0B132B] font-bold">{status?.provider || 'Twilio'}</span>
+                    <span className="text-[#0B132B] font-bold">{status?.provider || 'Meta WhatsApp'}</span>
                   </div>
                   <div className="flex justify-between items-center text-sm">
                     <span className="text-[#0B132B]/50 font-medium">Owner Number</span>
@@ -133,7 +133,7 @@ export function WhatsAppAutomation() {
                 Quick Tip
               </h3>
               <p className="text-white/80 text-sm leading-relaxed">
-                Remember to verify your sender number in the Twilio Console before sending test messages to new recipients.
+                Ensure your Meta WhatsApp Cloud API permanent token is active and your Phone Number ID is correctly configured in the backend environment.
               </p>
             </div>
           </div>
@@ -145,7 +145,7 @@ export function WhatsAppAutomation() {
                 <Send className="h-6 w-6 text-[#FF8C00]" />
                 Send Test Message
               </h2>
-              <p className="text-[#0B132B]/50 mb-8">Verify your Twilio WhatsApp integration by sending a manual alert.</p>
+              <p className="text-[#0B132B]/50 mb-8">Verify your Meta WhatsApp Cloud API integration by sending a manual alert.</p>
 
               <form onSubmit={handleSendTest} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -208,8 +208,8 @@ export function WhatsAppAutomation() {
                     <AlertCircle className="h-6 w-6 text-amber-500" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-[#0B132B]">Sandbox Mode</h4>
-                    <p className="text-sm text-[#0B132B]/50">Use 'join [code]' for sandbox verification.</p>
+                    <h4 className="font-bold text-[#0B132B]">Message Templates</h4>
+                    <p className="text-sm text-[#0B132B]/50">Use approved Meta templates for customer-initiated conversations.</p>
                   </div>
                 </div>
               </div>

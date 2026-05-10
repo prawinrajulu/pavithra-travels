@@ -1,4 +1,4 @@
-import { MapPin, Clock } from "lucide-react";
+import { MapPin } from "lucide-react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Link } from "react-router-dom";
 
@@ -82,12 +82,6 @@ export function FeaturedDestinations() {
                   <span className="text-sm">{destination.state}</span>
                 </div>
                 
-                <div className="flex items-center justify-between text-sm text-gray-600 pt-3 border-t border-gray-100">
-                  <div className="flex items-center gap-1">
-                    <Clock className="h-4 w-4" />
-                    <span>{destination.duration}</span>
-                  </div>
-                </div>
               </div>
             </Link>
           ))}

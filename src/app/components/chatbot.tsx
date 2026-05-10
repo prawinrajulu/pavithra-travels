@@ -52,9 +52,9 @@ interface BookingData {
   bookingId?: string;
 }
 
-const WHATSAPP_NUMBER = import.meta.env.VITE_WHATSAPP_NUMBER || "+917824047328";
-const OWNER_EMAIL = import.meta.env.VITE_OWNER_EMAIL || "pprawin48@gmail.com";
-const WHATSAPP_DISPLAY = import.meta.env.VITE_WHATSAPP_DISPLAY || "+91 78240 47328";
+const WHATSAPP_NUMBER = import.meta.env.VITE_WHATSAPP_NUMBER || "+919150557789";
+const OWNER_EMAIL = import.meta.env.VITE_OWNER_EMAIL || "pavithrashoppee@gmail.com";
+const WHATSAPP_DISPLAY = import.meta.env.VITE_WHATSAPP_DISPLAY || "+91 91505 57789";
 
 export function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
@@ -327,7 +327,7 @@ export function ChatBot() {
     setIsTyping(true);
     setTimeout(() => {
       setIsTyping(false);
-      const details = `📍 ${destination.name}, ${destination.state}\n\n${destination.description}\n\n⏱️ Duration: ${destination.duration}\n🌤️ Best Season: ${destination.bestSeason}\n\n✨ Highlights:\n${destination.highlights.map((h) => `• ${h}`).join("\n")}`;
+      const details = `📍 ${destination.name}, ${destination.state}\n\n${destination.description}\n\n🌤️ Best Season: ${destination.bestSeason}\n\n✨ Highlights:\n${destination.highlights.map((h) => `• ${h}`).join("\n")}`;
       addMessage(details, "bot");
       setCurrentStep("destination-details");
     }, 700);

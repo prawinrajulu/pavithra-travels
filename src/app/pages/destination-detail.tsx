@@ -1,6 +1,6 @@
 import { BackButton } from "../components/back-button";
 import { destinations } from "../data/chatbot-data";
-import { MapPin, CheckCircle, Phone, Calendar, Users } from "lucide-react";
+import { MapPin, CheckCircle, Phone, Users } from "lucide-react";
 import { useParams, Link } from "react-router-dom";
 import { SmartImage } from "../components/ui/SmartImage";
 import { ShareTrip } from "../components/share-trip";
@@ -45,12 +45,7 @@ export function DestinationDetail() {
                   alt={destination.name}
                 />
               </div>
-              <div className="mt-4 grid grid-cols-2 gap-4">
-                <div className="bg-gradient-to-br from-amber-50 to-orange-50 p-4 rounded-xl border border-amber-100">
-                  <Calendar className="h-5 w-5 text-amber-600 mb-2" />
-                  <p className="text-xs text-gray-600 mb-1">Duration</p>
-                  <p className="font-semibold text-gray-900">{destination.duration}</p>
-                </div>
+              <div className="mt-4">
                 <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-4 rounded-xl border border-blue-100">
                   <Users className="h-5 w-5 text-blue-600 mb-2" />
                   <p className="text-xs text-gray-600 mb-1">Best For</p>

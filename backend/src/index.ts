@@ -26,14 +26,18 @@ import emailRoutes from './routes/email.js';
 import adminRoutes from './routes/admin.js';
 import imageRoutes from './routes/images.js';
 import reviewRoutes from './routes/reviews.js';
+import uploadRoutes from './routes/uploadRoutes.js';
+import blogRoutes from './routes/blogRoutes.js';
 
 // Initialize Firebase
 import './config/firebase.js';
 
+import path from 'path';
+
 const app = express();
 
 // Security Middlewares
-app.use(helmet()); // Sets robust HTTP security headers
+app.use(helmet({ crossOriginResourcePolicy: false })); // Allow cross-origin images
 
 // Logging & Monitoring
 app.use(morgan('combined')); // Standard Apache combined log output
@@ -63,6 +67,9 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
+// Serve static local uploads
+app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
+
 // Root health check for Render port detection
 app.get('/', (req, res) => {
   res.json({
@@ -86,6 +93,8 @@ app.use('/api/email', emailRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/images', imageRoutes);
 app.use('/api/reviews', reviewRoutes);
+app.use('/api/upload', uploadRoutes);
+app.use('/api/blogs', blogRoutes);
 // 404 handler
 app.use((req: express.Request, res: express.Response) => {
   res.status(404).json({
@@ -105,4 +114,5 @@ app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Pavithra Travels API Server running on port ${PORT}`);
   console.log(`Environment: ${config.nodeEnv}`);
   console.log(`CORS Origin: ${config.corsOrigin}`);
+  console.log('Restarting for new env variables...');
 });

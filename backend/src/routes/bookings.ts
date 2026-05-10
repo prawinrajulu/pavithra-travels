@@ -3,7 +3,7 @@ import { bookingService } from '../services/bookingService.js';
 import { emailService } from '../services/emailService.js';
 import { whatsappService } from '../services/whatsappService.js';
 import { AppError } from '../middleware/errorHandler.js';
-import { authMiddleware, AuthRequest } from '../middleware/auth.js';
+import { authMiddleware, AuthRequest, superAdminMiddleware } from '../middleware/auth.js';
 
 const router = Router();
 
@@ -101,8 +101,8 @@ router.get('/my', authMiddleware, async (req: Request, res: Response, next: Next
   }
 });
 
-// Get all bookings (for admin purposes)
-router.get('/', authMiddleware, async (req: Request, res: Response, next: NextFunction) => {
+// Get all bookings (for super admin only)
+router.get('/', authMiddleware, superAdminMiddleware, async (req: Request, res: Response, next: NextFunction) => {
   try {
     const bookings = await bookingService.getAllBookings();
 
@@ -115,8 +115,8 @@ router.get('/', authMiddleware, async (req: Request, res: Response, next: NextFu
   }
 });
 
-// Update booking status
-router.put('/:bookingId/status', async (req: Request, res: Response, next: NextFunction) => {
+// Update booking status (for super admin only)
+router.put('/:bookingId/status', authMiddleware, superAdminMiddleware, async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { bookingId } = req.params;
     const { status } = req.body;

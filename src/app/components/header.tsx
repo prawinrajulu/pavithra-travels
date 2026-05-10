@@ -19,6 +19,7 @@ export function Header() {
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "Destinations", path: "/destinations" },
+    { name: "Blog", path: "/blog" },
   ];
 
   if (user) {
@@ -55,7 +56,7 @@ export function Header() {
                 {link.name}
               </Link>
             ))}
-            {user?.role === 'admin' && (
+            {(user?.role === 'admin' || user?.role === 'super_admin') && (
               <Link to="/admin" className="text-primary font-bold transition-colors text-sm uppercase tracking-wider border-l border-gray-100 pl-6">
                 Admin Panel
               </Link>
@@ -124,7 +125,7 @@ export function Header() {
                 {link.name}
               </Link>
             ))}
-            {user?.role === 'admin' && (
+            {(user?.role === 'admin' || user?.role === 'super_admin') && (
               <Link 
                 to="/admin" 
                 className="text-primary font-bold py-2"
