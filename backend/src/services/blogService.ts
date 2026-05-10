@@ -32,7 +32,7 @@ export class BlogService {
 
   async getAllBlogs(): Promise<Blog[]> {
     const snapshot = await this.collection.orderBy('createdAt', 'desc').get();
-    return snapshot.docs.map(doc => doc.data() as Blog);
+    return snapshot.docs.map((doc: any) => doc.data() as Blog);
   }
 
   async getBlogById(id: string): Promise<Blog | null> {
@@ -62,7 +62,7 @@ export class BlogService {
     // Delete media from storage first
     try {
       const [files] = await storage.bucket().getFiles({ prefix: `travel-blogs/${id}/` });
-      await Promise.all(files.map(file => file.delete()));
+      await Promise.all(files.map((file: any) => file.delete()));
     } catch (err) {
       console.error('Error deleting blog media:', err);
     }
@@ -123,7 +123,7 @@ export class BlogService {
 
   async getComments(blogId: string): Promise<BlogComment[]> {
     const snapshot = await this.collection.doc(blogId).collection('comments').orderBy('createdAt', 'desc').get();
-    return snapshot.docs.map(doc => doc.data() as BlogComment);
+    return snapshot.docs.map((doc: any) => doc.data() as BlogComment);
   }
 }
 

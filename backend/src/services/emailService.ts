@@ -15,7 +15,7 @@ const transporter = nodemailer.createTransport({
 });
 
 // Verify connection configuration
-transporter.verify((error) => {
+transporter.verify((error: any) => {
   if (error) {
     console.error('[EMAIL SERVICE] Transporter verification failed!');
     console.error('[EMAIL SERVICE] Error Code:', error.name);
