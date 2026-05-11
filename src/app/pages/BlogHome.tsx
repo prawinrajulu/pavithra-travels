@@ -11,7 +11,7 @@ export default function BlogHome() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [sortBy, setSortBy] = useState('Latest');
 
-  const categories = ['All', 'Adventure', 'Culture', 'Food', 'Nature', 'Luxury', 'Budget'];
+  const categories = ['All', 'Adventure', 'Culture', 'Food', 'Devotional','Nature', 'Luxury', 'Budget'];
 
   useEffect(() => {
     fetchBlogs();

@@ -266,6 +266,7 @@ export default function AdminBlogManager() {
                         <option>Adventure</option>
                         <option>Culture</option>
                         <option>Food</option>
+                        <option>Devotional</option>
                         <option>Nature</option>
                         <option>Luxury</option>
                         <option>Budget</option>
