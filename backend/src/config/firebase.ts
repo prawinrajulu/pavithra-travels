@@ -126,7 +126,7 @@ const getDb = () => {
 };
 
 export const db = getDb();
-export const firebaseAuth = getAuth();
+export const firebaseAuth: ReturnType<typeof admin.auth> | null = getAuth();
 export const rtdb: any = isInitialized ? admin.database() : null;
 export const storage: any = isInitialized ? admin.storage() : null;
 
