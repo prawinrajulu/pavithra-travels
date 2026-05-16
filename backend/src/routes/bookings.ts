@@ -128,32 +128,29 @@ router.put('/:bookingId/status', authMiddleware, superAdminMiddleware, async (re
     const booking = await bookingService.updateBooking(bookingId, { status });
     console.log(`[BOOKINGS ROUTER] Status for ${bookingId} updated to ${status}`);
 
-    // Trigger Completion Notifications
+    // Trigger Completion Notifications (Background task)
     if (status === 'completed') {
-      try {
-        console.log(`[BOOKINGS ROUTER] Triggering completion notifications for ${bookingId}`);
-        await Promise.allSettled([
-          emailService.sendTripCompletionNotification({
-            toEmail: booking.email || '',
-            customerName: booking.name,
-            destination: booking.destinationName || '',
-            travelDate: new Date(booking.travelDate).toLocaleDateString(),
-            passengers: booking.passengers,
-            bookingId: booking.bookingId,
-            phone: booking.phone
-          }),
-          whatsappService.sendTripCompletionAlert({
-            customerName: booking.name,
-            destination: booking.destinationName || '',
-            travelDate: booking.travelDate,
-            phone: booking.phone,
-            bookingId: booking.bookingId
-          })
-        ]);
-        console.log(`[BOOKINGS ROUTER] Completion notifications dispatched.`);
-      } catch (notifyErr) {
-        console.error('[BOOKINGS ROUTER] Notification error:', notifyErr);
-      }
+      console.log(`[BOOKINGS ROUTER] Triggering background completion notifications for ${bookingId}`);
+      Promise.allSettled([
+        emailService.sendTripCompletionNotification({
+          toEmail: booking.email || '',
+          customerName: booking.name,
+          destination: booking.destinationName || '',
+          travelDate: new Date(booking.travelDate).toLocaleDateString(),
+          passengers: booking.passengers,
+          bookingId: booking.bookingId,
+          phone: booking.phone
+        }),
+        whatsappService.sendTripCompletionAlert({
+          customerName: booking.name,
+          destination: booking.destinationName || '',
+          travelDate: booking.travelDate,
+          phone: booking.phone,
+          bookingId: booking.bookingId
+        })
+      ]).then(() => {
+        console.log(`[BOOKINGS ROUTER] Background completion notifications for ${bookingId} finished.`);
+      });
     }
 
     res.json({

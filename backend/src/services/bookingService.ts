@@ -69,30 +69,31 @@ export class BookingService {
     await db.collection('bookings').doc(id).set(booking);
     console.log('[BOOKING SERVICE] Firestore write successful. ID:', id);
 
-    // Automated Notifications (Non-blocking)
-    try {
-      await Promise.all([
-        emailService.sendBookingConfirmation({
-          toEmail: request.email || '',
-          customerName: request.name,
-          destination: destinationName,
-          travelDate: new Date(request.travelDate).toLocaleDateString(),
-          passengers: request.passengers,
-          bookingId: bookingId,
-          phone: request.phone,
-          specialRequests: request.specialRequests
-        }),
-        whatsappService.sendBookingAlert({
-          customerName: request.name,
-          destination: destinationName,
-          travelDate: request.travelDate,
-          phone: request.phone,
-          bookingId: bookingId
-        })
-      ]);
-    } catch (notificationError) {
-      console.error('[BOOKING SERVICE] Notifications failed:', notificationError);
-    }
+    // Automated Notifications (Background tasks)
+    // We don't await this so the user gets an immediate response
+    Promise.all([
+      emailService.sendBookingConfirmation({
+        toEmail: request.email || '',
+        customerName: request.name,
+        destination: destinationName,
+        travelDate: new Date(request.travelDate).toLocaleDateString(),
+        passengers: request.passengers,
+        bookingId: bookingId,
+        phone: request.phone,
+        specialRequests: request.specialRequests
+      }),
+      whatsappService.sendBookingAlert({
+        customerName: request.name,
+        destination: destinationName,
+        travelDate: request.travelDate,
+        phone: request.phone,
+        bookingId: bookingId
+      })
+    ]).then(() => {
+      console.log('[BOOKING SERVICE] Background notifications completed successfully');
+    }).catch(notificationError => {
+      console.error('[BOOKING SERVICE] Background notifications failed:', notificationError);
+    });
 
     return serializeFirestoreData(booking);
   }
