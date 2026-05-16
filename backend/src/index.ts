@@ -45,7 +45,7 @@ app.use(morgan('combined')); // Standard Apache combined log output
 // Strict CORS Middleware
 const allowedOrigins = config.corsOrigin 
   ? config.corsOrigin.split(',').map(o => o.trim()) 
-  : ['http://localhost:5173', 'http://localhost:5174'];
+  : ['http://localhost:5173', 'https://pavithra-travels.com', 'https://www.pavithra-travels.com'];
 
 console.log(`[CORS] Initialized with origins: ${allowedOrigins.join(', ')}`);
 
@@ -55,16 +55,21 @@ app.use(cors({
     if (!origin || allowedOrigins.indexOf(origin) !== -1 || allowedOrigins.includes('*')) {
       callback(null, true);
     } else {
-      console.error(`🚨 CORS Refused: The origin "${origin}" is not allowed. Check CORS_ORIGIN in your environment.`);
-      callback(new Error('Not allowed by CORS'));
+      console.warn(`🚨 CORS Refused: The origin "${origin}" is not allowed. Check CORS_ORIGIN in your environment.`);
+      // In production, we might want to be strict, but for debugging let's allow if origin includes our domain
+      if (origin.includes('pavithra-travels.com')) {
+        callback(null, true);
+      } else {
+        callback(null, false); // Return false instead of error to avoid crashing some clients
+      }
     }
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'x-api-key'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'x-api-key', 'Accept'],
 }));
 
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 // Serve static local uploads
@@ -76,7 +81,7 @@ app.get('/', (req, res) => {
     success: true,
     message: 'Pavithra Travels API is running',
     environment: config.nodeEnv,
-    version: '1.0.1'
+    version: '1.0.2'
   });
 });
 
@@ -95,6 +100,7 @@ app.use('/api/images', imageRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/blogs', blogRoutes);
+
 // 404 handler
 app.use((req: express.Request, res: express.Response) => {
   res.status(404).json({
@@ -110,9 +116,16 @@ app.use(errorHandler);
 // Start server
 const PORT = config.port;
 
+// Environment validation logging
+console.log('--- Environment Validation ---');
+console.log(`PORT: ${PORT}`);
+console.log(`NODE_ENV: ${config.nodeEnv}`);
+console.log(`FIREBASE_PROJECT_ID: ${config.firebase.projectId ? '✅ Set' : '❌ Missing'}`);
+console.log(`JWT_SECRET: ${config.jwtSecret !== 'your-secret-key' ? '✅ Set' : '⚠️ Default used'}`);
+console.log(`CLOUDINARY: ${config.cloudinary.cloudName ? '✅ Set' : '⚠️ Not configured'}`);
+console.log('------------------------------');
+
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Pavithra Travels API Server running on port ${PORT}`);
-  console.log(`Environment: ${config.nodeEnv}`);
-  console.log(`CORS Origin: ${config.corsOrigin}`);
-  console.log('Restarting for new env variables...');
+  console.log(`Health Check: http://localhost:${PORT}/api/health`);
 });

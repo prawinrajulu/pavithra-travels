@@ -23,9 +23,9 @@ if (!process.env.FIREBASE_PROJECT_ID) {
 }
 
 export const config = {
-  port: parseInt(process.env.PORT || '3001', 10),
+  port: parseInt(process.env.PORT || '10000', 10),
   nodeEnv: process.env.NODE_ENV || 'development',
-  corsOrigin: process.env.CORS_ORIGIN || 'http://localhost:5173,http://localhost:5174,https://pavithra-travels.onrender.com',
+  corsOrigin: process.env.CORS_ORIGIN || 'http://localhost:5173,https://pavithra-travels.com,https://www.pavithra-travels.com,https://pavithra-travels.onrender.com',
   jwtSecret: process.env.JWT_SECRET || 'your-secret-key',
   jwtExpiresIn: process.env.JWT_EXPIRES_IN || '7d',
   firebase: {

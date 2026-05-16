@@ -130,4 +130,21 @@ export const firebaseAuth: ReturnType<typeof admin.auth> | null = getAuth();
 export const rtdb: any = isInitialized ? admin.database() : null;
 export const storage: any = isInitialized ? admin.storage() : null;
 
+/**
+ * Validates the database connection without throwing
+ */
+export const checkDbConnection = async (): Promise<{ success: boolean; message: string }> => {
+  if (!isInitialized) {
+    return { success: false, message: 'Firebase not initialized (missing credentials)' };
+  }
+  try {
+    // Try to list a single document from a health collection
+    await admin.firestore().collection('_health').limit(1).get();
+    return { success: true, message: 'Firestore connection active' };
+  } catch (error: any) {
+    console.error('[FIREBASE] Connection Check Failed:', error.message);
+    return { success: false, message: `Firestore error: ${error.message}` };
+  }
+};
+
 export default admin;

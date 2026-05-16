@@ -3,55 +3,22 @@ import axios from 'axios';
 import type { AxiosInstance, AxiosError } from 'axios';
 
 const getApiUrl = () => {
-  const isBrowser = typeof window !== 'undefined';
-  const hostname = isBrowser ? window.location.hostname : '';
-  const isRender = hostname.endsWith('.onrender.com');
-
   // Priority 1: Environment variable from Vite (BEST for production)
-  // Ensure we don't accidentally use a relative path in production if it's set as such in .env
   const envUrl = import.meta.env.VITE_API_URL;
   if (envUrl) {
-    const isLocalhost = envUrl.includes('localhost') || envUrl.includes('127.0.0.1');
-    const isValidForProd = !isLocalhost || !import.meta.env.PROD;
-    
-    if (isValidForProd && (envUrl.startsWith('http') || !import.meta.env.PROD)) {
-      // Ensure the URL ends with /api to match backend routes
-      return envUrl.endsWith('/api') ? envUrl : `${envUrl.replace(/\/$/, '')}/api`;
-    }
+    // Ensure the URL ends with /api to match backend routes
+    return envUrl.endsWith('/api') ? envUrl : `${envUrl.replace(/\/$/, '')}/api`;
   }
 
-  // Priority 2: Smart detection for Render
-  if (isRender) {
-    // Try to detect backend host based on common naming patterns
-    // Default is usually pavithra-travels-api or pavithra-travels01
-    const baseName = hostname.split('.')[0];
-    
-    // Check if we're on the main frontend domain
-    if (baseName === 'pavithra-travels') {
-      // In this specific project, backend is known to be pavithra-travels01 or pavithra-travels-api
-      // We'll prefer pavithra-travels01 as it's the current active one
-      const backendHost = 'pavithra-travels01.onrender.com';
-      console.log(`[API_DISCOVERY] Render detected. Using backend: https://${backendHost}/api`);
-      return `https://${backendHost}/api`;
-    }
-
-    // Fallback to -api suffix pattern
-    const backendHost = hostname.replace('pavithra-travels', 'pavithra-travels-api');
-    return `https://${backendHost}/api`;
-  }
-
-  // Priority 3: Relative path fallback (only if same domain)
+  // Priority 2: Known Production Backend (Safe fallback)
   if (import.meta.env.PROD) {
-    return '/api';
+    const backendUrl = 'https://pavithra-travels01.onrender.com/api';
+    console.log(`[API_CLIENT] Production mode. Using fallback backend: ${backendUrl}`);
+    return backendUrl;
   }
 
-  // Priority 4: Development localhost
-  if (isBrowser) {
-    // If we're on localhost, assume backend is on port 10000 (standard for this project)
-    return `http://${hostname}:10000/api`;
-  }
-  
-  return 'http://127.0.0.1:10000/api';
+  // Priority 3: Local Development
+  return 'http://localhost:10000/api';
 };
 
 const API_URL = getApiUrl();

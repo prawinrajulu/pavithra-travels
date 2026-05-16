@@ -3,26 +3,36 @@ import { Router, Request, Response, NextFunction } from 'express';
 const router = Router();
 
 router.get('/health', (req: Request, res: Response) => {
-  res.json({
-    status: 'OK',
-    timestamp: new Date().toISOString(),
-  });
+  try {
+    res.status(200).json({
+      success: true,
+      message: "Backend running"
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Health check failed"
+    });
+  }
 });
 
 router.get('/health/db', async (req: Request, res: Response) => {
   try {
-    // Simple Firestore ping
-    const doc = await (await import('../config/firebase.js')).db.collection('_health').doc('ping').get();
-    res.json({
-      status: 'OK',
-      firebase: 'connected',
+    const { checkDbConnection } = await import('../config/firebase.js');
+    const result = await checkDbConnection();
+    
+    res.status(result.success ? 200 : 500).json({
+      success: result.success,
+      firebase: result.success ? 'connected' : 'disconnected',
+      message: result.message,
       timestamp: new Date().toISOString(),
     });
   } catch (error) {
     res.status(500).json({
-      status: 'Error',
-      firebase: 'disconnected',
-      error: String(error),
+      success: false,
+      firebase: 'error',
+      message: String(error),
+      timestamp: new Date().toISOString(),
     });
   }
 });
