@@ -16,7 +16,7 @@ export interface WhatsAppData {
 }
 
 export class WhatsAppService {
-  private ownerNumber: string = process.env.OWNER_WHATSAPP || '+917824047328';
+  private ownerNumber: string = config.whatsapp.ownerNumber;
   private phoneId: string | undefined = config.whatsapp.phoneId;
   private token: string | undefined = config.whatsapp.token;
   private apiUrl: string = 'https://graph.facebook.com/v25.0';

@@ -46,8 +46,8 @@ export function Contact() {
                   </div>
                   <div>
                     <p className="text-gray-900">Phone</p>
-                    <a href="tel:+919150557789" className="text-gray-600 hover:text-amber-600">
-                      +91 91505 57789
+                    <a href={`tel:${import.meta.env.VITE_WHATSAPP_NUMBER || '+919150557789'}`} className="text-gray-600 hover:text-amber-600">
+                      {import.meta.env.VITE_WHATSAPP_DISPLAY || '+91 91505 57789'}
                     </a>
                   </div>
                 </div>
@@ -58,8 +58,8 @@ export function Contact() {
                   </div>
                   <div>
                     <p className="text-gray-900">Email</p>
-                    <a href="mailto:pavithrashoppee@gmail.com" className="text-gray-600 hover:text-amber-600">
-                      pavithrashoppee@gmail.com
+                    <a href={`mailto:${import.meta.env.VITE_OWNER_EMAIL || 'pavithrashoppee@gmail.com'}`} className="text-gray-600 hover:text-amber-600">
+                      {import.meta.env.VITE_OWNER_EMAIL || 'pavithrashoppee@gmail.com'}
                     </a>
                   </div>
                 </div>

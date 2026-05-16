@@ -115,8 +115,8 @@ export function Footer() {
               Contact
             </h3>
             <ul className="space-y-2 text-sm text-[#1E293B]">
-              <li style={{ fontWeight: "bold" }}>+91 91505 57789</li>
-              <li>pavithrashoppee@gmail.com</li>
+              <li style={{ fontWeight: "bold" }}>{import.meta.env.VITE_WHATSAPP_DISPLAY || '+91 91505 57789'}</li>
+              <li>{import.meta.env.VITE_OWNER_EMAIL || 'pavithrashoppee@gmail.com'}</li>
               <li>Serving All Over India</li>
               <li>190 Thanikachalam nagar A Block 80ft Road Ponniammanmedu, Chennai 600110</li>
             </ul>

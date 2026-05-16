@@ -41,6 +41,7 @@ export const config = {
     token: process.env.WHATSAPP_TOKEN,
     businessAccountId: process.env.WHATSAPP_BUSINESS_ACCOUNT_ID,
     fromNumber: process.env.WHATSAPP_FROM_NUMBER || '+15550000000',
+    ownerNumber: process.env.OWNER_WHATSAPP || '+917824047328',
   },
   unsplash: {
     accessKey: process.env.UNSPLASH_ACCESS_KEY || '',
