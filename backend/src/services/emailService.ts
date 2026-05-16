@@ -6,8 +6,8 @@ const transporter = nodemailer.createTransport({
   port: 587,
   secure: false, // true for 465, false for other ports
   auth: {
-    user: process.env.EMAIL_USER || 'pavithrashoppee@gmail.com',
-    pass: process.env.EMAIL_PASS, 
+    user: config.email.user,
+    pass: config.email.pass, 
   },
   tls: {
     rejectUnauthorized: false // Fixes "self-signed certificate in certificate chain"
@@ -25,7 +25,7 @@ transporter.verify((error: any) => {
       console.error('[EMAIL SERVICE] 💡 HINT: Invalid login. Check EMAIL_USER and EMAIL_PASS (App Password).');
     }
   } else {
-    console.log('[EMAIL SERVICE] SMTP Server is ready (User:', process.env.EMAIL_USER || 'pavithrashoppee@gmail.com', ')');
+    console.log('[EMAIL SERVICE] SMTP Server is ready (User:', config.email.user, ')');
   }
 });
 
@@ -41,8 +41,6 @@ export interface EmailData {
 }
 
 export class EmailService {
-  private ownerEmail: string = process.env.OWNER_EMAIL || 'pavithrashoppee@gmail.com';
-
   async sendBookingConfirmation(data: EmailData): Promise<{ customerSent: boolean; ownerSent: boolean }> {
     const { toEmail, customerName, bookingId, destination, travelDate, passengers, phone, specialRequests } = data;
 
@@ -78,14 +76,14 @@ export class EmailService {
 
       const [customerRes, ownerRes] = await Promise.allSettled([
         transporter.sendMail({
-          from: `"Pavithra Travels" <${process.env.EMAIL_USER || 'pavithrashoppee@gmail.com'}>`,
+          from: `"Pavithra Travels" <${config.email.user}>`,
           to: toEmail,
           subject: `Reservation Confirmed - ${destination}`,
           html: customerHtml,
         }),
         transporter.sendMail({
-          from: `"System Alert" <${process.env.EMAIL_USER || 'pavithrashoppee@gmail.com'}>`,
-          to: this.ownerEmail,
+          from: `"System Alert" <${config.email.user}>`,
+          to: config.email.ownerEmail,
           subject: `ALERT: New Booking from ${customerName}`,
           html: ownerHtml,
         })
@@ -120,7 +118,7 @@ export class EmailService {
 
     try {
       await transporter.sendMail({
-        from: `"Pavithra Travels" <${process.env.EMAIL_USER || 'pavithrashoppee@gmail.com'}>`,
+        from: `"Pavithra Travels" <${config.email.user}>`,
         to: toEmail,
         subject: `Journey Completed - ${destination}`,
         html: html,

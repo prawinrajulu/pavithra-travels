@@ -2,11 +2,12 @@ import { Request, Response, RequestHandler, NextFunction } from 'express';
 import { Resend } from 'resend';
 import { body, validationResult } from 'express-validator';
 import rateLimit from 'express-rate-limit';
+import { config } from '../config/env.js';
 
 let resend: Resend | null = null;
 try {
-  if (process.env.RESEND_API_KEY) {
-    resend = new Resend(process.env.RESEND_API_KEY);
+  if (config.email.resendApiKey) {
+    resend = new Resend(config.email.resendApiKey);
     console.log('[EMAIL] Resend initialized successfully');
   } else {
     console.warn('[EMAIL] RESEND_API_KEY missing. Email features will be disabled.');

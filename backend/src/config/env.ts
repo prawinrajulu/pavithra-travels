@@ -50,4 +50,10 @@ export const config = {
     apiKey: process.env.CLOUDINARY_API_KEY,
     apiSecret: process.env.CLOUDINARY_API_SECRET,
   },
+  email: {
+    user: process.env.EMAIL_USER || 'pavithrashoppee@gmail.com',
+    pass: process.env.EMAIL_PASS,
+    resendApiKey: process.env.RESEND_API_KEY,
+    ownerEmail: process.env.OWNER_EMAIL || 'pavithrashoppee@gmail.com',
+  }
 };

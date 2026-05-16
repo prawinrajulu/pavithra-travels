@@ -122,6 +122,9 @@ console.log(`PORT: ${PORT}`);
 console.log(`NODE_ENV: ${config.nodeEnv}`);
 console.log(`FIREBASE_PROJECT_ID: ${config.firebase.projectId ? '✅ Set' : '❌ Missing'}`);
 console.log(`JWT_SECRET: ${config.jwtSecret !== 'your-secret-key' ? '✅ Set' : '⚠️ Default used'}`);
+console.log(`EMAIL_USER: ${config.email.user}`);
+console.log(`EMAIL_PASS: ${config.email.pass ? '✅ Set' : '❌ Missing (Gmail notifications will fail)'}`);
+console.log(`RESEND_API_KEY: ${config.email.resendApiKey ? '✅ Set' : '⚠️ Missing (Alternate email route will fail)'}`);
 console.log(`CLOUDINARY: ${config.cloudinary.cloudName ? '✅ Set' : '⚠️ Not configured'}`);
 console.log('------------------------------');
 
