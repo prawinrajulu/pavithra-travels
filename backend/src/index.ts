@@ -43,7 +43,7 @@ app.use(helmet({ crossOriginResourcePolicy: false })); // Allow cross-origin ima
 app.use(morgan('combined')); // Standard Apache combined log output
 
 // Strict CORS Middleware
-const allowedOrigins = config.corsOrigin 
+const allowedOrigins = config.corsOrigin
   ? config.corsOrigin.split(',').map(o => o.trim()) 
   : ['http://localhost:5173', 'https://pavithra-travels.com', 'https://www.pavithra-travels.com'];
 
@@ -56,7 +56,6 @@ app.use(cors({
       callback(null, true);
     } else {
       console.warn(`🚨 CORS Refused: The origin "${origin}" is not allowed. Check CORS_ORIGIN in your environment.`);
-      // In production, we might want to be strict, but for debugging let's allow if origin includes our domain
       if (origin.includes('pavithra-travels.com')) {
         callback(null, true);
       } else {

@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer';
+import { config } from '../config/env.js';
 
 // Configure Nodemailer transporter
 const transporter = nodemailer.createTransport({
@@ -72,7 +73,7 @@ export class EmailService {
     
     try {
 
-      console.log(`[EMAIL SERVICE] Sending confirmation. From: ${process.env.EMAIL_USER}, To Customer: ${toEmail}, To Owner: ${this.ownerEmail}`);
+      console.log(`[EMAIL SERVICE] Sending confirmation. From: ${process.env.EMAIL_USER}, To Customer: ${toEmail}, To Owner: ${config.email.ownerEmail}`);
 
       const [customerRes, ownerRes] = await Promise.allSettled([
         transporter.sendMail({
