@@ -1,7 +1,19 @@
 import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 import { config } from '../config/env.js';
 
+let resendClient: Resend | null = null;
+if (config.email.resendApiKey) {
+  try {
+    resendClient = new Resend(config.email.resendApiKey);
+    console.log('[EMAIL SERVICE] Resend client initialized as email provider/fallback.');
+  } catch (err: any) {
+    console.warn('[EMAIL SERVICE] Could not initialize Resend client:', err.message);
+  }
+}
+
 // Configure Nodemailer transporter
+let smtpAvailable = false;
 const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
   port: 587,
@@ -15,20 +27,26 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-// Verify connection configuration
-transporter.verify((error: any) => {
-  if (error) {
-    console.error('[EMAIL SERVICE] Transporter verification failed!');
-    console.error('[EMAIL SERVICE] Error Code:', error.name);
-    console.error('[EMAIL SERVICE] Full Error:', error);
-    
-    if (error.message.includes('EAUTH')) {
-      console.error('[EMAIL SERVICE] 💡 HINT: Invalid login. Check EMAIL_USER and EMAIL_PASS (App Password).');
+// Verify connection configuration safely without crashing
+if (config.email.user && config.email.pass) {
+  transporter.verify((error: any) => {
+    if (error) {
+      smtpAvailable = false;
+      console.warn('[EMAIL SERVICE] ⚠️ Gmail SMTP authentication notice:');
+      console.warn('               Username and password not accepted by Gmail (code: EAUTH).');
+      console.warn('               To enable Gmail SMTP, generate a 16-character App Password in Google Account Settings:');
+      console.warn('               Google Account -> Security -> 2-Step Verification -> App Passwords.');
+      if (resendClient) {
+        console.log('[EMAIL SERVICE] ✅ Will use Resend for outgoing emails.');
+      }
+    } else {
+      smtpAvailable = true;
+      console.log(`[EMAIL SERVICE] ✅ SMTP Server ready (User: ${config.email.user})`);
     }
-  } else {
-    console.log('[EMAIL SERVICE] SMTP Server is ready (User:', config.email.user, ')');
-  }
-});
+  });
+} else {
+  console.log('[EMAIL SERVICE] SMTP credentials not provided. Using Resend / webhook fallback.');
+}
 
 export interface EmailData {
   toEmail: string;
@@ -71,36 +89,66 @@ export class EmailService {
       </div>
     `;
     
-    try {
+    let customerSent = false;
+    let ownerSent = false;
 
-      console.log(`[EMAIL SERVICE] Sending confirmation. From: ${process.env.EMAIL_USER}, To Customer: ${toEmail}, To Owner: ${config.email.ownerEmail}`);
+    // Strategy 1: Attempt via Gmail SMTP if available
+    if (smtpAvailable) {
+      try {
+        console.log(`[EMAIL SERVICE] Attempting dispatch via Nodemailer to Customer: ${toEmail}`);
+        const [customerRes, ownerRes] = await Promise.allSettled([
+          transporter.sendMail({
+            from: `"Pavithra Travels" <${config.email.user}>`,
+            to: toEmail,
+            subject: `Reservation Confirmed - ${destination}`,
+            html: customerHtml,
+          }),
+          transporter.sendMail({
+            from: `"System Alert" <${config.email.user}>`,
+            to: config.email.ownerEmail,
+            subject: `ALERT: New Booking from ${customerName}`,
+            html: ownerHtml,
+          })
+        ]);
 
-      const [customerRes, ownerRes] = await Promise.allSettled([
-        transporter.sendMail({
-          from: `"Pavithra Travels" <${config.email.user}>`,
-          to: toEmail,
-          subject: `Reservation Confirmed - ${destination}`,
-          html: customerHtml,
-        }),
-        transporter.sendMail({
-          from: `"System Alert" <${config.email.user}>`,
-          to: config.email.ownerEmail,
-          subject: `ALERT: New Booking from ${customerName}`,
-          html: ownerHtml,
-        })
-      ]);
-
-      if (customerRes.status === 'rejected') console.error('[EMAIL SERVICE] Customer email failed:', customerRes.reason);
-      if (ownerRes.status === 'rejected') console.error('[EMAIL SERVICE] Owner email failed:', ownerRes.reason);
-
-      return {
-        customerSent: customerRes.status === 'fulfilled',
-        ownerSent: ownerRes.status === 'fulfilled',
-      };
-    } catch (error: any) {
-      console.error('[EMAIL SERVICE] Failed to send emails:', error);
-      return { customerSent: false, ownerSent: false };
+        customerSent = customerRes.status === 'fulfilled';
+        ownerSent = ownerRes.status === 'fulfilled';
+      } catch (smtpErr: any) {
+        console.warn('[EMAIL SERVICE] Nodemailer send error, attempting fallback:', smtpErr.message);
+      }
     }
+
+    // Strategy 2: If SMTP did not send or wasn't available, attempt via Resend
+    if ((!customerSent || !ownerSent) && resendClient) {
+      try {
+        console.log(`[EMAIL SERVICE] Dispatching via Resend to Customer: ${toEmail}, Owner: ${config.email.ownerEmail}`);
+        const [resendCust, resendOwner] = await Promise.allSettled([
+          !customerSent && toEmail ? resendClient.emails.send({
+            from: 'Pavithra Travels <onboarding@resend.dev>',
+            to: [toEmail],
+            subject: `Reservation Confirmed - ${destination}`,
+            html: customerHtml,
+          }) : Promise.resolve(null),
+          !ownerSent && config.email.ownerEmail ? resendClient.emails.send({
+            from: 'Pavithra Travels <onboarding@resend.dev>',
+            to: [config.email.ownerEmail],
+            subject: `ALERT: New Booking from ${customerName}`,
+            html: ownerHtml,
+          }) : Promise.resolve(null)
+        ]);
+
+        if (resendCust.status === 'fulfilled' && resendCust.value && !(resendCust.value as any).error) {
+          customerSent = true;
+        }
+        if (resendOwner.status === 'fulfilled' && resendOwner.value && !(resendOwner.value as any).error) {
+          ownerSent = true;
+        }
+      } catch (resendErr: any) {
+        console.warn('[EMAIL SERVICE] Resend send notice:', resendErr.message);
+      }
+    }
+
+    return { customerSent, ownerSent };
   }
 
   async sendTripCompletionNotification(data: EmailData): Promise<boolean> {

@@ -122,10 +122,19 @@ router.post('/register', async (req: Request, res: Response, next: NextFunction)
       throw dbError; 
     }
 
+    // Generate Firebase custom token for instant, zero-delay client authentication
+    let customToken: string | undefined;
+    try {
+      customToken = await firebaseAuth.createCustomToken(firebaseUser.uid);
+    } catch (tokenErr: any) {
+      console.warn('[AUTH] Could not create customToken, client will use credentials fallback:', tokenErr.message);
+    }
+
     res.json({
       success: true,
       user,
       firebaseUid: firebaseUser.uid,
+      customToken,
     });
   } catch (error) {
     console.error("[AUTH] Registration process failed:", error);

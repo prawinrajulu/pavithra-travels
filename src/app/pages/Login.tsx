@@ -18,17 +18,25 @@ export function Login() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isLoading) return; // Prevent duplicate concurrent submissions
+
+    const cleanEmail = email.trim();
+    if (!cleanEmail || !password) {
+      setError('Please enter both your email and password.');
+      return;
+    }
+
     setError('');
     setIsLoading(true);
 
     try {
       // Use real async login from AuthContext
-      const user = await login(email, password);
+      const user = await login(cleanEmail, password);
       
       // Successful login - redirect based on role or original destination
       if (from && from !== '/') {
         navigate(from, { replace: true });
-      } else if (user?.role === 'admin') {
+      } else if (user?.role === 'admin' || user?.role === 'super_admin') {
         navigate('/admin', { replace: true });
       } else {
         navigate('/dashboard', { replace: true });
@@ -43,11 +51,18 @@ export function Login() {
         errorMessage = 'Incorrect password. Please try again.';
       } else if (err.code === 'auth/invalid-email') {
         errorMessage = 'Invalid email address format.';
+      } else if (err.code === 'auth/network-request-failed') {
+        errorMessage = 'Network connection failed. Please check your internet connection, firewall, or ad-blocker settings and try again.';
+      } else if (err.code === 'auth/too-many-requests') {
+        errorMessage = 'Too many failed login attempts. Please wait a moment and try again.';
+      } else if (err.code === 'auth/user-disabled') {
+        errorMessage = 'This account has been disabled. Please contact support.';
       } else if (err.message) {
         errorMessage = err.message;
       }
       
       setError(errorMessage);
+    } finally {
       setIsLoading(false);
     }
   };

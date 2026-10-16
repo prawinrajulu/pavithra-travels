@@ -1,4 +1,5 @@
 import { Router, Request, Response, NextFunction } from 'express';
+import { checkDbConnection } from '../config/firebase.js';
 
 const router = Router();
 
@@ -18,7 +19,6 @@ router.get('/health', (req: Request, res: Response) => {
 
 router.get('/health/db', async (req: Request, res: Response) => {
   try {
-    const { checkDbConnection } = await import('../config/firebase.js');
     const result = await checkDbConnection();
     
     res.status(result.success ? 200 : 500).json({

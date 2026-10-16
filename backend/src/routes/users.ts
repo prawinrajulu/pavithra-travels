@@ -19,7 +19,7 @@ router.get('/profile', authMiddleware, async (req: Request, res: Response, next:
       return next(new AppError(404, 'User not found'));
     }
 
-    const profile = await userService.getUserProfile(user.id);
+    const profile = await userService.getUserProfile(user);
 
     res.json({
       success: true,

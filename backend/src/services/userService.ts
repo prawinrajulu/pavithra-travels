@@ -66,9 +66,11 @@ export class UserService {
     return updated;
   }
 
-  async getUserProfile(userId: string): Promise<UserProfile | null> {
-    const user = await this.getUserById(userId);
+  async getUserProfile(userIdOrUser: string | User): Promise<UserProfile | null> {
+    const user = typeof userIdOrUser === 'string' ? await this.getUserById(userIdOrUser) : userIdOrUser;
     if (!user) return null;
+
+    const userId = user.id;
 
     // Get additional profile information
     const bookings = await db

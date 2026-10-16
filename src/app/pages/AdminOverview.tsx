@@ -16,8 +16,6 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { apiClient } from '../../services/apiClient';
-import { db } from '../../config/firebase';
-import { collection, getDocs, limit, query, orderBy } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 
 export default function AdminOverview() {
@@ -41,26 +39,23 @@ export default function AdminOverview() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const bookingsSnapshot = await getDocs(collection(db, "bookings"));
-        const bookings = bookingsSnapshot.docs.map(doc => doc.data());
-        
-        const recentQuery = query(collection(db, "bookings"), orderBy("createdAt", "desc"), limit(5));
-        const recentSnapshot = await getDocs(recentQuery);
-        setRecentBookings(recentSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+        const response = await apiClient.getAllBookings();
+        if (response && response.success && response.bookings) {
+          const bookings = response.bookings;
+          setRecentBookings(bookings.slice(0, 5));
 
-        const statsData = (bookings as any[]).reduce((acc: any, b: any) => {
-          acc.totalBookings++;
-          if (b.status?.toLowerCase() === 'confirmed') acc.confirmedBookings++;
-          if (b.status?.toLowerCase() === 'pending' || !b.status) acc.pendingBookings++;
-          acc.totalRevenue += (b.totalPrice || 0);
-          return acc;
-        }, { totalBookings: 0, confirmedBookings: 0, pendingBookings: 0, totalRevenue: 0 });
+          const statsData = bookings.reduce((acc: any, b: any) => {
+            acc.totalBookings++;
+            if (b.status?.toLowerCase() === 'confirmed') acc.confirmedBookings++;
+            if (b.status?.toLowerCase() === 'pending' || !b.status) acc.pendingBookings++;
+            acc.totalRevenue += (b.totalPrice || 0);
+            return acc;
+          }, { totalBookings: 0, confirmedBookings: 0, pendingBookings: 0, totalRevenue: 0 });
 
-        setStats(statsData);
+          setStats(statsData);
+        }
       } catch (err) {
         console.error("Error fetching dashboard data:", err);
-      } finally {
-        // Data fetch complete
       }
     };
 

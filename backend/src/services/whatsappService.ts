@@ -19,7 +19,7 @@ export class WhatsAppService {
   private ownerNumber: string = config.whatsapp.ownerNumber;
   private phoneId: string | undefined = config.whatsapp.phoneId;
   private token: string | undefined = config.whatsapp.token;
-  private apiUrl: string = 'https://graph.facebook.com/v25.0';
+  private apiUrl: string = 'https://graph.facebook.com/v21.0';
 
   constructor() {
     if (this.phoneId && this.token) {

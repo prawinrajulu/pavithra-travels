@@ -25,16 +25,28 @@ export function Signup() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isLoading) return; // Prevent duplicate concurrent submissions
+
+    const cleanName = formData.name.trim();
+    const cleanEmail = formData.email.trim();
+    const cleanPhone = formData.phone.trim();
+    const cleanPassword = formData.password;
+
+    if (!cleanName || !cleanEmail || !cleanPassword) {
+      setError('Please fill in all required fields.');
+      return;
+    }
+
     setError('');
     setIsLoading(true);
 
     try {
       // Use the new async signup method from AuthContext
       await signup({
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        password: formData.password
+        name: cleanName,
+        email: cleanEmail,
+        phone: cleanPhone,
+        password: cleanPassword
       });
       
       // We don't need a local navigate here because 
@@ -45,12 +57,11 @@ export function Signup() {
       
       let errorMessage = 'Failed to create account. Please try again.';
       
-      // Check for Network Error (server down)
-      if (err.message === 'Network Error') {
-        errorMessage = 'Network Error: Cannot connect to the server. Please ensure the backend is running and accessible.';
-      }
-      // Extract specific error from backend API
-      else {
+      // Check for Network Error (server down or client network failure)
+      if (err.code === 'auth/network-request-failed' || err.message === 'Network Error') {
+        errorMessage = 'Network connection failed. Please check your internet connection or server status and try again.';
+      } else {
+        // Extract specific error from backend API
         const apiError = err.response?.data?.error || err.response?.data?.message;
         if (apiError) {
           errorMessage = apiError;
@@ -66,9 +77,9 @@ export function Signup() {
       }
       
       setError(errorMessage);
+    } finally {
       setIsLoading(false);
     }
-
   };
 
   return (

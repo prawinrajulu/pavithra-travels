@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { apiClient } from '../../services/apiClient';
@@ -17,34 +17,45 @@ export function Dashboard() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [bookings, setBookings] = useState<Booking[]>([]);
-
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    const fetchBookings = async () => {
-      if (user) {
-        console.log(`[DASHBOARD] Fetching bookings for User: ${user.email}`);
-        setLoading(true);
-        try {
-          // Both UID and Email are now handled by the /my endpoint in the backend
-          const response = await apiClient.getMyBookings();
+  // Guard to ensure bookings are fetched only once per user ID session
+  const fetchedUserIdRef = useRef<string | null>(null);
 
-          if (response && response.bookings) {
-            console.log(`[DASHBOARD] Received ${response.bookings.length} bookings.`);
-            setBookings(response.bookings);
-          }
-        } catch (err: any) {
-          console.error('[DASHBOARD] Fetch error:', err);
-          setError('Could not retrieve your bookings. Please try again later.');
-        } finally {
-          setLoading(false);
-        }
+  const fetchBookings = useCallback(async (force = false) => {
+    if (!user?.id) return;
+    if (!force && fetchedUserIdRef.current === user.id) {
+      console.log(`[DASHBOARD] Bookings already loaded for ${user.id}, skipping duplicate request.`);
+      return;
+    }
+
+    console.log(`[DASHBOARD] Fetching bookings for User: ${user.email || user.id}`);
+    setLoading(true);
+    setError('');
+
+    try {
+      const response = await apiClient.getMyBookings();
+      if (response && response.bookings) {
+        console.log(`[DASHBOARD] Received ${response.bookings.length} bookings.`);
+        setBookings(response.bookings);
+        fetchedUserIdRef.current = user.id;
       }
-    };
+    } catch (err: any) {
+      console.error('[DASHBOARD] Fetch error:', err);
+      setError('Could not retrieve your bookings. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
+  }, [user?.id, user?.email]);
 
-    fetchBookings();
-  }, [user]);
+  useEffect(() => {
+    if (user?.id) {
+      fetchBookings();
+    } else {
+      fetchedUserIdRef.current = null;
+    }
+  }, [user?.id, fetchBookings]);
 
   const handleLogout = () => {
     logout();
@@ -94,7 +105,7 @@ export function Dashboard() {
             <div className="text-center py-20 text-red-500 bg-red-50 rounded-2xl border border-red-100 p-8">
               <p className="font-medium mb-2">{error}</p>
               <button 
-                onClick={() => window.location.reload()}
+                onClick={() => fetchBookings(true)}
                 className="text-sm font-bold underline hover:no-underline"
               >
                 Try Refreshing

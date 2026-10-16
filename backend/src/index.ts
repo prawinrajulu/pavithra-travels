@@ -28,6 +28,7 @@ import imageRoutes from './routes/images.js';
 import reviewRoutes from './routes/reviews.js';
 import uploadRoutes from './routes/uploadRoutes.js';
 import blogRoutes from './routes/blogRoutes.js';
+import travelPostsRoutes from './routes/travelPosts.js';
 
 // Initialize Firebase
 import './config/firebase.js';
@@ -37,12 +38,14 @@ import path from 'path';
 const app = express();
 
 // Security Middlewares
-app.use(helmet({ crossOriginResourcePolicy: false })); // Allow cross-origin images
+app.use(helmet({ 
+  crossOriginResourcePolicy: { policy: 'cross-origin' } 
+}));
 
 // Logging & Monitoring
 app.use(morgan('combined')); // Standard Apache combined log output
 
-// Strict CORS Middleware
+// Strict CORS Middleware with dynamic local dev support
 const allowedOrigins = config.corsOrigin
   ? config.corsOrigin.split(',').map(o => o.trim()) 
   : ['http://localhost:5173', 'https://pavithra-travels.com', 'https://www.pavithra-travels.com'];
@@ -54,13 +57,14 @@ app.use(cors({
     // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin || allowedOrigins.indexOf(origin) !== -1 || allowedOrigins.includes('*')) {
       callback(null, true);
+    } else if (config.nodeEnv !== 'production' && (/^http:\/\/localhost(:\d+)?$/.test(origin) || /^http:\/\/127\.0\.0\.1(:\d+)?$/.test(origin))) {
+      // Allow any local port in development
+      callback(null, true);
+    } else if (origin.includes('pavithra-travels.com') || origin.includes('pavithra-travels.onrender.com') || origin.includes('web.app') || origin.includes('firebaseapp.com')) {
+      callback(null, true);
     } else {
       console.warn(`🚨 CORS Refused: The origin "${origin}" is not allowed. Check CORS_ORIGIN in your environment.`);
-      if (origin.includes('pavithra-travels.com')) {
-        callback(null, true);
-      } else {
-        callback(null, false); // Return false instead of error to avoid crashing some clients
-      }
+      callback(null, false);
     }
   },
   credentials: true,
@@ -99,6 +103,7 @@ app.use('/api/images', imageRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/blogs', blogRoutes);
+app.use('/api/posts', travelPostsRoutes);
 
 // 404 handler
 app.use((req: express.Request, res: express.Response) => {
