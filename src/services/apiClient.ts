@@ -2,22 +2,35 @@
 import axios from 'axios';
 import type { AxiosInstance, AxiosError } from 'axios';
 
-const getApiUrl = () => {
-  // Priority 1: Environment variable from Vite (BEST for production)
-  const envUrl = import.meta.env.VITE_API_URL;
-  if (envUrl) {
-    // Ensure the URL ends with /api to match backend routes
-    return envUrl.endsWith('/api') ? envUrl : `${envUrl.replace(/\/$/, '')}/api`;
-  }
+const getApiUrl = (): string => {
+  // Support both VITE_API_URL and VITE_API_BASE_URL
+  const rawEnv = (import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL) as string | undefined;
+  const envUrl = rawEnv?.trim();
 
-  // Priority 2: Known Production Backend (Safe fallback)
+  // Guard: In production builds, never allow localhost or 127.0.0.1 URLs
   if (import.meta.env.PROD) {
-    const backendUrl = 'https://pavithra-travels01.onrender.com/api';
-    console.log(`[API_CLIENT] Production mode. Using fallback backend: ${backendUrl}`);
-    return backendUrl;
+    if (envUrl && !envUrl.includes('localhost') && !envUrl.includes('127.0.0.1')) {
+      const normalized = envUrl.replace(/\/$/, '');
+      return normalized.endsWith('/api') ? normalized : `${normalized}/api`;
+    }
+
+    // Actual verified Render backend URL
+    const productionBackendUrl = 'https://pavithra-travels01.onrender.com/api';
+    if (envUrl && (envUrl.includes('localhost') || envUrl.includes('127.0.0.1'))) {
+      console.warn(
+        `[API_CLIENT] ⚠️ Production build detected localhost URL in environment (${envUrl}). ` +
+        `Safely overriding with deployed backend: ${productionBackendUrl}`
+      );
+    }
+    return productionBackendUrl;
   }
 
-  // Priority 3: Local Development
+  // Development mode:
+  if (envUrl) {
+    const normalized = envUrl.replace(/\/$/, '');
+    return normalized.endsWith('/api') ? normalized : `${normalized}/api`;
+  }
+
   return 'http://localhost:10000/api';
 };
 
@@ -394,6 +407,21 @@ class ApiClient {
     const response = await this.client.post('/blogs/upload-media', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
+    return response.data;
+  }
+
+  // Email endpoints
+  async sendBookingConfirmation(data: {
+    to_email: string;
+    customer_name: string;
+    destination: string;
+    travel_date: string;
+    passengers: number;
+    booking_id: string;
+    booking_phone: string;
+    special_requests?: string;
+  }) {
+    const response = await this.client.post('/email/send-confirmation', data);
     return response.data;
   }
 
